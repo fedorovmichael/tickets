@@ -1,0 +1,14 @@
+script.
+  $(function(){ $('input').customInput();});
+
+form(id="formTypeMenu" url="", method="POST")
+
+ul(class="row list-unstyled")
+  -for(var i=0; i < types.length; i++)  
+    li(class="text-left" id="liTypeID_#{types[i].id}")
+      input(type="checkbox" id="typeID_#{types[i].id}" name="genre" value="action")
+      label(for="typeID_#{types[i].id}" style="color: #{types[i].color};") #{types[i].name} 
+  
+
+
+

@@ -1,0 +1,33 @@
+ul(id="ulShows" class="row list-unstyled")
+  -for(var i=0; i< shows.length; i++)
+    li(id="liMainShowID_#{shows[i].id}" class="col-sm-3" style="height: 285px; border: solid 0px red;")
+      div
+        div(class="text-left")
+          -var type='', subtype='', type_id='', subtype_id='', type_color='';
+          -for(var s = 0; s < showsSections.length; s++)        
+            -if(shows[i].id == showsSections[s].show_id){                   
+            -type = showsSections[s].type_name;
+            -type_id = showsSections[s].type_id;
+            -type_color = showsSections[s].color;
+            -subtype = showsSections[s].subtype_name;
+            -subtype_id = showsSections[s].subtype_id;                   
+          -}
+          a(href="#" type_id="#{type_id}" style="background: #{type_color}; color: white; margin-right: 5px;") #{type}
+          -if(subtype != 'undefined')
+            a(href="#" subtype_id="#{subtype_id}" style="background: #FF1005; color: white;") #{subtype}
+        div(class="thumbnail")
+          -if(shows[i].resource == 'bravo')
+            img(src="http://kaccabravo.co.il#{shows[i].main_image}", alt="", style="width: 198px; height: 110px;")
+          -else
+            img(src="http://biletru.co.il#{shows[i].main_image}", alt="", style="width: 198px; height: 110px;")
+          div(class="caption")
+            -if(shows[i].name.length > 50){
+              -var n = shows[i].name.substr(0, 50);
+              -var name = n.substr(0, n.lastIndexOf(" "));
+              p(style="height:54px; max-height:54px; min-height:54px;") #{name} 
+            -}                      
+            -else
+              p(style="height:54px; max-height:54px; min-height:54px;") #{shows[i].name}
+            
+            p #{shows[i].date_from} - #{shows[i].date_to}
+            P Цена #{shows[i].price_min}&#8362; - #{shows[i].price_max}&#8362;      
