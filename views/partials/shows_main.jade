@@ -3,7 +3,7 @@ ul(id="ulShows" class="row list-unstyled")
     li(id="liMainShowID_#{shows[i].id}" class="col-sm-3" style="height: 285px; border: solid 0px red;")
       div
         div(class="text-left")
-          -var type='', subtype='', type_id='', subtype_id='', type_color='';
+          -var type='', subtype='', type_id='', subtype_id='', type_color='', date_f='', date_t='';
           -for(var s = 0; s < showsSections.length; s++)        
             -if(shows[i].id == showsSections[s].show_id){                   
             -type = showsSections[s].type_name;
@@ -28,6 +28,10 @@ ul(id="ulShows" class="row list-unstyled")
             -}                      
             -else
               p(style="height:54px; max-height:54px; min-height:54px;") #{shows[i].name}
-            
-            p #{shows[i].date_from} - #{shows[i].date_to}
+
+            -var dt_f = new Date(shows[i].date_from);
+            -date_f = dateFormat(dt_f, "dd.mm.yyyy");
+            -var dt_t = new Date(shows[i].date_to);
+            -date_t = dateFormat(dt_t, "dd.mm.yyyy");            
+            p #{date_f} - #{date_t}
             P Цена #{shows[i].price_min}&#8362; - #{shows[i].price_max}&#8362;      

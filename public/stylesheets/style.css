@@ -29,7 +29,11 @@ a {
 
 /*checkbox styling */
 /*	wrapper divs */
-.custom-checkbox, .custom-radio { position: relative; }
+.custom-checkbox, .custom-radio 
+{ 
+	position: relative;
+	 
+}
 	
 /* input, label positioning */
 .custom-checkbox input, 
@@ -52,7 +56,7 @@ a {
 	padding: .5em 0 .5em 30px;
 	margin: 0 0 .3em;
 	cursor: pointer;
-	width: 150px;
+	width: 350px;
 }
 
 	

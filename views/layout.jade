@@ -21,9 +21,13 @@ html
     script(src="/javascripts/customInput.jquery.js")
     script(src="/javascripts/tickets.js")
 
+    script.
+      $(function(){ $("#txtDateFrom").datepicker({minDate: new Date()}); $("#txtDateTo").datepicker({minDate: new Date()}); });
+
     title= title
 
   body(style='padding:0;')
+    input(id="hdnSortElement" type="hidden")
     nav(class="navbar navbar-inverse")
       div(class="container-fluid")
         div(class="navbar-header")
@@ -31,38 +35,84 @@ html
             span(class="icon-bar")
             span(class="icon-bar")
             span(class="icon-bar")               
-          a(class="navbar-brand", href="#") Tickets
+          a(class="navbar-brand", href="/") Tickets
     
         div(class="collapse navbar-collapse" id="mainNavbar")
           ul(class="nav navbar-nav")
             li(class="active")
-              a(href="/") Home
-            li
-              a(href="#") About
-            li
-              a(href="#") Projects
-            li
-              a(href="#") Contact
+              a(href="/") Главная
+
+            //- li(class="dropdown")
+            //-   a(href="#" class="dropdown-toggle" data-toggle="dropdown") Города
+            //-     b(class="caret")
+            //-   ul(id="ddlCities" class="dropdown-menu")
+            //-     -for(var i = 0; i < cities.length; i++)
+            //-       div(class="text-center" style="border-bottom-width: 0.5px; border-bottom-color: grey; border-bottom-style: solid;")
+            //-         span(class="text-center" style="") #{cities[i].regionName}
+                  
+            //-       -var arrCities = cities[i].cities;
+            //-       -for(var c = 0; c < arrCities.length; c++)                    
+            //-         li(id="liCity_#{arrCities[c].id}")
+            //-           input(id="cbCity_#{arrCities[c].id}" type="checkbox")
+            //-           label(for="cbCity_#{arrCities[c].id}" style="margin-right: 20px;") #{arrCities[c].name}  
 
             li(class="dropdown")
               a(href="#" class="dropdown-toggle" data-toggle="dropdown") Города
                 b(class="caret")
-              ul(class="dropdown-menu")
-                li
-                  input(id="cbGorod1" type="checkbox")
-                  label(for="cbGorod1" style="margin-right: 20px;") Gorod 1
-                li
-                  input(type="checkbox")
-                  label Gorod 2   
-          
-          form(class="navbar-form navbar-left")            
-            input(id="txtSearch" type="text" class="form-control" placeholder="Search" style="width: 170px;")
-            button(id="btnSearch" type="button" class="btn btn-default")
-              span(class="glyphicon glyphicon-search")                           
+              -if(cities != undefined && cities != null)
+                ul(id="ddlCities" class="dropdown-menu" style="width:1000px;")
+                  -for(var i = 0; i < cities.length; i++)
+                    li(class="col-sm-2")
+                      div(class="text-center" style="border-bottom-width: 0.5px; border-bottom-color: grey; border-bottom-style: solid;")
+                        span(class="" style="") #{cities[i].regionName}  
+                      ul(class="list-unstyled")
+                        -var arrCities = cities[i].cities;
+                        -for(var c = 0; c < arrCities.length; c++)
+                          li(id="liCity_#{arrCities[c].id}")
+                            input(id="cbCity_#{arrCities[c].id}" type="checkbox")
+                            label(for="cbCity_#{arrCities[c].id}" style="margin-right: 20px;") #{arrCities[c].name}  
 
-          
+            li
+              input(id="txtDateFrom" type="text" class="navbar-form form-control" placeholder="Дата с:" style="margin-right: 5px;")              
+            li
+              input(id="txtDateTo" type="text" class="navbar-form form-control" placeholder="Дата по:")
+             
+            li
+              form(class="navbar-form navbar-left")            
+                input(id="txtSearch" type="text" class="form-control" placeholder="Search" style="width: 170px;")
+                button(id="btnSearch" type="button" class="btn btn-default")
+                  span(class="glyphicon glyphicon-search")
 
-          ul(class="nav navbar-nav navbar-right")
+            li(id="liSortByPrice")
+              a(href="#")
+                span(id="spanSortByPriceAlt_desc" class="glyphicon glyphicon-sort-by-attributes-alt")
+                span(id="spanSortByPrice_asc" class="glyphicon glyphicon-sort-by-attributes" style="display:none;")
+                span(style="margin-left:3px;") Цена
+
+            li(id="liSortByName")
+              a(href="#")
+                span(id="spanSortByName_asc" class="glyphicon glyphicon-sort-by-alphabet")
+                span(id="spanSortByNameAlt_desc" class="glyphicon glyphicon-sort-by-alphabet-alt" style="display:none;")
+                span(style="margin-left:3px;") Название
+
+            li(id="liSuperPrice")
+              a(href="#")
+                span(class="glyphicon glyphicon-gift")
+                span(style="margin-left:3px;") Супер-цена            
+
+            li(id="liDiscount")
+              a(href="#")
+                span(class="glyphicon glyphicon-tag")
+                span(style="margin-left:3px;") Со скидкой
+
+            li(id="liTour")
+              a(href="#")
+                span(class="glyphicon glyphicon-globe") 
+                span(style="margin-left:3px;") Гастроли
+
+                           
+
+          ul(class="nav navbar-nav navbar-right" style="display:none;")
               li
                 a(href="#")
                   span(class="glyphicon glyphicon-log-in") Login

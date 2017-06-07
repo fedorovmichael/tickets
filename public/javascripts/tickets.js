@@ -1,19 +1,107 @@
 
 $(document).ready(function(){
     $("input[id^='typeID_']").on("click", function(event){             
-        menuTypeHandler(this.id);
+        //menuTypeHandler(this.id); subTypeID
+        filtersHandler();
+    });
+
+    $("input[id^='subTypeID_']").on("click", function(event){             
+        //menuTypeHandler(this.id); subTypeID
+        filtersHandler();
+    });
+
+    $("input[id^='cbCity_']").on("click", function(event){            
+        filtersHandler();
     });
 
     $("body").on("click", "li[id^='liMainShowID_']", function(event){
         editShowHandler(this.id);
     });   
 
-    $("#btnSearch").on("click", function(event){
+    $("#txtSearch").on("keyup", function(event){
         searchShowByText($("#txtSearch").val());
     });
 
+    $("#liSortByPrice").on("click", function(event){
+        event.preventDefault();
+        sortByHandler("liSortByPrice", "spanSortByPriceAlt_desc", "spanSortByPrice_asc");        
+    });
+
+    $("#liSortByName").on("click", function(event){
+        event.preventDefault();
+        sortByHandler("liSortByName", "spanSortByNameAlt_desc", "spanSortByName_asc");
+    });
+
+    $("#liSuperPrice").on("click", function(event){
+        event.preventDefault();
+        priceFilterHandler(this.id);
+    });
+
+    $("#liDiscount").on("click", function(event){
+        event.preventDefault();
+        priceFilterHandler(this.id);
+    });
+
+    $("#liTour").on("click", function(event){
+        event.preventDefault();
+        $("#liTour").hasClass('active') ? $("#liTour").removeClass('active') : $("#liTour").addClass('active');
+        filtersHandler();
+    });
+
+    $("#btnEditShowClose").on("click", function(event){
+        editClose();
+    });
+
+    $("#txtDateFrom").on("change", function(event){
+        filtersHandler();
+    });
+
+    $("#txtDateTo").on("change", function(event){
+        filtersHandler();
+    });
+
+    
 });
 
+function sortByHandler(parentID, param1ID, param2ID)
+{
+    if($("#" + param1ID).is(":visible"))
+    {
+        $("#" + param1ID).hide();
+        $("#" + param2ID).show();
+    }
+    else
+    {
+        $("#" + param1ID).show();
+        $("#" + param2ID).hide();
+    }
+
+    // if(!$("#"+ parentID).hasClass("active")){
+    //     $("#" + parentID).addClass("active");
+    // }
+
+
+    $("#hdnSortElement").text('');
+    $("#hdnSortElement").text(parentID);
+
+    filtersHandler();
+}
+
+function priceFilterHandler(entityID)
+{
+    if(!$("#"+ entityID).hasClass('active'))
+    {    
+        $("#liSuperPrice").removeClass('active');
+        $("#liDiscount").removeClass('active');
+        $("#"+ entityID).addClass('active');
+    }
+    else
+    {
+        $("#"+ entityID).removeClass('active');
+    }
+
+    filtersHandler();
+}
 
 function menuTypeHandler(id)
 { 
@@ -27,11 +115,14 @@ function menuTypeHandler(id)
         
         var input = $(value).find("input[type='checkbox']");
         var isChecked = $(input).is(':checked');
+        var typeID = $(input).attr("id").split("_")[1];
+
+        $("#subMenuOfType_"+ typeID).hide();
 
         if(isChecked)
-        {
-            var typeID = $(input).attr("id").split("_")[1];
+        {            
             arrChecked.push(typeID);         
+            $("#subMenuOfType_"+ typeID).show();
         }
         
     });
@@ -58,7 +149,7 @@ function createShowHTML(arrShows, arrShowsSections)
 
     $.each(arrShows, function(index, value){
 
-       var type='', subtype='', type_id='', subtype_id='', type_color='', subtypeHTML = '', imageURL = '', showName='';
+       var type='', subtype='', type_id='', subtype_id='', type_color='', subtypeHTML = '', imageURL = '', showName='', date_f='', date_t='';
           for(var s = 0; s < arrShowsSections.length; s++){        
             if(value.show_id == arrShowsSections[s].show_id){                   
                 type = arrShowsSections[s].type_name;
@@ -92,6 +183,9 @@ function createShowHTML(arrShows, arrShowsSections)
           {
               showName = value.name;
           }
+                    
+          date_f = $.datepicker.formatDate("dd.mm.yy", new Date(value.date_from));          
+          date_t = $.datepicker.formatDate("dd.mm.yy", new Date(value.date_to));
 
         html+="<li id='liMainShowID_" + value.show_id + "' style='height: 285px; border: solid 0px red;' class='col-sm-3'>" +
                 "<div>"+ 
@@ -103,7 +197,7 @@ function createShowHTML(arrShows, arrShowsSections)
                     "<img src='"+ imageURL +"' alt='' style='width: 198px; height: 110px;'>" +
                     "<div class='caption'>" + 
                         "<p style='height:54px; max-height:54px; min-height:54px;'>"+ showName +"</p>" +
-                        "<p>"+ value.date_from +" - "+ value.date_to +"</p>" +
+                        "<p>"+ date_f +" - "+ date_t +"</p>" +
                         "<p>Цена "+ value.price_min +"&#8362; - "+ value.price_max +"&#8362;</p>" +
                     "</div>" +
                    "</div>" +
@@ -112,92 +206,230 @@ function createShowHTML(arrShows, arrShowsSections)
     });
 
      $("#ulShows").append(html);
- }
+}
 
- function menuTypeHandlerCallbackSuccess(data)
- {
-     createShowHTML(data.shows, data.showsSections);
- }
+function menuTypeHandlerCallbackSuccess(data)
+{
+    createShowHTML(data.shows, data.showsSections);
+}
 
- function editShowHandler(showID)
- {
+function editShowHandler(showID)
+{
     var data = {};
     data.id = showID.split("_")[1];
     sendDataToServer('/getShowByID', data, editShowHandlerCallbackSuccess, null);
- }
+}
 
- function editShowHandlerCallbackSuccess(data)
- {
-     $("#divShowsMain").hide();
-     $("#divShowEdit").show();
+function editShowHandlerCallbackSuccess(data)
+{
+    $("#divShowsMain").hide();
+    $("#divShowEdit").show();
 
-     fillEditShowHTML(data.show, data.showSeances, data.showMedia);
- }
+    fillEditShowHTML(data.show, data.showSeances, data.showMedia);
+}
 
- function fillEditShowHTML(show, arrShowsSeances, arrMedia)
- {
-     var resource = show[0].resource == "bravo" ? "http://kaccabravo.co.il" : "http://biletru.co.il";
-     
-     $("#divEditShowName").text(show[0].name);
-     
-     if(show[0].second_image != null && show[0].second_image != ''){
+function editClose()
+{
+    $("#divShowsMain").show();
+    $("#divShowEdit").hide();
+}
+
+function fillEditShowHTML(show, arrShowsSeances, arrMedia)
+{
+    var resource = show[0].resource == "bravo" ? "http://kaccabravo.co.il" : "http://biletru.co.il";
+    
+    $("#spanEditShowName").text(show[0].name);
+    
+    if(show[0].second_image != null && show[0].second_image != ''){
+    
+    var fileType = show[0].second_image.split('.')[1];
+    if(fileType == 'mp4')
+    {
         
-        var fileType = show[0].second_image.split('.')[1];
-        if(fileType == 'mp4')
-        {
-            
-        }
-        else
-        {
-            $("#imgEditMain").attr("src", resource + show[0].second_image);
-        }
-     }
-     else{
-        $("#imgEditMain").attr("src", resource + show[0].main_image);
-     }
+    }
+    else
+    {
+        $("#imgEditMain").attr("src", resource + show[0].second_image);
+    }
+    }
+    else{
+    $("#imgEditMain").attr("src", resource + show[0].main_image);
+    }
 
-     $("#pEditShowAnnounce").text(show[0].announce);
+    $("#pEditShowAnnounce").text(show[0].announce);
 
-     var seanceTableHTML = '';
+    var seanceTableHTML = '';
 
-     $.each(arrShowsSeances, function(index, value){
-         seanceTableHTML+="<tr>" + 
-         "<td>"+ value.city +"</td>" +
-         "<td>"+ value.date +"&nbsp;"+ value.seance_time +"</td>" +
-         "<td>"+ value.hall +"</td>" +
-         "<td>"+ value.price_min + " - "+ value.price_max +"</td>" +
-         "<td><a href='#'>КУПИТь</a></td>" +
-         "</tr>";
-     });
+    $.each(arrShowsSeances, function(index, value){
+        seanceTableHTML+="<tr>" + 
+        "<td>"+ value.city +"</td>" +
+        "<td>"+ value.date +"&nbsp;"+ value.seance_time +"</td>" +
+        "<td>"+ value.hall +"</td>" +
+        "<td>"+ value.price_min + " - "+ value.price_max +"</td>" +
+        "<td><a href='#'>КУПИТь</a></td>" +
+        "</tr>";
+    });
 
-     $("#tableEditSeances").append(seanceTableHTML);
+    $("#tableEditSeances").append(seanceTableHTML);
 
-     var mediaDivHTML = '';
-     $.each(arrMedia, function(index, value){
+    var mediaDivHTML = '';
+    $.each(arrMedia, function(index, value){
 
-         mediaDivHTML += "<div class='col-xs-6 col-md-3'>"+
-                            "<a href='#' class='thumbnail'>"+
-                              "<img style='width:180px; height:180px;' src='"+ resource + value.link + "' alt='"+ show[0].name +"'></img>" +
-                            "<a/>" +         
-                        "</div>";
-     });
+        mediaDivHTML += "<div class='col-xs-6 col-md-3'>"+
+                        "<a href='#' class='thumbnail'>"+
+                            "<img style='width:180px; height:180px;' src='"+ resource + value.link + "' alt='"+ show[0].name +"'></img>" +
+                        "<a/>" +         
+                    "</div>";
+    });
 
     $("#divEditGalary").empty();
     //$("#divEditGalary").remove();  
     $("#divEditGalary").append(mediaDivHTML);
 
- }
+}
 
 function searchShowByText(text)
 {
+    if(text.length < 3)
+    {
+        return;
+    }
+    else
+    {
+        filtersHandler();
+    }
+
     var data = {};
     data.text = text;
-    sendDataToServer('/getSearchShowByText', data, searchShowByTextCallbackSuccess, null);
+    //sendDataToServer('/getSearchShowByText', data, searchShowByTextCallbackSuccess, null);
 }
 
 function searchShowByTextCallbackSuccess(data)
 {
     createShowHTML(data.shows, data.showsSections);
+}
+
+function filtersHandler()
+{
+    var arrTypes = $("li[id^='liTypeID_']");
+    var arrSubTypes = $("li[id^='liSubTypeID_']");
+    var arrCities = $("li[id^='liCity_']");    
+    var dateFrom = $("#txtDateFrom").datepicker('getDate');
+    var strDateFrom = $.datepicker.formatDate("dd.mm.yy", dateFrom);  
+    var dateTo = $("#txtDateTo").datepicker('getDate');
+    var strDateTo = $.datepicker.formatDate("dd.mm.yy", dateTo);
+
+    var arrTypesChecked = [];
+    var arrSubTypesChecked = [];
+    var arrCitiesChecked = [];    
+    var url = "/getShowByFilters";
+
+    //active
+    var superPrice = $("#liSuperPrice").hasClass("active");
+    var discount = $("#liDiscount").hasClass("active");
+    var tour = $("#liTour").hasClass("active");
+    var count = 0;
+
+    //get checked types
+    $.each(arrTypes, function(index, value){
+        
+        var input = $(value).find("input[type='checkbox']");
+        var isChecked = $(input).is(':checked');
+        var typeID = $(input).attr("id").split("_")[1];
+
+        $("#subMenuOfType_"+ typeID).hide();
+
+        if(isChecked)
+        {          
+            $("#subMenuOfType_"+ typeID).show();
+            var subTypesLi = $("#subMenuOfType_"+ typeID + " li");
+            var subCount = 0;
+
+            $.each(subTypesLi, function(i, v){
+
+                var inp = $(v).find("input[type='checkbox']");
+                var isChk = $(inp).is(':checked');
+                var subTypeID = $(inp).attr("id").split("_")[1];
+
+                if(isChk)
+                {
+                    arrSubTypesChecked.push(subTypeID);
+                    subCount++;
+                }
+            });
+
+            arrTypesChecked.push({
+                type: typeID, 
+                subTypes: subCount == 0 ? arrSubTypesChecked = null : arrSubTypesChecked.join()
+            });  
+
+            count++;
+        }        
+    });
+
+    if(count == 0)
+    { 
+      arrTypesChecked = null;
+    }
+
+    //get cities checked
+    count = 0;
+    $.each(arrCities, function(index, value){
+
+        var input = $(value).find("input[type='checkbox']");
+        var isChecked = $(input).is(':checked');
+        var cityID = $(value).attr("id").split("_")[1];       
+
+        if(isChecked)
+        {            
+            arrCitiesChecked.push(cityID);
+            count++;     
+        }
+    });
+
+    if(count == 0)
+    { 
+      arrCitiesChecked = null;
+    }
+
+    if($("#hdnSortElement").text() == '')
+    {
+        $("#hdnSortElement").text('liSortByPrice');
+    }
+
+    var data = {
+        cities: arrCitiesChecked == null ? null : arrCitiesChecked.join(),
+        types: arrTypesChecked == null ? null : arrTypesChecked,
+        subtypes: arrSubTypesChecked == null ? null : arrSubTypesChecked.join(),
+        dateFrom: strDateFrom == '' ? null :  strDateFrom,
+        dataTo: strDateTo == '' ? null : strDateTo,
+        searchText: $("#txtSearch").val() == '' ? null : $("#txtSearch").val(),
+        superPrice: superPrice,
+        discount: discount,
+        sortByPrice: $("#hdnSortElement").text() == 'liSortByPrice' ? getSortDirection("liSortByPrice") : null,
+        sortByName: $("#hdnSortElement").text() == 'liSortByName' ? getSortDirection("liSortByName") : null,
+        tour: tour
+    };
+
+    var dd = data;
+
+    sendDataToServer(url, data, menuTypeHandlerCallbackSuccess, null);
+
+}
+
+function getSortDirection(entityID)
+{
+    var elements = $("#" + entityID + " span");
+    var sortDirection = "";
+
+    $.each(elements, function(index, value){
+        if($(value).is(":visible") && $(value).hasClass("glyphicon"))
+        {
+            sortDirection = $(value).attr("id").split("_")[1];
+        }
+    });
+    
+    return sortDirection;    
 }
 
 function sendDataToServer(path, data, callbackSuccess, callbackError)
