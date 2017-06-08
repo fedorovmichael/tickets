@@ -162,7 +162,7 @@ function createShowHTML(arrShows, arrShowsSections)
 
           if(subtype != 'undefined')
           {
-              subtypeHTML  = "<a href='#' subtype_id='"+ subtype_id +"' style='background:#FF1005; color:white; width:65px;'>" + subtype + "</a>"
+              subtypeHTML  = "<a href='#' subtype_id='"+ subtype_id +"' style='background:"+ type_color +"; color:white; width:65px; font-size: 10pt;'>" + subtype + "</a>"
           }
 
           if(value.resource == 'bravo')
@@ -190,7 +190,7 @@ function createShowHTML(arrShows, arrShowsSections)
         html+="<li id='liMainShowID_" + value.show_id + "' style='height: 285px; border: solid 0px red;' class='col-sm-3'>" +
                 "<div>"+ 
                   "<div class='text-left'>" + 
-                    "<a href='#' type_id='"+ type_id +"' style='background:"+ type_color +"; color:white; margin-right:5px; width:65px;'>"+ type +"</a>" +
+                    "<a href='#' type_id='"+ type_id +"' style='background:"+ type_color +"; color:white; margin-right:5px; width:65px; font-size: 10pt;'>"+ type +"</a>" +
                     subtypeHTML + 
                   "</div>" + 
                   "<div class='thumbnail'>" +

@@ -20,7 +20,7 @@ ul(class="row list-unstyled")
           -for(var j = 0; j < sTypes.length; j++)          
             li(class="text-left" id="liSubTypeID_#{sTypes[j].subType_id}")
               input(type="checkbox" id="subTypeID_#{sTypes[j].subType_id}" name="genre" value="action")
-              label(for="subTypeID_#{sTypes[j].subType_id}" style="color: red;") #{sTypes[j].subType_Name}  
+              label(for="subTypeID_#{sTypes[j].subType_id}" style="color: #{types[i].color};") #{sTypes[j].subType_Name}  
 
   
 

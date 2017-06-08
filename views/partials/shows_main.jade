@@ -12,9 +12,9 @@ ul(id="ulShows" class="row list-unstyled")
             -subtype = showsSections[s].subtype_name;
             -subtype_id = showsSections[s].subtype_id;                   
           -}
-          a(href="#" type_id="#{type_id}" style="background: #{type_color}; color: white; margin-right: 5px;") #{type}
+          a(href="#" type_id="#{type_id}" style="background: #{type_color}; color: white; margin-right: 5px; font-size: 10pt;") #{type}
           -if(subtype != 'undefined')
-            a(href="#" subtype_id="#{subtype_id}" style="background: #FF1005; color: white;") #{subtype}
+            a(href="#" subtype_id="#{subtype_id}" style="background: #{type_color}; color: white; font-size: 10pt;") #{subtype}
         div(class="thumbnail")
           -if(shows[i].resource == 'bravo')
             img(src="http://kaccabravo.co.il#{shows[i].main_image}", alt="", style="width: 198px; height: 110px;")
