@@ -290,18 +290,14 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia)
 
 function searchShowByText(text)
 {
-    if(text.length < 3)
+    if(text.length >= 3 || text.length == 0)
     {
-        return;
+        filtersHandler();        
     }
     else
     {
-        filtersHandler();
+        return;
     }
-
-    var data = {};
-    data.text = text;
-    //sendDataToServer('/getSearchShowByText', data, searchShowByTextCallbackSuccess, null);
 }
 
 function searchShowByTextCallbackSuccess(data)
