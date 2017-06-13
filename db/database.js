@@ -319,7 +319,7 @@ db.getShowsByFilters = function(filters, cb)
         console.log("start ger data by filter: ", filters);
         console.log("");
 
-        if(filters.cities != null || filters.types != null || filters.subtypes != null )
+        if(filters.types != null || filters.subtypes != null )
         {
             queryTempTable = "" +            
             " create table t_types as select show_id from show_section where type_id in ("+ filters.types +"); " +

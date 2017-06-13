@@ -20,9 +20,11 @@ html
     <!-- styling checkbox -->
     script(src="/javascripts/customInput.jquery.js")
     script(src="/javascripts/tickets.js")
+    <!-- multi date spicker-->
+    script(src="/javascripts/jquery-ui.multidatespicker.js")
 
     script.
-      $(function(){ $("#txtDateFrom").datepicker({minDate: new Date()}); $("#txtDateTo").datepicker({minDate: new Date()}); });
+      $(function(){ $("#txtDateFrom").datepicker({minDate: new Date()}); $("#txtDateTo").datepicker({minDate: new Date()}); $("#divMultiDatePicker").multiDatesPicker();});
 
     title= title
 
@@ -109,6 +111,11 @@ html
               a(href="#")
                 span(class="glyphicon glyphicon-globe") 
                 span(style="margin-left:3px;") Гастроли
+
+            li
+              a(id="aClearTopFilter" href="#")
+                span(style="margin-right:3px;" class="glyphicon glyphicon-remove-circle")
+                span Очистить
 
                            
 

@@ -60,6 +60,46 @@ $(document).ready(function(){
         filtersHandler();
     });
 
+    $("#aClearTopFilter").on("click", function(event){
+        event.preventDefault();
+        clearTopFilter();
+    });
+
+    $("#liLeftFilter_Today").on("click", function(event){
+        event.preventDefault();
+        leftFilterToday();
+    });
+
+    $("#liLeftFilter_Tomorrow").on("click", function(event){
+        event.preventDefault();
+        leftFilterTomorrow();
+    });
+
+    $("#liLeftFilter_Week").on("click", function(event){
+        event.preventDefault();
+        leftFilterWeek();
+    });
+
+    $("#liLeftFilter_Weekend").on("click", function(event){
+        event.preventDefault();
+        leftFilterWeekend();
+    });
+   
+    $("#liLeftFilter_NextWeekend").on("click", function(event){
+        event.preventDefault();
+        leftFilterNextWeekend();
+    });
+    
+    $("#liLeftFilter_Month").on("click", function(event){
+        event.preventDefault();
+        leftFilterMonth();
+    });
+   
+    $("#liLeftFilter_TreeMonth").on("click", function(event){
+        event.preventDefault();
+        leftFilterTreeMonth();
+    });
+    
     
 });
 
@@ -426,6 +466,134 @@ function getSortDirection(entityID)
     });
     
     return sortDirection;    
+}
+
+function clearTopFilter()
+{
+    $("#txtDateFrom").val('');
+    $("#txtDateTo").val('');
+    $("#txtSearch").val('');
+    $("#liSuperPrice").removeClass('active');
+    $("#liDiscount").removeClass('active');
+    $("#liTour").removeClass('active');
+
+    //sort by price
+    $("#spanSortByPriceAlt_desc").show();
+    $("#spanSortByPrice_asc").hide();
+    $("#hdnSortElement").text('');
+    $("#hdnSortElement").text("liSortByPrice");
+
+    //sort by name
+    $("#spanSortByName_asc").show();
+    $("#spanSortByNameAlt_desc").hide();
+    
+    var arrElements = $("li[id^='liCity_']");    
+    $.each(arrElements, function(i, v){
+        var input = $(v).find("input[type='checkbox']");
+        input.checked = false;
+        $('label[for='+$(input).attr('id')+']').removeClass('checked');
+    });
+
+    filtersHandler();
+}
+
+function leftFilterToday()
+{
+    $("#txtDateFrom").datepicker("setDate", new Date());
+    $("#txtDateTo").datepicker("setDate", new Date());
+
+   filtersHandler();
+}
+
+function leftFilterTomorrow()
+{
+    $("#txtDateFrom").datepicker("setDate", 1);
+    $("#txtDateTo").datepicker("setDate", 1);
+
+    filtersHandler();
+}
+
+function leftFilterWeek()
+{
+    $("#txtDateFrom").datepicker("setDate", new Date());
+    $("#txtDateTo").datepicker("setDate", 7);
+
+    filtersHandler();
+}
+
+function leftFilterWeekend()
+{
+    var tDate = new Date();
+    var fromDate = '';
+    var toDate = '';
+    var day = 0;
+
+    for(var i = 0; i < 7; i++)
+    {       
+        day = tDate.getDay() + i;       
+
+        if(day == 4)
+        {
+            fromDate = new Date(tDate.getFullYear(), tDate.getMonth(), tDate.getDate() + i);
+            toDate = new Date(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate() + 2);
+            $("#txtDateFrom").datepicker("setDate", fromDate);
+            $("#txtDateTo").datepicker("setDate", toDate);           
+        }
+    }    
+
+    filtersHandler();
+}
+
+function leftFilterNextWeekend()
+{   
+    var tDate = new Date();
+    var fromDate = '';
+    var toDate = '';
+    var day = 0;
+    var weekCount = 1;
+    var dayCount = 1; 
+ 
+    for(var w = 0; w < 2; w++)
+    {
+        for(var i = 0; i < 6; i++)
+        {       
+            day = tDate.getDay() + i;       
+
+            if(day == 6)
+            {
+                weekCount ++;
+                dayCount += i;
+                break;
+            }
+
+            if(weekCount == 2 && day == 4)
+            {
+                dayCount += day;
+                fromDate = new Date(tDate.getFullYear(), tDate.getMonth(), tDate.getDate() + dayCount);
+                toDate = new Date(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate() + 2);
+                $("#txtDateFrom").datepicker("setDate", fromDate);
+                $("#txtDateTo").datepicker("setDate", toDate); 
+            }
+        }
+    }
+    
+    filtersHandler();
+}
+
+function leftFilterMonth()
+{    
+    $("#txtDateFrom").datepicker("setDate", new Date());
+    $("#txtDateTo").datepicker("setDate", 30);
+
+    filtersHandler();
+}
+
+function leftFilterTreeMonth()
+{
+    $("#txtDateFrom").datepicker("setDate", new Date());
+    $("#txtDateTo").datepicker("setDate", 90);
+
+    filtersHandler();
 }
 
 function sendDataToServer(path, data, callbackSuccess, callbackError)

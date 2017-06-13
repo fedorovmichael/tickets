@@ -50,7 +50,36 @@ block content
       div(class="row content" style="margin-left:0; margin-right:0;")
         
         div(class="col-sm-2 sidenav")
-          include ./partials/types_menu
+          include ./partials/types_menu          
+          div(id="divMultiDatePicker" class="text-left" style="margin-bottom:10px;")
+          ul(class="row list-unstyled")
+            li(id="liLeftFilter_Today" class="text-left left-ul-filter border-bottom-grey" )
+              a(href="#") СЕГОДНЯ
+
+            li(id="liLeftFilter_Tomorrow" class="text-left left-ul-filter border-bottom-grey")
+              a( href="#") ЗАВТРА
+
+            li(id="liLeftFilter_Week" class="text-left left-ul-filter border-bottom-grey")
+              a(href="#") БЛИЖАЙШАЯ НЕДЕЛЯ
+
+            li(id="liLeftFilter_Weekend" class="text-left left-ul-filter border-bottom-grey")
+              a(href="#") БЛИЖАЙШИЕ ВЫХОДНЫЕ
+
+            li(id="liLeftFilter_NextWeekend" class="text-left left-ul-filter border-bottom-grey")
+              a(href="#") СЛЕДУЮЩИЕ ВЫХОДНЫЕ
+
+            li(id="liLeftFilter_Month" class="text-left left-ul-filter border-bottom-grey")
+              a(href="#") БЛИЖАЙШИЙ МЕСЯЦ
+
+            li(id="liLeftFilter_TreeMonth" class="text-left left-ul-filter border-bottom-grey")
+              a(href="#") БЛИЖАЙШИЕ 3 МЕСЯЦА
+
+          div(class="text-left")  
+            a(id="aClearLeftFilter" href="#" style="margin-left: -10px; text-decoration-color: red;" )
+              span(class="glyphicon glyphicon-remove-circle" style="margin-right:3px; color:red;") 
+              span(style="color:red;") ОЧИСТИТЬ 
+
+             
 
         div(class="col-sm-10 text-center")
 

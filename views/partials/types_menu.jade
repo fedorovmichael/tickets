@@ -5,7 +5,7 @@ form(id="formTypeMenu" url="", method="POST")
 
 ul(class="row list-unstyled")
   -for(var i=0; i < types.length; i++)  
-    li(class="text-left" id="liTypeID_#{types[i].id}")
+    li(class="text-left border-bottom-grey" id="liTypeID_#{types[i].id}")
       input(type="checkbox" id="typeID_#{types[i].id}" name="genre" value="action")
       label(for="typeID_#{types[i].id}" style="color: #{types[i].color};") #{types[i].name}
       -var sTypes = [];
@@ -18,7 +18,7 @@ ul(class="row list-unstyled")
         //label #{sTypes.length}
         ul(id="subMenuOfType_#{types[i].id}" class="row list-unstyled" style="margin-left:10px; display:none;")  
           -for(var j = 0; j < sTypes.length; j++)          
-            li(class="text-left" id="liSubTypeID_#{sTypes[j].subType_id}")
+            li(class="text-left border-bottom-grey" id="liSubTypeID_#{sTypes[j].subType_id}")
               input(type="checkbox" id="subTypeID_#{sTypes[j].subType_id}" name="genre" value="action")
               label(for="subTypeID_#{sTypes[j].subType_id}" style="color: #{types[i].color};") #{sTypes[j].subType_Name}  
 
