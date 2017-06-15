@@ -460,7 +460,7 @@ function clearTopFilter() {
     var arrElements = $("li[id^='liCity_']");
     $.each(arrElements, function (i, v) {
         var input = $(v).find("input[type='checkbox']");
-        input.checked = false;
+        $(input).prop('checked', false);
         $('label[for=' + $(input).attr('id') + ']').removeClass('checked');
     });
 
@@ -468,23 +468,18 @@ function clearTopFilter() {
 }
 
 function clearLeftFilter() {
-    var arrSubTypes = $("ul[id^='subMenuOfType_']");
-    $.each(arrSubTypes, function (i, v) {
-        var id = $(this).prop('id');
-        $('#' + id).hide();
-    });
 
     var arrElements = $("li[id^='liTypeID_']");
     $.each(arrElements, function (i, v) {
         var input = $(v).find("input[type='checkbox']");
-        input.checked = false;
+        $(input).prop('checked', false);
         $('label[for=' + $(input).attr('id') + ']').removeClass('checked');
     });
 
     var arrElements = $("li[id^='liSubTypeID_']");
     $.each(arrElements, function (i, v) {
         var input = $(v).find("input[type='checkbox']");
-        input.checked = false;
+        $(input).prop('checked', false);
         $('label[for=' + $(input).attr('id') + ']').removeClass('checked');
     });
 
