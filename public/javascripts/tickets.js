@@ -105,8 +105,22 @@ $(document).ready(function () {
         leftFilterTreeMonth();
     });
 
+    if (window.history && window.history.pushState) {
+
+        window.history.pushState('back', null, '/');
+
+        var p = window.history, p1 = window.history.pushState;
+        $(window).on('popstate', function (e) {            
+            var state = e.originalEvent.state;
+            if (state !== null) {
+               editClose();
+            }
+        });
+    }
 
 });
+
+
 
 function sortByHandler(parentID, param1ID, param2ID) {
     if ($("#" + param1ID).is(":visible")) {
@@ -218,6 +232,9 @@ function createShowHTML(arrShows, arrShowsSections) {
         date_f = $.datepicker.formatDate("dd.mm.yy", new Date(value.date_from));
         date_t = $.datepicker.formatDate("dd.mm.yy", new Date(value.date_to));
 
+        var date_ft = date_f != date_t ? date_f + " - " + date_t : date_f;
+        var show_price = value.price_min != value.price_max ? value.price_min + "&#8362; - " + value.price_max + "&#8362;" : value.price_min + "&#8362;";
+
         html += "<li id='liMainShowID_" + value.show_id + "' style='height: 285px; border: solid 0px red; cursor: pointer;' class='col-sm-3'>" +
             "<div>" +
             "<div class='text-left'>" +
@@ -228,8 +245,8 @@ function createShowHTML(arrShows, arrShowsSections) {
             "<img src='" + imageURL + "' alt='' style='width: 198px; height: 110px;'>" +
             "<div class='caption'>" +
             "<p style='height:54px; max-height:54px; min-height:54px;'>" + showName + "</p>" +
-            "<p>" + date_f + " - " + date_t + "</p>" +
-            "<p>Цена " + value.price_min + "&#8362; - " + value.price_max + "&#8362;</p>" +
+            "<p>" + date_ft + "</p>" +
+            "<p>Цена " + show_price + "</p>" +
             "</div>" +
             "</div>" +
             "</div>" +
