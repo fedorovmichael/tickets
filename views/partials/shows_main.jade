@@ -32,6 +32,14 @@ ul(id="ulShows" class="row list-unstyled")
             -var dt_f = new Date(shows[i].date_from);
             -date_f = dateFormat(dt_f, "dd.mm.yyyy");
             -var dt_t = new Date(shows[i].date_to);
-            -date_t = dateFormat(dt_t, "dd.mm.yyyy");            
-            p #{date_f} - #{date_t}
-            P Цена #{shows[i].price_min}&#8362; - #{shows[i].price_max}&#8362;      
+            -date_t = dateFormat(dt_t, "dd.mm.yyyy");
+            
+            -if(date_f != date_t)            
+              p #{date_f} - #{date_t}
+            -else
+              p #{date_f}
+
+            -if(shows[i].price_min != shows[i].price_max)
+              P Цена #{shows[i].price_min}&#8362; - #{shows[i].price_max}&#8362;
+            -else
+              P Цена #{shows[i].price_min}&#8362;      
