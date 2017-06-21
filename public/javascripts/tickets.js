@@ -350,6 +350,7 @@ function filtersHandler() {
 
         var input = $(value).find("input[type='checkbox']");
         var isChecked = $(input).is(':checked');
+        var fullID = $(input).attr("id");
         var typeID = $(input).attr("id").split("_")[1];
 
         $("#subMenuOfType_" + typeID).hide();
@@ -367,6 +368,8 @@ function filtersHandler() {
 
                 if (isChk) {
                     arrSubTypesChecked.push(subTypeID);
+                    $("#" + fullID).prop('checked', false);
+                    $('label[for=' + fullID + ']').removeClass('checked');
                     subCount++;
                 }
             });
