@@ -218,7 +218,7 @@ function createShowHTML(arrShows, arrShowsSections) {
         date_f = $.datepicker.formatDate("dd.mm.yy", new Date(value.date_from));
         date_t = $.datepicker.formatDate("dd.mm.yy", new Date(value.date_to));
 
-        html += "<li id='liMainShowID_" + value.show_id + "' style='height: 285px; border: solid 0px red;' class='col-sm-3'>" +
+        html += "<li id='liMainShowID_" + value.show_id + "' style='height: 285px; border: solid 0px red; cursor: pointer;' class='col-sm-3'>" +
             "<div>" +
             "<div class='text-left'>" +
             "<a href='#' type_id='" + type_id + "' style='background:" + type_color + "; color:white; margin-right:5px; width:65px; font-size: 10pt;'>" + type + "</a>" +
