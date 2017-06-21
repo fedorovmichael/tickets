@@ -289,7 +289,7 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia) {
             "<td>" + value.city + "</td>" +
             "<td>" + value.date + "&nbsp;" + value.seance_time + "</td>" +
             "<td>" + value.hall + "</td>" +
-            "<td>" + value.price_min + " - " + value.price_max + "</td>" +
+            "<td>" + value.price_min + " - " + value.price_max + "&#8362;</td>" +
             "<td><a href='#'>КУПИТь</a></td>" +
             "</tr>";
     });
