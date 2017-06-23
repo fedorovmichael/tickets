@@ -1,6 +1,9 @@
 extends layout
 
 block content
+  script.
+      $(function(){ $("#txtDateFrom").datepicker({minDate: new Date()}); $("#txtDateTo").datepicker({minDate: new Date()}); $("#divMultiDatePicker").multiDatesPicker();});
+
   div(class="container text-center")
     <!--carousel-->
     div(class="container" style="margin-bottom: 10px;")
@@ -50,9 +53,18 @@ block content
       div(class="row content" style="margin-left:0; margin-right:0;")
         
         div(class="col-sm-2 sidenav")
+          p(class="left-ul-filter label-filter-border" )
+            span(style="font-weight: bold;") КАТЕГОРИИ
           include ./partials/types_menu          
-          div(id="divMultiDatePicker" class="text-left" style="margin-bottom:10px;")
+          div(id="divMultiDatePicker" class="text-left" style="margin-bottom:10px; display:none;")
+          p(class="left-ul-filter label-filter-border")
+            span(style="font-weight: bold;") ДАТА
           ul(class="row list-unstyled")
+            li
+              input(id="txtDateFrom" type="text" class="text-box text-left left-ul-filter" placeholder="Дата с:" style="margin-bottom: 5px; box-shadow: none;")              
+            li(style="margin-bottom: 10px;")
+              input(id="txtDateTo" type="text" class="text-box text-left left-ul-filter" placeholder="Дата по:")
+
             li(id="liLeftFilter_Today" class="text-left left-ul-filter border-bottom-grey" )
               a(href="#") СЕГОДНЯ
 
@@ -73,6 +85,33 @@ block content
 
             li(id="liLeftFilter_TreeMonth" class="text-left left-ul-filter border-bottom-grey")
               a(href="#") БЛИЖАЙШИЕ 3 МЕСЯЦА
+
+          p(class="left-ul-filter label-filter-border" ) 
+            span(style="font-weight: bold;") ГОРОДА
+            include ./partials/cities_filter
+
+          p(class="left-ul-filter label-filter-border" ) 
+            span(style="font-weight: bold; text-transform: uppercase;") Со скидками  
+          ul(class="row list-unstyled")
+            li(id="liSuperPrice" class="text-left left-ul-filter border-bottom-grey")
+              a(href="#")
+                span(class="glyphicon glyphicon-gift")
+                span(style="margin-left:3px; text-transform: uppercase;") Супер-цена            
+
+            li(id="liDiscount" class="text-left left-ul-filter border-bottom-grey")
+              a(href="#")
+                span(class="glyphicon glyphicon-tag")
+                span(style="margin-left:3px; text-transform: uppercase;") Со скидкой
+
+
+          p(class="left-ul-filter label-filter-border" ) 
+            span(style="font-weight: bold; text-transform: uppercase;") Другие  
+          ul(class="row list-unstyled")
+            li(id="liSuperPrice" class="text-left left-ul-filter border-bottom-grey")
+              a(href="#")
+                span(class="glyphicon glyphicon-globe")
+                span(style="margin-left:3px; text-transform: uppercase;") Гастроли 
+
 
           div(class="text-left")  
             a(id="aClearLeftFilter" href="#" style="margin-left: -10px; text-decoration-color: red;" )

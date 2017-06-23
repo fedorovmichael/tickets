@@ -21,10 +21,7 @@ html
     script(src="/javascripts/customInput.jquery.js")
     script(src="/javascripts/tickets.js")
     <!-- multi date spicker-->
-    script(src="/javascripts/jquery-ui.multidatespicker.js")
-
-    script.
-      $(function(){ $("#txtDateFrom").datepicker({minDate: new Date()}); $("#txtDateTo").datepicker({minDate: new Date()}); $("#divMultiDatePicker").multiDatesPicker();});
+    script(src="/javascripts/jquery-ui.multidatespicker.js")    
 
     title= title
 
@@ -58,26 +55,27 @@ html
             //-           input(id="cbCity_#{arrCities[c].id}" type="checkbox")
             //-           label(for="cbCity_#{arrCities[c].id}" style="margin-right: 20px;") #{arrCities[c].name}  
 
-            li(class="dropdown")
-              a(href="#" class="dropdown-toggle" data-toggle="dropdown") Города
-                b(class="caret")
-              -if(cities != undefined && cities != null)
-                ul(id="ddlCities" class="dropdown-menu" style="width:1000px;")
-                  -for(var i = 0; i < cities.length; i++)
-                    li(class="col-sm-2")
-                      div(class="text-center" style="border-bottom-width: 0.5px; border-bottom-color: grey; border-bottom-style: solid;")
-                        span(class="" style="") #{cities[i].regionName}  
-                      ul(class="list-unstyled")
-                        -var arrCities = cities[i].cities;
-                        -for(var c = 0; c < arrCities.length; c++)
-                          li(id="liCity_#{arrCities[c].id}")
-                            input(id="cbCity_#{arrCities[c].id}" type="checkbox")
-                            label(for="cbCity_#{arrCities[c].id}" style="margin-right: 20px;") #{arrCities[c].name}  
+            //- li(class="dropdown")
+            //-   a(href="#" class="dropdown-toggle" data-toggle="dropdown") Города
+            //-     b(class="caret")
+            //-   -if(cities != undefined && cities != null)
+            //-     ul(id="ddlCities" class="dropdown-menu" style="width:1000px;")
+            //-       -for(var i = 0; i < cities.length; i++)
+            //-         li(class="col-sm-2")
+            //-           div(class="text-center" style="border-bottom-width: 0.5px; border-bottom-color: grey; border-bottom-style: solid;")
+            //-             span(class="" style="") #{cities[i].regionName}  
+            //-           ul(class="list-unstyled")
+            //-             -var arrCities = cities[i].cities;
+            //-             -for(var c = 0; c < arrCities.length; c++)
+            //-               li(id="liCity_#{arrCities[c].id}")
+            //-                 input(id="cbCity_#{arrCities[c].id}" type="checkbox")
+            //-                 label(for="cbCity_#{arrCities[c].id}" style="margin-right: 20px;") #{arrCities[c].name}  
 
-            li
-              input(id="txtDateFrom" type="text" class="navbar-form form-control" placeholder="Дата с:" style="margin-right: 5px;")              
-            li
-              input(id="txtDateTo" type="text" class="navbar-form form-control" placeholder="Дата по:")
+            li(style="display: none;")
+              input(id="txtDateFrom1" type="text" class="navbar-form form-control" placeholder="Дата с:" style="margin-right: 5px;")
+
+            li(style="display: none;")
+              input(id="txtDateTo1" type="text" class="navbar-form form-control" placeholder="Дата по:")
              
             li
               form(class="navbar-form navbar-left")            
@@ -85,29 +83,39 @@ html
                 //- button(id="btnSearch" type="button" class="btn btn-default")
                 //-   span(class="glyphicon glyphicon-search")
 
-            li(id="liSortByPrice")
+            li(id="liSortByPrice" title="Сортировка по цене")
               a(href="#")
                 span(id="spanSortByPriceAlt_desc" class="glyphicon glyphicon-sort-by-attributes-alt")
                 span(id="spanSortByPrice_asc" class="glyphicon glyphicon-sort-by-attributes" style="display:none;")
                 span(style="margin-left:3px;") Цена
 
-            li(id="liSortByName")
+            li(id="liSortByName" title="Сортировка по названию")
               a(href="#")
                 span(id="spanSortByName_asc" class="glyphicon glyphicon-sort-by-alphabet")
                 span(id="spanSortByNameAlt_desc" class="glyphicon glyphicon-sort-by-alphabet-alt" style="display:none;")
                 span(style="margin-left:3px;") Название
+                
+            li(id="liSortBySection" title="Сортировка по категории")
+              a(href="#")
+                span(id="spanSortByName_asc" class="glyphicon glyphicon-tasks")                
+                span(style="margin-left:3px;") Категории
 
-            li(id="liSuperPrice")
+            li(id="liSortBySection" title="Сортировка по дате")
+              a(href="#")
+                span(id="spanSortByName_asc" class="glyphicon glyphicon-calendar")                
+                span(style="margin-left:3px;")  Дата   
+
+            li(id="liSuperPrice1" style="display:none;")
               a(href="#")
                 span(class="glyphicon glyphicon-gift")
                 span(style="margin-left:3px;") Супер-цена            
 
-            li(id="liDiscount")
+            li(id="liDiscount1" style="display:none;")
               a(href="#")
                 span(class="glyphicon glyphicon-tag")
                 span(style="margin-left:3px;") Со скидкой
 
-            li(id="liTour")
+            li(id="liTour1" style="display:none;")
               a(href="#")
                 span(class="glyphicon glyphicon-globe") 
                 span(style="margin-left:3px;") Гастроли

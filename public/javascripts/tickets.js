@@ -11,7 +11,7 @@ $(document).ready(function () {
     });
 
     $("input[id^='cbCity_']").on("click", function (event) {
-        filtersHandler();
+        //filtersHandler();
     });
 
     $("body").on("click", "li[id^='liMainShowID_']", function (event) {
@@ -105,18 +105,9 @@ $(document).ready(function () {
         leftFilterTreeMonth();
     });
 
-    if (window.history && window.history.pushState) {
-
-        window.history.pushState('back', null, '/');
-
-        var p = window.history, p1 = window.history.pushState;
-        $(window).on('popstate', function (e) {            
-            var state = e.originalEvent.state;
-            if (state !== null) {
-               editClose();
-            }
-        });
-    }
+    $("input[id^='regionID_']").on("click", function (event) {
+        citiesFilterHandler(this.id);
+    });
 
 });
 
@@ -590,6 +581,29 @@ function leftFilterTreeMonth() {
     $("#txtDateTo").datepicker("setDate", 90);
 
     filtersHandler();
+}
+
+function citiesFilterHandler(regionID)
+{
+    var rID = regionID.split("_")[1];
+    var arrRegionCities = [], liRegionCities = '';
+
+    if($("#ulCitiesOfRegion_" + rID).is(":visible"))
+    {
+        $("#ulCitiesOfRegion_" + rID).hide();
+    }
+    else
+    {
+        $("#ulCitiesOfRegion_" + rID).show();
+        liRegionCities = $("#ulCitiesOfRegion_" + rID + " li");
+
+        $.each(liRegionCities, function(i, v){
+            var cityID = $(v).prop("id").split("_")[1];
+            arrRegionCities.push(cityID);
+        });
+    }
+
+    var c = arrRegionCities;
 }
 
 function sendDataToServer(path, data, callbackSuccess, callbackError) {
