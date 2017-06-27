@@ -248,7 +248,7 @@ router.post('/getSearchShowByText', function(req, res, next) {
 router.post('/getShowByFilters', function(req, res, next) {
 
     var strCities = null, strTypes = null, strSubTypes = null, objTypes = null;    
-    var dateFrom = null, dataTo = null, searchText = null, superPrice = false, discount = false, tour = false, sortByPrice = null, sortByName = null;
+    var dateFrom = null, dataTo = null, arrDates = [], searchText = null, superPrice = false, discount = false, tour = false, sortByPrice = null, sortByName = null, sortByDate = null;
 
     //cities
     if(req.body.cities != null)
@@ -344,19 +344,19 @@ router.post('/getShowByFilters', function(req, res, next) {
     //     console.log(""); 
     // }
 
-    console.log("start dateFrom"); 
-    console.log("dateFrom ids: ", req.body.dateFrom);
-    console.log(""); 
+    // console.log("start dateFrom"); 
+    // console.log("dateFrom ids: ", req.body.dateFrom);
+    // console.log(""); 
 
-    if(req.body.dateFrom != null)
-    {
-        dateFrom = req.body.dateFrom;
-    }
+    // if(req.body.dateFrom != null)
+    // {
+    //     dateFrom = req.body.dateFrom;
+    // }
 
-    if(req.body.dataTo != null)
-    {
-        dataTo = req.body.dataTo;
-    }
+    // if(req.body.dataTo != null)
+    // {
+    //     dataTo = req.body.dataTo;
+    // }
 
     if(req.body.searchText != null)
     {
@@ -391,9 +391,23 @@ router.post('/getShowByFilters', function(req, res, next) {
         sortByName = req.body.sortByName;
     }
 
-    console.log(""); 
-    console.log("dateFrom ids: ", req.body.dateFrom);
-    console.log(""); 
+    console.log("start dates"); 
+    console.log("dates period : ", req.body.dates);
+    console.log("");
+    if(req.body.dates != null)
+    {
+        arrDates = JSON.parse(req.body.dates);
+    }
+    else
+    {
+        arrDates = null;
+    }
+
+    if(req.body.sortByDate != null)
+    {
+        sortByDate = req.body.sortByDate;
+    }
+
     var filter = {
         cities: strCities,
         types: strTypes,
@@ -405,7 +419,9 @@ router.post('/getShowByFilters', function(req, res, next) {
         discount: discount,
         sortByPrice: sortByPrice,
         sortByName: sortByName,
-        tour: tour
+        sortByDate: sortByDate,
+        tour: tour,
+        dates: arrDates
     };
 
     console.log(""); 

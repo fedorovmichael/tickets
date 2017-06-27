@@ -316,7 +316,7 @@ db.getShowsByFilters = function(filters, cb)
         var queryFiters = '', querySort = '', queryTempTable = '', queryDropTempTable = '';     
 
         console.log(""); 
-        console.log("start ger data by filter: ", filters);
+        console.log("start get data by filter: ", filters);
         console.log("");
 
         if(filters.types != null || filters.subtypes != null )
@@ -358,6 +358,23 @@ db.getShowsByFilters = function(filters, cb)
             queryFiters += " and sh.date_to <= '"+ filters.dataTo +"'";
         }
 
+        if(filters.dates != null)
+        {
+            for(var i = 0; i < filters.dates.length; i++)
+            {
+                if(filters.dates.length > 1 && i <= filters.dates.length - 1 && i > 0)
+                {
+                   queryFiters += " or (sh.date_from >= '" + filters.dates[i].fDate + "'";
+                }
+                else
+                {
+                    queryFiters += " and (sh.date_from >= '" + filters.dates[i].fDate + "'";
+                }
+                
+                queryFiters += " and sh.date_to <= '" + filters.dates[i].tDate + "')";                
+            }
+        }
+
         if(filters.searchText != null)
         {
             queryFiters += " and LOWER(sh.name) like '%"+ filters.searchText.toLowerCase() +"%' or LOWER(sh.announce) like '%"+ filters.searchText.toLowerCase() +"%'";
@@ -385,9 +402,14 @@ db.getShowsByFilters = function(filters, cb)
 
         if(filters.sortByName != null)
         {
-            querySort += " order by sh.name "+ filters.sortByName;
+            querySort += " order by sh.name " + filters.sortByName;
         }
 
+        if(filters.sortByDate != null)
+        {
+            querySort += " order by sh.date_from " + filters.sortByDate;
+        }
+        
         console.log(""); 
         console.log("filter: ", queryFiters);
         console.log("sort filter: ", querySort);

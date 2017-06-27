@@ -27,103 +27,108 @@ html
 
   body(style='padding:0;')
     input(id="hdnSortElement" type="hidden")
+    input(id="hdnDateFilterData" type="hidden")
+    input(id="hdnCitiesFilterData" type="hidden")
     nav(class="navbar navbar-inverse")
       div(class="container-fluid")
-        div(class="navbar-header")
-          button(type="button", class="navbar-toggle", data-toggle="collapse", data-target="#mainNavbar")
-            span(class="icon-bar")
-            span(class="icon-bar")
-            span(class="icon-bar")               
-          a(class="navbar-brand", href="/") Tickets
+        div(class="container")
+          div(class="navbar-header")
+            button(type="button", class="navbar-toggle", data-toggle="collapse", data-target="#mainNavbar")
+              span(class="icon-bar")
+              span(class="icon-bar")
+              span(class="icon-bar")               
+            a(class="navbar-brand", href="/") ЛеанГо
     
-        div(class="collapse navbar-collapse" id="mainNavbar")
-          ul(class="nav navbar-nav")
-            li(class="active")
-              a(href="/") Главная
+          div(class="collapse navbar-collapse" id="mainNavbar")
+            ul(class="nav navbar-nav")
+              li(class="active")
+                a(href="/") Главная
 
-            //- li(class="dropdown")
-            //-   a(href="#" class="dropdown-toggle" data-toggle="dropdown") Города
-            //-     b(class="caret")
-            //-   ul(id="ddlCities" class="dropdown-menu")
-            //-     -for(var i = 0; i < cities.length; i++)
-            //-       div(class="text-center" style="border-bottom-width: 0.5px; border-bottom-color: grey; border-bottom-style: solid;")
-            //-         span(class="text-center" style="") #{cities[i].regionName}
+              //- li(class="dropdown")
+              //-   a(href="#" class="dropdown-toggle" data-toggle="dropdown") Города
+              //-     b(class="caret")
+              //-   ul(id="ddlCities" class="dropdown-menu")
+              //-     -for(var i = 0; i < cities.length; i++)
+              //-       div(class="text-center" style="border-bottom-width: 0.5px; border-bottom-color: grey; border-bottom-style: solid;")
+              //-         span(class="text-center" style="") #{cities[i].regionName}
+                    
+              //-       -var arrCities = cities[i].cities;
+              //-       -for(var c = 0; c < arrCities.length; c++)                    
+              //-         li(id="liCity_#{arrCities[c].id}")
+              //-           input(id="cbCity_#{arrCities[c].id}" type="checkbox")
+              //-           label(for="cbCity_#{arrCities[c].id}" style="margin-right: 20px;") #{arrCities[c].name}  
+
+              //- li(class="dropdown")
+              //-   a(href="#" class="dropdown-toggle" data-toggle="dropdown") Города
+              //-     b(class="caret")
+              //-   -if(cities != undefined && cities != null)
+              //-     ul(id="ddlCities" class="dropdown-menu" style="width:1000px;")
+              //-       -for(var i = 0; i < cities.length; i++)
+              //-         li(class="col-sm-2")
+              //-           div(class="text-center" style="border-bottom-width: 0.5px; border-bottom-color: grey; border-bottom-style: solid;")
+              //-             span(class="" style="") #{cities[i].regionName}  
+              //-           ul(class="list-unstyled")
+              //-             -var arrCities = cities[i].cities;
+              //-             -for(var c = 0; c < arrCities.length; c++)
+              //-               li(id="liCity_#{arrCities[c].id}")
+              //-                 input(id="cbCity_#{arrCities[c].id}" type="checkbox")
+              //-                 label(for="cbCity_#{arrCities[c].id}" style="margin-right: 20px;") #{arrCities[c].name}  
+
+              li(style="display: none;")
+                input(id="txtDateFrom1" type="text" class="navbar-form form-control" placeholder="Дата с:" style="margin-right: 5px;")
+
+              li(style="display: none;")
+                input(id="txtDateTo1" type="text" class="navbar-form form-control" placeholder="Дата по:")
+              
+              li
+                form(class="navbar-form navbar-left")            
+                  input(id="txtSearch" type="text" class="form-control" placeholder="Search" style="width: 300px;")
+                  //- button(id="btnSearch" type="button" class="btn btn-default")
+                  //-   span(class="glyphicon glyphicon-search")
+
+              li(id="liSortByPrice" title="Сортировка по цене")
+                a(href="#")
+                  span(id="spanSortByPriceAlt_desc" class="glyphicon glyphicon-sort-by-attributes-alt")
+                  span(id="spanSortByPrice_asc" class="glyphicon glyphicon-sort-by-attributes" style="display:none;")
+                  span(style="margin-left:3px;") Цена
+
+              li(id="liSortByName" title="Сортировка по названию")
+                a(href="#")
+                  span(id="spanSortByName_asc" class="glyphicon glyphicon-sort-by-alphabet")
+                  span(id="spanSortByNameAlt_desc" class="glyphicon glyphicon-sort-by-alphabet-alt" style="display:none;")
+                  span(style="margin-left:3px;") Название
                   
-            //-       -var arrCities = cities[i].cities;
-            //-       -for(var c = 0; c < arrCities.length; c++)                    
-            //-         li(id="liCity_#{arrCities[c].id}")
-            //-           input(id="cbCity_#{arrCities[c].id}" type="checkbox")
-            //-           label(for="cbCity_#{arrCities[c].id}" style="margin-right: 20px;") #{arrCities[c].name}  
+              li(id="liSortBySection" title="Сортировка по категории")
+                a(href="#")
+                  span(id="spanSortBySection_asc" class="glyphicon glyphicon-sort-by-alphabet")
+                  span(id="spanSortBySectionAlt_desc" class="glyphicon glyphicon-sort-by-alphabet-alt" style="display:none;")                
+                  span(style="margin-left:3px;") Категории
 
-            //- li(class="dropdown")
-            //-   a(href="#" class="dropdown-toggle" data-toggle="dropdown") Города
-            //-     b(class="caret")
-            //-   -if(cities != undefined && cities != null)
-            //-     ul(id="ddlCities" class="dropdown-menu" style="width:1000px;")
-            //-       -for(var i = 0; i < cities.length; i++)
-            //-         li(class="col-sm-2")
-            //-           div(class="text-center" style="border-bottom-width: 0.5px; border-bottom-color: grey; border-bottom-style: solid;")
-            //-             span(class="" style="") #{cities[i].regionName}  
-            //-           ul(class="list-unstyled")
-            //-             -var arrCities = cities[i].cities;
-            //-             -for(var c = 0; c < arrCities.length; c++)
-            //-               li(id="liCity_#{arrCities[c].id}")
-            //-                 input(id="cbCity_#{arrCities[c].id}" type="checkbox")
-            //-                 label(for="cbCity_#{arrCities[c].id}" style="margin-right: 20px;") #{arrCities[c].name}  
+              li(id="liSortByDate" title="Сортировка по дате")
+                a(href="#")
+                  span(id="spanSortByDate_asc" class="glyphicon glyphicon-sort-by-attributes")
+                  span(id="spanSortByDateAlt_desc" class="glyphicon glyphicon-sort-by-attributes-alt" style="display:none;")                
+                  span(style="margin-left:3px;")  Дата   
 
-            li(style="display: none;")
-              input(id="txtDateFrom1" type="text" class="navbar-form form-control" placeholder="Дата с:" style="margin-right: 5px;")
+              li(id="liSuperPrice1" style="display:none;")
+                a(href="#")
+                  span(class="glyphicon glyphicon-gift")
+                  span(style="margin-left:3px;") Супер-цена            
 
-            li(style="display: none;")
-              input(id="txtDateTo1" type="text" class="navbar-form form-control" placeholder="Дата по:")
-             
-            li
-              form(class="navbar-form navbar-left")            
-                input(id="txtSearch" type="text" class="form-control" placeholder="Search" style="width: 170px;")
-                //- button(id="btnSearch" type="button" class="btn btn-default")
-                //-   span(class="glyphicon glyphicon-search")
+              li(id="liDiscount1" style="display:none;")
+                a(href="#")
+                  span(class="glyphicon glyphicon-tag")
+                  span(style="margin-left:3px;") Со скидкой
 
-            li(id="liSortByPrice" title="Сортировка по цене")
-              a(href="#")
-                span(id="spanSortByPriceAlt_desc" class="glyphicon glyphicon-sort-by-attributes-alt")
-                span(id="spanSortByPrice_asc" class="glyphicon glyphicon-sort-by-attributes" style="display:none;")
-                span(style="margin-left:3px;") Цена
+              li(id="liTour1" style="display:none;")
+                a(href="#")
+                  span(class="glyphicon glyphicon-globe") 
+                  span(style="margin-left:3px;") Гастроли
 
-            li(id="liSortByName" title="Сортировка по названию")
-              a(href="#")
-                span(id="spanSortByName_asc" class="glyphicon glyphicon-sort-by-alphabet")
-                span(id="spanSortByNameAlt_desc" class="glyphicon glyphicon-sort-by-alphabet-alt" style="display:none;")
-                span(style="margin-left:3px;") Название
-                
-            li(id="liSortBySection" title="Сортировка по категории")
-              a(href="#")
-                span(id="spanSortByName_asc" class="glyphicon glyphicon-tasks")                
-                span(style="margin-left:3px;") Категории
-
-            li(id="liSortBySection" title="Сортировка по дате")
-              a(href="#")
-                span(id="spanSortByName_asc" class="glyphicon glyphicon-calendar")                
-                span(style="margin-left:3px;")  Дата   
-
-            li(id="liSuperPrice1" style="display:none;")
-              a(href="#")
-                span(class="glyphicon glyphicon-gift")
-                span(style="margin-left:3px;") Супер-цена            
-
-            li(id="liDiscount1" style="display:none;")
-              a(href="#")
-                span(class="glyphicon glyphicon-tag")
-                span(style="margin-left:3px;") Со скидкой
-
-            li(id="liTour1" style="display:none;")
-              a(href="#")
-                span(class="glyphicon glyphicon-globe") 
-                span(style="margin-left:3px;") Гастроли
-
-            li
-              a(id="aClearTopFilter" href="#")
-                span(style="margin-right:3px;" class="glyphicon glyphicon-remove-circle")
-                span Очистить
+              li
+                a(id="aClearTopFilter" href="#")
+                  span(style="margin-right:3px;" class="glyphicon glyphicon-remove-circle")
+                  span Очистить
 
                            
 
