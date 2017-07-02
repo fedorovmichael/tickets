@@ -10,8 +10,12 @@ $(document).ready(function () {
         filtersHandler();
     });
 
+    $("input[id^='regionID_']").on("click", function (event) {
+        regionsFilterHandler(this.id);
+    });
+
     $("input[id^='cbCity_']").on("click", function (event) {
-        //filtersHandler();
+        citiesFilterHandler(this.id);
     });
 
     $("body").on("click", "li[id^='liMainShowID_']", function (event) {
@@ -32,19 +36,25 @@ $(document).ready(function () {
         sortByHandler("liSortByName", "spanSortByNameAlt_desc", "spanSortByName_asc");
     });
 
-    $("#liSuperPrice").on("click", function (event) {
+    $("#liSortBySection").on("click", function (event) {
         event.preventDefault();
-        priceFilterHandler(this.id);
+        sortByHandler("liSortBySection", "spanSortBySectionAlt_desc", "spanSortBySection_asc");
+    });
+
+    $("#liSortByDate").on("click", function (event) {
+        event.preventDefault();
+        sortByHandler("liSortByDate", "spanSortByDateAlt_desc", "spanSortByDate_asc");
+    });
+
+    $("#liSuperPrice").on("click", function (event) {
+        filtersHandler();
     });
 
     $("#liDiscount").on("click", function (event) {
-        event.preventDefault();
-        priceFilterHandler(this.id);
+        filtersHandler();
     });
 
-    $("#liTour").on("click", function (event) {
-        event.preventDefault();
-        $("#liTour").hasClass('active') ? $("#liTour").removeClass('active') : $("#liTour").addClass('active');
+    $("#liTour").on("click", function (event) {               
         filtersHandler();
     });
 
@@ -83,40 +93,6 @@ $(document).ready(function () {
         leftFilterDateHandler(false);
     });
 
-    // $("#liLeftFilter_Tomorrow").on("click", function (event) {
-    //     event.preventDefault();
-    //     leftFilterTomorrow();
-    // });
-
-    // $("#liLeftFilter_Week").on("click", function (event) {
-    //     event.preventDefault();
-    //     leftFilterWeek();
-    // });
-
-    // $("#liLeftFilter_Weekend").on("click", function (event) {
-    //     event.preventDefault();
-    //     leftFilterWeekend();
-    // });
-
-    // $("#liLeftFilter_NextWeekend").on("click", function (event) {
-    //     event.preventDefault();
-    //     leftFilterNextWeekend();
-    // });
-
-    // $("#liLeftFilter_Month").on("click", function (event) {
-    //     event.preventDefault();
-    //     leftFilterMonth();
-    // });
-
-    // $("#liLeftFilter_TreeMonth").on("click", function (event) {
-    //     event.preventDefault();
-    //     leftFilterTreeMonth();
-    // });
-
-    $("input[id^='regionID_']").on("click", function (event) {
-        citiesFilterHandler(this.id);
-    });
-
 });
 
 function sortByHandler(parentID, param1ID, param2ID) {
@@ -136,19 +112,6 @@ function sortByHandler(parentID, param1ID, param2ID) {
 
     $("#hdnSortElement").text('');
     $("#hdnSortElement").text(parentID);
-
-    filtersHandler();
-}
-
-function priceFilterHandler(entityID) {
-    if (!$("#" + entityID).hasClass('active')) {
-        $("#liSuperPrice").removeClass('active');
-        $("#liDiscount").removeClass('active');
-        $("#" + entityID).addClass('active');
-    }
-    else {
-        $("#" + entityID).removeClass('active');
-    }
 
     filtersHandler();
 }
@@ -372,11 +335,12 @@ function filtersHandler() {
     var arrCitiesChecked = [];
     var url = "/getShowByFilters";
     var jsonDates = $("#hdnDateFilterData").text();
+    var jsonCities = $("#hdnCitiesFilterData").text();
 
-    //active
-    var superPrice = $("#liSuperPrice").hasClass("active");
-    var discount = $("#liDiscount").hasClass("active");
-    var tour = $("#liTour").hasClass("active");
+    //price filter
+    var superPrice = $("#inputSuperPrice").is(":checked");
+    var discount = $("#inputDiscount").is(":checked");
+    var tour = $("#inputTour").is(":checked");
     var count = 0;
 
     //get checked types
@@ -421,30 +385,12 @@ function filtersHandler() {
         arrTypesChecked = null;
     }
 
-    //get cities checked
-    count = 0;
-    $.each(arrCities, function (index, value) {
-
-        var input = $(value).find("input[type='checkbox']");
-        var isChecked = $(input).is(':checked');
-        var cityID = $(value).attr("id").split("_")[1];
-
-        if (isChecked) {
-            arrCitiesChecked.push(cityID);
-            count++;
-        }
-    });
-
-    if (count == 0) {
-        arrCitiesChecked = null;
-    }
-
     if ($("#hdnSortElement").text() == '') {
         $("#hdnSortElement").text('liSortByPrice');
     }
 
     var data = {
-        cities: arrCitiesChecked == null ? null : arrCitiesChecked.join(),
+        cities: jsonCities == '' ? null : jsonCities,
         types: arrTypesChecked == null ? null : arrTypesChecked,
         subtypes: arrSubTypesChecked == null ? null : arrSubTypesChecked.join(),
         //dateFrom: strDateFrom == '' ? null : strDateFrom,
@@ -454,7 +400,8 @@ function filtersHandler() {
         discount: discount,
         sortByPrice: $("#hdnSortElement").text() == 'liSortByPrice' ? getSortDirection("liSortByPrice") : null,
         sortByName: $("#hdnSortElement").text() == 'liSortByName' ? getSortDirection("liSortByName") : null,
-        sortByDate: $("#hdnSortElement").text() == 'sortByDate' ? "asc" : null,
+        sortByDate: $("#hdnSortElement").text() == 'liSortByDate' ? getSortDirection("liSortByDate") : null,
+        sortBySection: $("#hdnSortElement").text() == 'liSortBySection' ? getSortDirection("liSortBySection") : null,
         tour: tour,
         dates: jsonDates == '' ? null : jsonDates
     };
@@ -478,9 +425,7 @@ function getSortDirection(entityID) {
     return sortDirection;
 }
 
-function clearTopFilter() {
-    $("#txtDateFrom").val('');
-    $("#txtDateTo").val('');
+function clearTopFilter() {    
     $("#txtSearch").val('');
     $("#liSuperPrice").removeClass('active');
     $("#liDiscount").removeClass('active');
@@ -515,12 +460,55 @@ function clearLeftFilter() {
         $('label[for=' + $(input).attr('id') + ']').removeClass('checked');
     });
 
-    var arrElements = $("li[id^='liSubTypeID_']");
+    arrElements = $("li[id^='liSubTypeID_']");
     $.each(arrElements, function (i, v) {
         var input = $(v).find("input[type='checkbox']");
         $(input).prop('checked', false);
         $('label[for=' + $(input).attr('id') + ']').removeClass('checked');
     });
+
+    arrElements = $("li[id^='liCity_']");
+    $.each(arrElements, function (i, v) {
+        var input = $(v).find("input[type='checkbox']");
+        $(input).prop('checked', false);
+        $('label[for=' + $(input).attr('id') + ']').removeClass('checked');
+    });
+
+    arrElements = $("li[id^='liRegion_']");
+    $.each(arrElements, function (i, v) {
+        var input = $(v).find("input[type='checkbox']");
+        $(input).prop('checked', false);
+        $('label[for=' + $(input).attr('id') + ']').removeClass('checked');
+        var region = $(v).attr('id').split("_")[1];
+
+        $("#ulCitiesOfRegion_" + region).hide();
+    });    
+
+    $("#hdnCitiesFilterData").text('');
+
+    arrElements = $("li[id^='liLeftFilter_']");
+    $.each(arrElements, function (i, v) {
+        var input = $(v).find("input[type='checkbox']");
+        $(input).prop('checked', false);
+        $('label[for=' + $(input).attr('id') + ']').removeClass('checked');
+    });        
+
+    $("#hdnDateFilterData").text('');
+    
+    $("#txtDateFrom").val('');
+    $("#txtDateTo").val('');
+    $("#txtDateFrom").prop('disabled', false);
+    $("#txtDateTo").prop('disabled', false);
+
+    $("#inputSuperPrice").prop('checked', false);
+    $("label[for='inputSuperPrice']").removeClass('checked');
+
+    $("#inputDiscount").prop('checked', false);
+    $("label[for='inputDiscount']").removeClass('checked');
+
+    $("#inputTour").prop('checked', false);
+    $("label[for='inputTour']").removeClass('checked');
+    
 
     filtersHandler();
 }
@@ -530,7 +518,13 @@ function leftFilterDateHandler(inputDate)
     var arrFilterDates = $("li[id^='liLeftFilter_']");
     var arrFilterDatesResult = [];
 
-    $("#hdnSortElement").text('sortByDate');
+    $("#hdnSortElement").text('liSortByDate');
+
+    if($("#spanSortByDateAlt_desc").is(":visible"))
+    {
+        $("#spanSortByDateAlt_desc").hide();
+        $("#spanSortByDate_asc").show();
+    }    
 
     $("#txtDateFrom").prop('disabled', false);
     $("#txtDateTo").prop('disabled', false); 
@@ -582,48 +576,46 @@ function leftFilterDateHandler(inputDate)
                 break;
 
                 case "weekend":
-                var day = 0;
+                var day = tDate.getDay();
+                var dayCount = tDate.getDay() < 4 ? 4 : 11;
+                var fdate = dayCount - day;
 
-                for (var i = 0; i < 7; i++) {
-                    day = tDate.getDay() + i;
+                fromDate = $.datepicker.formatDate("dd.mm.yy", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + fdate));
+                objDate.fDate = fromDate;
+                objDate.tDate = $.datepicker.formatDate("dd.mm.yy", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + fdate + 2));
 
-                    if (day == 4) {
-                        var year = tDate.getFullYear(), month = tDate.getMonth(), day = tDate.getDate() + i, fromDate = '';                         
-                        fromDate = $.datepicker.formatDate("dd.mm.yy", new Date(tDate.getFullYear(), tDate.getMonth(), tDate.getDate() + i));
-                        objDate.fDate = fromDate;
-                        objDate.tDate = $.datepicker.formatDate("dd.mm.yy", new Date(year, month, day + 2));
-                    }
-                }
+
+                // for (var i = 0; i < 7; i++) {                    
+                   
+                //     if(day == 6)
+                //     {
+                //         day = 0;
+                //     }
+
+                //     if (day == 4) {
+                //         var year = tDate.getFullYear(), month = tDate.getMonth(), day = tDate.getDate() + i, fromDate = '';                         
+                //         fromDate = $.datepicker.formatDate("dd.mm.yy", new Date(tDate.getFullYear(), tDate.getMonth(), tDate.getDate() + i + 1));
+                //         objDate.fDate = fromDate;
+                //         objDate.tDate = $.datepicker.formatDate("dd.mm.yy", new Date(year, month, day + 3));
+                //     }
+
+                //     day ++;                    
+                // }
                 arrFilterDatesResult.push(objDate);            
                 break;
 
                 case "nextweekend":
                 var fromDate = '';
                 var toDate = '';
-                var day = 0;
-                var weekCount = 1;
-                var dayCount = 1;
-
-                for (var w = 0; w < 2; w++) {
-                    for (var i = 0; i < 6; i++) {
-                        day = tDate.getDay() + i;
-
-                        if (day == 6) {
-                            weekCount++;
-                            dayCount += i;
-                            break;
-                        }
-
-                        if (weekCount == 2 && day == 4) {                            
-                            dayCount += day;
-                            var year = tDate.getFullYear(), month = tDate.getMonth(), tday = tDate.getDate() + dayCount;
-                            fromDate = $.datepicker.formatDate("dd.mm.yy", new Date(tDate.getFullYear(), tDate.getMonth(), tDate.getDate() + dayCount));
-                            toDate = $.datepicker.formatDate("dd.mm.yy", new Date(year, month, tday + 2));
-                            objDate.fDate = fromDate;
-                            objDate.tDate = toDate;                       
-                        }
-                    }
-                }
+                var day = tDate.getDay();
+                var dayCount = tDate.getDay() < 4 ? 11 : 18;          
+                var fDate = dayCount - day;
+                
+                var year = new Date().getFullYear(), month = new Date().getMonth(), tday = new Date().getDate() + fDate;
+                fromDate = $.datepicker.formatDate("dd.mm.yy", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + fDate));
+                toDate = $.datepicker.formatDate("dd.mm.yy", new Date(year, month, tday + 2));
+                objDate.fDate = fromDate;
+                objDate.tDate = toDate;
                 arrFilterDatesResult.push(objDate);
                 break;
 
@@ -649,30 +641,95 @@ function leftFilterDateHandler(inputDate)
      filtersHandler(arrFilterDatesResult);
 }
 
-function citiesFilterHandler(regionID)
+function regionsFilterHandler(regionID)
 {
-    var rID = regionID.split("_")[1];
-    var arrRegionCities = [], liRegionCities = '';
+    var rID = regionID.split("_")[1];    
+    var arrRegionCities = [], liRegionCities = '', objRegion = new Object(), arrObjRegion = [];
+    var arrInputAllRegions = $("input[id^='regionID_']");
+
+    if($("#hdnCitiesFilterData").text() != '')
+    {
+        arrObjRegion = JSON.parse($("#hdnCitiesFilterData").text());
+    }
 
     if($("#ulCitiesOfRegion_" + rID).is(":visible"))
     {
-        $("#ulCitiesOfRegion_" + rID).hide();
+        $("#ulCitiesOfRegion_" + rID).hide();        
+        var regionToRemove = 0;
+
+        $.each(arrObjRegion, function(i, v){
+            if(v.regionID == rID)
+            {
+               regionToRemove = i;
+            }
+        });
+
+        arrObjRegion.splice(regionToRemove, 1);
+
     }
     else
     {
         $("#ulCitiesOfRegion_" + rID).show();
-        liRegionCities = $("#ulCitiesOfRegion_" + rID + " li");
+        liRegionCities = $("#ulCitiesOfRegion_" + rID + " li");        
 
         $.each(liRegionCities, function(i, v){
             var cityID = $(v).prop("id").split("_")[1];
             arrRegionCities.push(cityID);
         });
+
+        objRegion.regionID = rID;
+        objRegion.cities = arrRegionCities;
+
+        arrObjRegion.push(objRegion);
     }
 
-    $("#hdnCitiesFilterData").text(JSON.stringify(arrRegionCities));
-    var c = arrRegionCities;
+    $("#hdnCitiesFilterData").text('');
+    $("#hdnCitiesFilterData").text(JSON.stringify(arrObjRegion));
+    var c = $("#hdnCitiesFilterData").text();
+    filtersHandler();
+    
 }
 
+function citiesFilterHandler(cityID)
+{
+    var region = $("#"+cityID).attr("region");
+
+    if($("label[for='regionID_" + region + "']").hasClass('checked'))
+    {
+        $("#regionID_"+ region).prop('checked', false);
+        $("label[for='regionID_" + region + "']").removeClass('checked');
+    }
+
+    var arrObjRegion = JSON.parse($("#hdnCitiesFilterData").text());
+
+    $.each(arrObjRegion, function(i,v){
+        if(v.regionID == region)
+        {
+            v.cities = [];
+            var arrCitiesInput = $("input[region='"+ region +"']");
+
+            $.each(arrCitiesInput, function(ic, vc){
+                if($(vc).is(":checked"))
+                {
+                    v.cities.push($(vc).attr("id").split("_")[1]);
+                }
+            });
+
+            if(v.cities.length == 0)
+            {
+                $("#ulCitiesOfRegion_" + region).hide();
+            }
+        }        
+    });
+    
+    $("#hdnCitiesFilterData").text('');
+    $("#hdnCitiesFilterData").text(JSON.stringify(arrObjRegion));   
+
+    var d = $("#hdnCitiesFilterData").text(); 
+    filtersHandler();  
+    
+}
+ 
 function sendDataToServer(path, data, callbackSuccess, callbackError) {
     try {
         $.ajax({

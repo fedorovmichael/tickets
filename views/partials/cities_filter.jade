@@ -11,5 +11,5 @@ script.
           -var arrCities = cities[i].cities;
           -for(var c = 0; c < arrCities.length; c++)
             li(id="liCity_#{arrCities[c].id}" class="text-left border-bottom-grey")
-              input(id="cbCity_#{arrCities[c].id}" type="checkbox" name="genre" value="action")
+              input(id="cbCity_#{arrCities[c].id}" type="checkbox" name="genre" value="action" region="#{cities[i].regionName}")
               label(for="cbCity_#{arrCities[c].id}" style="text-transform: uppercase; font-weight: normal;") #{arrCities[c].name}

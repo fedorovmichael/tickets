@@ -380,12 +380,12 @@ db.getShowsByFilters = function(filters, cb)
             queryFiters += " and LOWER(sh.name) like '%"+ filters.searchText.toLowerCase() +"%' or LOWER(sh.announce) like '%"+ filters.searchText.toLowerCase() +"%'";
         }
 
-        if(filters.superPrice && !filters.discount)
+        if(filters.superPrice)
         {
             queryFiters += " and sh.superprice = '"+ filters.superPrice +"'";
         }
 
-        if(filters.discount && !filters.superPrice)
+        if(filters.discount)
         {
             queryFiters += " and sh.discount = '"+ filters.discount +"'";
         }
@@ -409,27 +409,24 @@ db.getShowsByFilters = function(filters, cb)
         {
             querySort += " order by sh.date_from " + filters.sortByDate;
         }
+
+        if(filters.sortBySection != null)
+        {
+            querySort += " order by type_name " + filters.sortBySection;
+        }
         
         console.log(""); 
         console.log("filter: ", queryFiters);
         console.log("sort filter: ", querySort);
         console.log("");
 
-        // var queryDB = "select sh.id as show_id, sh.name as name, sh.announce as announce, sh.price_min, sh.price_max, sh.date_from, sh.date_to, sh.resource, sh.main_image from shows as sh "+
-        // "join seances as s on  sh.id = s.show_id "+
-        // "join cities as c on s.city = c.name "+
-        // "join show_section as ss on sh.id = ss.show_id "+
-        // "join type as t on ss.type_id = t.id "+
-        // "join subtype as st on ss.subtype_id = st.id "+
-        // "where sh.id != '0' " +
-        // queryFiters +" "+ querySort;
-
-        //var queryDB = "select * from getshowbyfilter("+ filters.types +", "+ filters.subtypes +", "+ filters.cities +", "+ filters.dateFrom +", "+ filters.dataTo +", "+ filters.searchText +", "+ filters.superPrice +", "+ filters.discount +", "+ filters.tour +", 'date_from', 'asc')";
-
         var queryDB = queryTempTable +" "+
-        " select distinct sh.id as show_id, sh.name as name, sh.announce as announce, sh.price_min, sh.price_max, sh.date_from, sh.date_to, sh.resource, sh.main_image from shows as sh " +
+        " select distinct sh.id as show_id, sh.name as name, sh.announce as announce, sh.price_min, sh.price_max, sh.date_from, sh.date_to, sh.resource, sh.main_image, t.name as type_name " +  
+        "from shows as sh " +
         "join seances as s on  sh.id = s.show_id " +
         "join cities as c on s.city = c.name " +
+        "join show_section as ss on ss.show_id = sh.id " +
+        "join type as t on t.id = ss.type_id " +
         " where sh.id != '0' " +
         queryFiters +" "+ querySort +"; "+ queryDropTempTable;
 

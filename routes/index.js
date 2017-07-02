@@ -248,20 +248,34 @@ router.post('/getSearchShowByText', function(req, res, next) {
 router.post('/getShowByFilters', function(req, res, next) {
 
     var strCities = null, strTypes = null, strSubTypes = null, objTypes = null;    
-    var dateFrom = null, dataTo = null, arrDates = [], searchText = null, superPrice = false, discount = false, tour = false, sortByPrice = null, sortByName = null, sortByDate = null;
+    var dateFrom = null, dataTo = null, arrDates = [], searchText = null, superPrice = false, discount = false, tour = false, sortByPrice = null, sortByName = null, sortByDate = null, sortBySection = null;
 
     //cities
     if(req.body.cities != null)
     {
-        strCities = "";
-        var citiesIDs = req.body.cities.split(','); 
+        console.log("cities: ", req.body.cities);        
+        var arrObjRegion = JSON.parse(req.body.cities);
 
-        for(var i = 0; i < citiesIDs.length; i++)
+        strCities = "";
+
+        for(var i = 0; i < arrObjRegion.length; i++)
         {
-            strCities += "'" + citiesIDs[i] + "',";
+            var arrCities = arrObjRegion[i].cities;
+
+            for(var c = 0; c < arrCities.length; c++)
+            {
+              strCities +=  "'" + arrCities[c] + "',"; 
+            }          
         }
 
-        strCities = strCities.substring(0, strCities.length - 1);
+        if(strCities != "")
+        {
+            strCities = strCities.substring(0, strCities.length - 1);
+        }
+        else
+        {
+            strCities = null;
+        }
         console.log(""); 
         console.log("cities ids: ", strCities);
         console.log("");
@@ -408,6 +422,12 @@ router.post('/getShowByFilters', function(req, res, next) {
         sortByDate = req.body.sortByDate;
     }
 
+    if(req.body.sortBySection != null)
+    {
+        sortBySection = req.body.sortBySection;
+    }
+    
+
     var filter = {
         cities: strCities,
         types: strTypes,
@@ -420,6 +440,7 @@ router.post('/getShowByFilters', function(req, res, next) {
         sortByPrice: sortByPrice,
         sortByName: sortByName,
         sortByDate: sortByDate,
+        sortBySection: sortBySection,
         tour: tour,
         dates: arrDates
     };
