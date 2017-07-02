@@ -360,19 +360,38 @@ db.getShowsByFilters = function(filters, cb)
 
         if(filters.dates != null)
         {
+            var datesFilter = '';
+
             for(var i = 0; i < filters.dates.length; i++)
             {
                 if(filters.dates.length > 1 && i <= filters.dates.length - 1 && i > 0)
                 {
-                   queryFiters += " or (sh.date_from >= '" + filters.dates[i].fDate + "'";
+                   datesFilter += " or (sh.date_from >= '" + filters.dates[i].fDate + "'";
                 }
                 else
                 {
-                    queryFiters += " and (sh.date_from >= '" + filters.dates[i].fDate + "'";
+                    if(filters.dates.length > 1)
+                    {
+                        datesFilter += " and ((sh.date_from >= '" + filters.dates[i].fDate + "'";
+                    }
+                    else
+                    {
+                       datesFilter += " and (sh.date_from >= '" + filters.dates[i].fDate + "'";
+                    }
                 }
                 
-                queryFiters += " and sh.date_to <= '" + filters.dates[i].tDate + "')";                
+                datesFilter += " and sh.date_to <= '" + filters.dates[i].tDate + "')";                
             }
+
+            if(datesFilter.indexOf('or') != -1)
+            {
+                queryFiters += datesFilter + ")";
+            }
+            else
+            {
+                queryFiters += datesFilter;
+            }
+
         }
 
         if(filters.searchText != null)
