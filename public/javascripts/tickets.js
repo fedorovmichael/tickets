@@ -91,7 +91,7 @@ $(document).ready(function () {
     $("input[id^='inputLeftFilter_'").on("click", function (event) {
         
         leftFilterDateHandler(false);
-    });
+    });    
 
 });
 
@@ -104,11 +104,6 @@ function sortByHandler(parentID, param1ID, param2ID) {
         $("#" + param1ID).show();
         $("#" + param2ID).hide();
     }
-
-    // if(!$("#"+ parentID).hasClass("active")){
-    //     $("#" + parentID).addClass("active");
-    // }
-
 
     $("#hdnSortElement").text('');
     $("#hdnSortElement").text(parentID);
@@ -226,16 +221,16 @@ function editShowHandler(showID) {
     sendDataToServer('/getShowByID', data, editShowHandlerCallbackSuccess, null);
 }
 
-function editShowHandlerCallbackSuccess(data) {
-    $("#divShowsMain").hide();
+function editShowHandlerCallbackSuccess(data) {    
     $("#divShowEdit").show();
+    $("#editShowModal").modal('show');
 
     fillEditShowHTML(data.show, data.showSeances, data.showMedia);
 }
 
-function editClose() {
-    $("#divShowsMain").show();
+function editClose() {    
     $("#divShowEdit").hide();
+    $("#editShowModal").modal('hide');
 }
 
 function fillEditShowHTML(show, arrShowsSeances, arrMedia) {
@@ -243,19 +238,21 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia) {
 
     $("#spanEditShowName").text(show[0].name);
 
-    if (show[0].second_image != null && show[0].second_image != '') {
+    // if (show[0].second_image != null && show[0].second_image != '') {
 
-        var fileType = show[0].second_image.split('.')[1];
-        if (fileType == 'mp4') {
+    //     var fileType = show[0].second_image.split('.')[1];
+    //     if (fileType == 'mp4') {
 
-        }
-        else {
-            $("#imgEditMain").attr("src", resource + show[0].second_image);
-        }
-    }
-    else {
-        $("#imgEditMain").attr("src", resource + show[0].main_image);
-    }
+    //     }
+    //     else {
+    //         $("#imgEditMain").attr("src", resource + show[0].second_image);
+    //     }
+    // }
+    // else {
+    //     $("#imgEditMain").attr("src", resource + show[0].main_image);
+    // }
+
+    $("#imgEditMain").attr("src", resource + show[0].main_image);
 
     $("#pEditShowAnnounce").text(show[0].announce);
 
@@ -584,23 +581,6 @@ function leftFilterDateHandler(inputDate)
                 objDate.fDate = fromDate;
                 objDate.tDate = $.datepicker.formatDate("dd.mm.yy", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + fdate + 2));
 
-
-                // for (var i = 0; i < 7; i++) {                    
-                   
-                //     if(day == 6)
-                //     {
-                //         day = 0;
-                //     }
-
-                //     if (day == 4) {
-                //         var year = tDate.getFullYear(), month = tDate.getMonth(), day = tDate.getDate() + i, fromDate = '';                         
-                //         fromDate = $.datepicker.formatDate("dd.mm.yy", new Date(tDate.getFullYear(), tDate.getMonth(), tDate.getDate() + i + 1));
-                //         objDate.fDate = fromDate;
-                //         objDate.tDate = $.datepicker.formatDate("dd.mm.yy", new Date(year, month, day + 3));
-                //     }
-
-                //     day ++;                    
-                // }
                 arrFilterDatesResult.push(objDate);            
                 break;
 

@@ -2,8 +2,12 @@ extends layout
 
 block content
   script.
-      $(function(){ $("#txtDateFrom").datepicker({minDate: new Date(), dateFormat: 'dd/mm/yy'}); $("#txtDateTo").datepicker({minDate: new Date(), dateFormat: 'dd/mm/yy'}); $("#divMultiDatePicker").multiDatesPicker();});      
-      $(function(){ $('input').customInput();});
+      $(function(){ 
+          $("#txtDateFrom").datepicker({minDate: new Date(), dateFormat: 'dd/mm/yy'}); 
+          $("#txtDateTo").datepicker({minDate: new Date(), dateFormat: 'dd/mm/yy'}); 
+          $("#divMultiDatePicker").multiDatesPicker();      
+          $('input').customInput();          
+        }); 
 
   div(class="container text-center")
     <!--carousel-->

@@ -155,7 +155,7 @@ db.getSeancesByShowID = function(showID, cb)
     {
         console.log("db.getSeancesByShowID show id: ", showID)
 
-        var queryDB = "select city, date, seance_time, tickets, price_min, price_max, hall from seances where show_id = '"+ showID +"';"
+        var queryDB = "select city, date, seance_time, tickets, price_min, price_max, hall from seances where show_id = '"+ showID +"'  order by city asc;"
         getMultipleResponse(cb, queryDB);
     } 
     catch (error) 
@@ -220,8 +220,8 @@ db.getCities = function(cb)
     try
     {
        var resultCities = []; 
-       var regionQueryDB = "select distinct region from cities";
-       var citiesQueryDB = "select distinct c.id, c.name, c.region from cities as c join seances as s on c.name = s.city";
+       var regionQueryDB = "select distinct region from cities order by region asc";
+       var citiesQueryDB = "select distinct c.id, c.name, c.region from cities as c join seances as s on c.name = s.city order by c.name asc";
 
        async.series([
            function getRegionsFromDB(callback)

@@ -1,34 +1,63 @@
-div(class="panel panel-default")
-  div(id="divEditShowName" class="panel-heading")
-    span(id="spanEditShowName") 
-    button(id="btnEditShowClose" type="button" class="close" data-dismiss="modal")&times;
-  div(class="panel-body")
-    div(class="col-md-12")  
-      img(id="imgEditMain" src="http://kartisinfo.co.il/media/show/videoimage/55912.jpg", style="width:350px; heigth: 270px; margin: 0 10px 10px 0;" class="pull-left")      
-      p(id="pEditShowAnnounce" style='text-align: justify;') 
+div(class="modal fade" id="editShowModal" role="dialog")
+  div(class="modal-dialog modal-lg")
+    div(class="modal-content")
+      div(class="modal-header")
+        a(id="aClearTopFilter1" href="#" data-dismiss="modal" class="edit-show-close-a" style="text-transform: uppercase; float: right;")
+          span(class="glyphicon glyphicon-remove-circle")        
+        h4(class="modal-title" id="spanEditShowName")
+      
+      div(class="modal-body")
+        div(class="col-md-12")
+          img(id="imgEditMain" src="http://kartisinfo.co.il/media/show/videoimage/55912.jpg", style="width:350px; heigth: 270px; margin: 0 10px 10px 0;" class="pull-left")
+          p(id="pEditShowAnnounce" style='text-align: justify;')
+        
+        table(id="tableEditSeances" class="table" style="margin-top:20px;" border="0")
+          tr(style="background-color: #f5f5f5; border-rigth:white;")
+            th(class="text-center table-head-border") ГОРОД
+            th(class="text-center table-head-border") ДАТА
+            th(class="text-center table-head-border") МЕСТО ПРОВЕДЕНИЯ
+            th(class="text-center table-head-border") ЦЕНА
+            th
 
-  table(id="tableEditSeances" class="table" style="margin-top:20px;" border="0")
-    tr(style="background-color: #f5f5f5; border-rigth:white;")
-      th(class="text-center table-head-border") ГОРОД
-      th(class="text-center table-head-border") ДАТА
-      th(class="text-center table-head-border") МЕСТО ПРОВЕДЕНИЯ
-      th(class="text-center table-head-border") ЦЕНА
-      th 
+        div(class="panel panel-default" style="margin-top:20px;")
+          div(class="panel-heading") ФОТО - ВИДЕО
+          div(class="panel-body")
+            div(id="divEditGalary" class="row")
 
-  div(class="panel panel-default" style="margin-top:20px;")
-    div(class="panel-heading") ФОТО - ВИДЕО
-    div(class="panel-body")  
-      div(id="divEditGalary" class="row")
-        div(class="col-xs-6 col-md-3")
-          a(href="#" class="thumbnail")
-            img(img src="//kartisinfo.co.il/media/show/gallery/120x120/55429.jpg" alt="Патрисия Каас — Patricia Kaas")
-        div(class="col-xs-6 col-md-3")
-          a(href="#" class="thumbnail")
-            img(img src="//kartisinfo.co.il/media/show/gallery/120x120/55429.jpg" alt="Патрисия Каас — Patricia Kaas")
-        div(class="col-xs-6 col-md-3")  
-          a(href="#" class="thumbnail")
-            img(img src="//kartisinfo.co.il/media/show/gallery/120x120/55429.jpg" alt="Патрисия Каас — Patricia Kaas")
-        div(class="col-xs-6 col-md-3")  
-          a(href="#" class="thumbnail")
-            img(img src="//kartisinfo.co.il/media/show/gallery/120x120/55429.jpg" alt="Патрисия Каас — Patricia Kaas")
+      div(class="modal-footer")
+        button(type="button" class="btn btn-default" data-dismiss="modal" style="text-transform: uppercase;") закрыть     
+
+//- div(class="panel panel-default")
+//-   div(id="divEditShowName" class="panel-heading")
+//-     span(id="spanEditShowName") 
+//-     button(id="btnEditShowClose" type="button" class="close" data-dismiss="modal")&times;
+//-   div(class="panel-body")
+//-     div(class="col-md-12")  
+//-       img(id="imgEditMain" src="http://kartisinfo.co.il/media/show/videoimage/55912.jpg", style="width:350px; heigth: 270px; margin: 0 10px 10px 0;" class="pull-left")      
+//-       p(id="pEditShowAnnounce" style='text-align: justify;') 
+
+//-   table(id="tableEditSeances" class="table" style="margin-top:20px;" border="0")
+//-     tr(style="background-color: #f5f5f5; border-rigth:white;")
+//-       th(class="text-center table-head-border") ГОРОД
+//-       th(class="text-center table-head-border") ДАТА
+//-       th(class="text-center table-head-border") МЕСТО ПРОВЕДЕНИЯ
+//-       th(class="text-center table-head-border") ЦЕНА
+//-       th 
+
+//-   div(class="panel panel-default" style="margin-top:20px;")
+//-     div(class="panel-heading") ФОТО - ВИДЕО
+//-     div(class="panel-body")  
+//-       div(id="divEditGalary" class="row")
+//-         div(class="col-xs-6 col-md-3")
+//-           a(href="#" class="thumbnail")
+//-             img(img src="//kartisinfo.co.il/media/show/gallery/120x120/55429.jpg" alt="Патрисия Каас — Patricia Kaas")
+//-         div(class="col-xs-6 col-md-3")
+//-           a(href="#" class="thumbnail")
+//-             img(img src="//kartisinfo.co.il/media/show/gallery/120x120/55429.jpg" alt="Патрисия Каас — Patricia Kaas")
+//-         div(class="col-xs-6 col-md-3")  
+//-           a(href="#" class="thumbnail")
+//-             img(img src="//kartisinfo.co.il/media/show/gallery/120x120/55429.jpg" alt="Патрисия Каас — Patricia Kaas")
+//-         div(class="col-xs-6 col-md-3")  
+//-           a(href="#" class="thumbnail")
+//-             img(img src="//kartisinfo.co.il/media/show/gallery/120x120/55429.jpg" alt="Патрисия Каас — Patricia Kaas")
 

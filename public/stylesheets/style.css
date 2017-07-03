@@ -158,6 +158,16 @@ a {
 	font-weight: normal;
 }
 
+.edit-show-close-a
+{
+	margin-right:3px;
+	font-size:18pt;
+	 color: #7F8C8D;
+}
 
+.edit-show-close-a :hover
+{	
+	color: #99A3A4;
+}
 
  
