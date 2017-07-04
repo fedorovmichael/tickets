@@ -91,6 +91,24 @@ $(document).ready(function () {
     $("input[id^='inputLeftFilter_'").on("click", function (event) {
         
         leftFilterDateHandler(false);
+    });
+
+    $("#inputPriceMin").on("keyup", function (event) {
+        this.value = this.value.replace(/[^0-9\.]/g,'');
+
+        if(this.value.length > 1)
+        {
+            leftFilterPriceHandler();
+        }
+    });
+
+    $("#inputPriceMax").on("keyup", function (event) {
+        this.value = this.value.replace(/[^0-9\.]/g,'');
+
+        if(this.value.length > 1)
+        {
+            leftFilterPriceHandler();
+        }
     });    
 
 });
@@ -271,13 +289,19 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia) {
             showPrice = "<td>" + value.price_min + " - " + value.price_max + "&#8362;</td>";
         }
 
+        if(value.price_max == "" &&  value.price_min == "")
+        {
+            return;
+        }
+        
         seanceTableHTML += "<tr>" +
             "<td>" + value.city + "</td>" +
             "<td>" + value.date + "&nbsp;" + value.seance_time + "</td>" +
             "<td>" + value.hall + "</td>" +            
-             showPrice +
+            showPrice +
             "<td><a href='#'>КУПИТь</a></td>" +
             "</tr>";
+        
     });
 
     var arrTrs = $("#tableEditSeances tr");
@@ -338,6 +362,9 @@ function filtersHandler() {
     var superPrice = $("#inputSuperPrice").is(":checked");
     var discount = $("#inputDiscount").is(":checked");
     var tour = $("#inputTour").is(":checked");
+    var minPrice = $("#inputPriceMin").val() == '' ? null : parseInt($("#inputPriceMin").val());
+    var maxPrice = $("#inputPriceMax").val() == '' ? null : parseInt($("#inputPriceMax").val());
+
     var count = 0;
 
     //get checked types
@@ -400,7 +427,9 @@ function filtersHandler() {
         sortByDate: $("#hdnSortElement").text() == 'liSortByDate' ? getSortDirection("liSortByDate") : null,
         sortBySection: $("#hdnSortElement").text() == 'liSortBySection' ? getSortDirection("liSortBySection") : null,
         tour: tour,
-        dates: jsonDates == '' ? null : jsonDates
+        dates: jsonDates == '' ? null : jsonDates,
+        minPrice: minPrice,
+        maxPrice: maxPrice
     };
 
     var dd = data;
@@ -505,6 +534,9 @@ function clearLeftFilter() {
 
     $("#inputTour").prop('checked', false);
     $("label[for='inputTour']").removeClass('checked');
+
+    $("#inputPriceMin").val('');
+    $("#inputPriceMax").val('');
     
 
     filtersHandler();
@@ -708,6 +740,21 @@ function citiesFilterHandler(cityID)
     var d = $("#hdnCitiesFilterData").text(); 
     filtersHandler();  
     
+}
+
+function leftFilterPriceHandler()
+{
+   var minPrice = $("#inputPriceMin").val() == '' ? 0 : parseInt($("#inputPriceMin").val());
+   var maxPrice = parseInt($("#inputPriceMax").val());
+
+   if(minPrice > maxPrice && maxPrice != 0)
+   {
+      return;
+   }
+   else
+   {
+      filtersHandler();
+   }
 }
  
 function sendDataToServer(path, data, callbackSuccess, callbackError) {

@@ -116,7 +116,11 @@ block content
             li(id="liTour" class="text-left left-ul-filter border-bottom-grey")
               input(id="inputTour" type="checkbox" name="genre" value="action")
               label(for="inputTour" class="label-left-filter-font") Гастроли           
-
+            
+            li(id="liMinMaxPrice" class="text-left left-ul-filter border-bottom-grey")
+              label(class="label-left-filter-font" style="margin-right:10px;") Цена
+              input(id="inputPriceMin" type="text" style="margin-right:5px; width:60px;" placeholder="от" maxlength="5")
+              input(id="inputPriceMax" type="text" style="width:60px;" placeholder="до" maxlength="5")
 
           div(class="text-left")  
             a(id="aClearLeftFilter" href="#" style="margin-left: -10px; text-decoration-color: red;" )

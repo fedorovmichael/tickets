@@ -248,7 +248,9 @@ router.post('/getSearchShowByText', function(req, res, next) {
 router.post('/getShowByFilters', function(req, res, next) {
 
     var strCities = null, strTypes = null, strSubTypes = null, objTypes = null;    
-    var dateFrom = null, dataTo = null, arrDates = [], searchText = null, superPrice = false, discount = false, tour = false, sortByPrice = null, sortByName = null, sortByDate = null, sortBySection = null;
+    var dateFrom = null, dataTo = null, arrDates = [], searchText = null, superPrice = false,
+        discount = false, tour = false, sortByPrice = null, sortByName = null, sortByDate = null, 
+        sortBySection = null, minPrice = null, maxPrice = null;
 
     //cities
     if(req.body.cities != null)
@@ -336,41 +338,7 @@ router.post('/getShowByFilters', function(req, res, next) {
         console.log(""); 
         console.log("subtypes ids: ", strSubTypes);
         console.log("");
-    }
-
-    //subtypes
-    // console.log("");
-    // console.log("subtypes ", req.body.subtypes);
-    // console.log("");
-    // if(req.body.subtypes != null)
-    // {
-    //     strSubTypes = "";
-    //     var subTypesIDs = req.body.subtypes.split(',');  
-
-    //     for(var i = 0; i< subTypesIDs.length; i++)
-    //     {
-    //         strSubTypes += "'" + subTypesIDs[i] + "',";
-    //     }
-
-    //     strSubTypes = strSubTypes.substring(0, strSubTypes.length - 1);
-    //     console.log(""); 
-    //     console.log("subtypes ids: ", strSubTypes);
-    //     console.log(""); 
-    // }
-
-    // console.log("start dateFrom"); 
-    // console.log("dateFrom ids: ", req.body.dateFrom);
-    // console.log(""); 
-
-    // if(req.body.dateFrom != null)
-    // {
-    //     dateFrom = req.body.dateFrom;
-    // }
-
-    // if(req.body.dataTo != null)
-    // {
-    //     dataTo = req.body.dataTo;
-    // }
+    }    
 
     if(req.body.searchText != null)
     {
@@ -393,6 +361,20 @@ router.post('/getShowByFilters', function(req, res, next) {
     if(req.body.tour)
     {
         tour = req.body.tour ? "1" : "0";
+    }
+    console.log("start min price"); 
+    console.log("min price : ", req.body.minPrice);
+    console.log("");
+    if(req.body.minPrice != null)
+    {
+        minPrice = req.body.minPrice;
+    }
+    console.log("start max price"); 
+    console.log("max price : ", req.body.maxPrice);
+    console.log("");
+    if(req.body.maxPrice != null)
+    {
+        maxPrice = req.body.maxPrice;
     }  
 
     if(req.body.sortByPrice != null)
@@ -404,10 +386,7 @@ router.post('/getShowByFilters', function(req, res, next) {
     {
         sortByName = req.body.sortByName;
     }
-
-    console.log("start dates"); 
-    console.log("dates period : ", req.body.dates);
-    console.log("");
+    
     if(req.body.dates != null)
     {
         arrDates = JSON.parse(req.body.dates);
@@ -442,7 +421,9 @@ router.post('/getShowByFilters', function(req, res, next) {
         sortByDate: sortByDate,
         sortBySection: sortBySection,
         tour: tour,
-        dates: arrDates
+        dates: arrDates,
+        minPrice: minPrice,
+        maxPrice: maxPrice
     };
 
     console.log(""); 

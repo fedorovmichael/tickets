@@ -336,18 +336,6 @@ db.getShowsByFilters = function(filters, cb)
             queryFiters += " and c.id in ("+ filters.cities +")";
         }
 
-        // console.log("filters.types", filters.types);
-        // if(filters.types != null)
-        // {
-        //     queryFiters += " and t.id in ("+ filters.types +")";
-        //     console.log("queryFiters types: ", queryFiters);
-        // }
-
-        // if(filters.subtypes != null)
-        // {
-        //     queryFiters += " and st.id in ("+ filters.subtypes +")";
-        // }
-
         if(filters.dateFrom != null)
         {
             queryFiters += " and sh.date_from >= '"+filters.dateFrom +"'";
@@ -432,6 +420,16 @@ db.getShowsByFilters = function(filters, cb)
         if(filters.sortBySection != null)
         {
             querySort += " order by type_name " + filters.sortBySection;
+        }
+
+        if(filters.minPrice != null)
+        {
+            queryFiters += " and sh.price_min >= '" + filters.minPrice + "'";
+        }
+
+        if(filters.maxPrice != null)
+        {
+            queryFiters += " and sh.price_min <= '" + filters.maxPrice + "'";
         }
         
         console.log(""); 
