@@ -1,4 +1,11 @@
 
+
+$(document).on({
+    ajaxStart: function(){ $("#divLoading").addClass("wait-modal"); $("#divLoading").removeClass("wait-modal-none");  },
+    ajaxComplete: function(){ $("#divLoading").removeClass("wait-modal"); $("#divLoading").addClass("wait-modal-none"); $("body").scrollTop(0); }
+});
+
+
 $(document).ready(function () {
     $("input[id^='typeID_']").on("click", function (event) {
         //menuTypeHandler(this.id); subTypeID
@@ -63,18 +70,46 @@ $(document).ready(function () {
     });
 
     $("#txtDateFrom").on("change", function (event) {
+       
+        var datef = $("#txtDateFrom").val(), validateDate = true;        
+
+        if(datef.length > 0)
+        {
+            validateDate = validateData(datef);
+        }
+                
+        if(!validateDate)
+        {
+            alert("wrong date! ");
+            return false;
+        }
 
         var dateTo = $("#txtDateTo").datepicker('getDate');
 
         if(dateTo == '' || dateTo == null)
         {
             $("#txtDateTo").datepicker('setDate', $("#txtDateFrom").datepicker('getDate'));
-        }
+        }        
 
         leftFilterDateHandler(true);
+        
     });
 
     $("#txtDateTo").on("change", function (event) {
+
+        var datet = $("#txtDateTo").val(), validateDate = true;
+
+        if(datet.length > 0)
+        {
+            validateDate = validateData(datet);
+        }
+                
+        if(!validateDate)
+        {
+            alert("wrong date! ");
+            return false;
+        }
+
         leftFilterDateHandler(true);
     });
 
@@ -755,6 +790,64 @@ function leftFilterPriceHandler()
    {
       filtersHandler();
    }
+}
+
+function validateData(dateText)
+{
+    var vDay = new Date().getDate(), vMonth = new Date().getMonth(), vYear = new Date().getFullYear(), result = true;
+
+    if(dateText.length != 10)
+    {
+        result = false;        
+    }
+
+    var arrDateParts = dateText.split("/");
+
+    if(arrDateParts.length != 3)
+    {
+        return false;
+    }
+
+    //day
+    if(arrDateParts[0].length != 2)
+    {
+        return false;
+    }
+
+    var day = parseInt(arrDateParts[0]);
+
+    if(day > 31 || day < 1 || day < vDay)
+    {
+        return false;
+    }
+
+    //month
+    if(arrDateParts[1].length != 2)
+    {
+        return false;
+    }
+
+    var month = parseInt(arrDateParts[1]);
+
+    if(month > 12 || month < 1 || month < vMonth)
+    {
+        return false;
+    }
+
+    //year
+    if(arrDateParts[2].length > 4)
+    {
+        return false;
+    }
+
+    var year = parseInt(arrDateParts[2]);      
+    
+    if(year < vYear)
+    {
+        return false;
+    }
+
+    return result;
 }
  
 function sendDataToServer(path, data, callbackSuccess, callbackError) {
