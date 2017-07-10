@@ -410,9 +410,7 @@ router.post('/getShowByFilters', function(req, res, next) {
     var filter = {
         cities: strCities,
         types: strTypes,
-        subtypes: strSubTypes,
-        dateFrom: dateFrom,
-        dataTo: dataTo,
+        subtypes: strSubTypes,        
         searchText: searchText,
         superPrice: superPrice,
         discount: discount,

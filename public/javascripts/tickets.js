@@ -328,10 +328,12 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia) {
         {
             return;
         }
+
+        var date_seance = $.datepicker.formatDate("dd.mm.yy", new Date(value.date));       
         
         seanceTableHTML += "<tr>" +
             "<td>" + value.city + "</td>" +
-            "<td>" + value.date + "&nbsp;" + value.seance_time + "</td>" +
+            "<td>" + date_seance + "&nbsp;" + value.seance_time + "</td>" +
             "<td>" + value.hall + "</td>" +            
             showPrice +
             "<td><a href='#'>КУПИТь</a></td>" +
@@ -591,7 +593,7 @@ function leftFilterDateHandler(inputDate)
     }    
 
     $("#txtDateFrom").prop('disabled', false);
-    $("#txtDateTo").prop('disabled', false); 
+    $("#txtDateTo").prop('disabled', false);   
 
     if(inputDate)
     {
@@ -617,7 +619,9 @@ function leftFilterDateHandler(inputDate)
             }
 
             $("#txtDateFrom").prop('disabled', 'true');
-            $("#txtDateTo").prop('disabled', 'true');            
+            $("#txtDateTo").prop('disabled', 'true');
+            $("#txtDateFrom").val('');
+            $("#txtDateTo").val('');             
 
             switch(elmID.toLowerCase())
             {
@@ -816,7 +820,7 @@ function validateData(dateText)
 
     var day = parseInt(arrDateParts[0]);
 
-    if(day > 31 || day < 1 || day < vDay)
+    if(day > 31 || day < 1 || (day < vDay && arrDateParts[1] == vMonth))
     {
         return false;
     }
@@ -829,7 +833,7 @@ function validateData(dateText)
 
     var month = parseInt(arrDateParts[1]);
 
-    if(month > 12 || month < 1 || month < vMonth)
+    if(month > 12 || month < 1 || (month < vMonth && arrDateParts[2] == vYear))
     {
         return false;
     }

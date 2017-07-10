@@ -155,7 +155,7 @@ db.getSeancesByShowID = function(showID, cb)
     {
         console.log("db.getSeancesByShowID show id: ", showID)
 
-        var queryDB = "select city, date, seance_time, tickets, price_min, price_max, hall from seances where show_id = '"+ showID +"'  order by city asc;"
+        var queryDB = "select city, date, seance_time, tickets, price_min, price_max, hall from seances where show_id = '"+ showID +"'  order by date asc;"
         getMultipleResponse(cb, queryDB);
     } 
     catch (error) 
@@ -334,17 +334,7 @@ db.getShowsByFilters = function(filters, cb)
         if(filters.cities != null)
         {
             queryFiters += " and c.id in ("+ filters.cities +")";
-        }
-
-        if(filters.dateFrom != null)
-        {
-            queryFiters += " and sh.date_from >= '"+filters.dateFrom +"'";
-        }
-
-        if(filters.dataTo != null)
-        {
-            queryFiters += " and sh.date_to <= '"+ filters.dataTo +"'";
-        }
+        }        
 
         if(filters.dates != null)
         {
@@ -356,24 +346,24 @@ db.getShowsByFilters = function(filters, cb)
                 {
                     if(filters.dates.length > 1 && i <= filters.dates.length - 1 && i > 0)
                     {                                    
-                      datesFilter += " or (sh.date_from >= '" + filters.dates[i].fDate + "'";
+                      datesFilter += " or (s.date >= '" + filters.dates[i].fDate + "'";
                     }
                     else
                     {                        
                         if(filters.dates.length > 1)
                         {
-                            datesFilter += " and ((sh.date_from >= '" + filters.dates[i].fDate + "'";
+                            datesFilter += " and ((s.date >= '" + filters.dates[i].fDate + "'";
                         }                        
                         
                         else
                         {
                             if(filters.dates[i].tDate != "")
                             {                          
-                              datesFilter += " and (sh.date_from >= '" + filters.dates[i].fDate + "'";
+                              datesFilter += " and (s.date >= '" + filters.dates[i].fDate + "'";
                             }
                             else
                             {
-                              datesFilter += " and sh.date_from >= '" + filters.dates[i].fDate + "'";  
+                              datesFilter += " and s.date >= '" + filters.dates[i].fDate + "'";  
                             }
                         }
                     }
@@ -383,11 +373,11 @@ db.getShowsByFilters = function(filters, cb)
                 {
                   if(filters.dates[i].fDate != "")
                   {  
-                    datesFilter += " and sh.date_to <= '" + filters.dates[i].tDate + "')";
+                    datesFilter += " and s.date <= '" + filters.dates[i].tDate + "')";
                   }
                   else
                   {
-                    datesFilter += " and sh.date_to <= '" + filters.dates[i].tDate+ "'";
+                    datesFilter += " and s.date <= '" + filters.dates[i].tDate+ "'";
                   } 
                 }               
             }
