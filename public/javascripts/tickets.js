@@ -336,7 +336,7 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia) {
             "<td>" + date_seance + "&nbsp;" + value.seance_time + "</td>" +
             "<td>" + value.hall + "</td>" +            
             showPrice +
-            "<td><a href='#'>КУПИТь</a></td>" +
+            "<td><a href='"+ value.link +"' target='_blank'>КУПИТь</a></td>" +
             "</tr>";
         
     });
