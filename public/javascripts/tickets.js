@@ -144,7 +144,25 @@ $(document).ready(function () {
         {
             leftFilterPriceHandler();
         }
+    });
+
+    $("body").on("click", "a[id^='aSeancePay_']", function (event){
+        event.preventDefault();
+        showSeancePayPage(this.id);
     });    
+
+    $("#aCloseEditShow, #btnCloseEditShow").on("click", function (event) {
+        event.preventDefault();
+        editClose();
+    });
+
+    $("#aBackToEdit").on("click", function(event){
+        event.preventDefault();
+        $("#iframeSeancePayPage").prop("src", '');
+        $("#divSeancePayPage").hide();
+        $("#divEditShowBody").show();
+        $("#aBackToEdit").hide();
+    }); 
 
 });
 
@@ -281,9 +299,15 @@ function editShowHandlerCallbackSuccess(data) {
     fillEditShowHTML(data.show, data.showSeances, data.showMedia);
 }
 
-function editClose() {    
+function editClose() {
+
     $("#divShowEdit").hide();
     $("#editShowModal").modal('hide');
+
+    $("#iframeSeancePayPage").prop("src", '');
+    $("#divSeancePayPage").hide();
+    $("#divEditShowBody").show();
+    $("#aBackToEdit").hide();
 }
 
 function fillEditShowHTML(show, arrShowsSeances, arrMedia) {
@@ -329,14 +353,16 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia) {
             return;
         }
 
-        var date_seance = $.datepicker.formatDate("dd.mm.yy", new Date(value.date));       
+        var date_seance = $.datepicker.formatDate("dd.mm.yy", new Date(value.date));
+        var seance_id = "aSeancePay_"+ value.id;
+        var logo_img = show[0].resource == "bravo" ? "<img src='/images/bravo-logo.jpg' alt='bravo' style='width: 35px; height: 25px;'>" : "<img src='/images/biletru-logo.gif' alt='biletru' style='width: 55px; height: 15px;'>";        
         
         seanceTableHTML += "<tr>" +
             "<td>" + value.city + "</td>" +
             "<td>" + date_seance + "&nbsp;" + value.seance_time + "</td>" +
             "<td>" + value.hall + "</td>" +            
             showPrice +
-            "<td><a href='"+ value.link +"' target='_blank'>КУПИТь</a></td>" +
+            "<td><a id='" + seance_id + "' href='#' link='"+ value.link +"' style='color: black; cursor: pointer;'> <span style='text-transform: uppercase;'> купить </span> &nbsp; "+ logo_img +" </a></td>" +
             "</tr>";
         
     });
@@ -852,6 +878,15 @@ function validateData(dateText)
     }
 
     return result;
+}
+
+function showSeancePayPage(id)
+{    
+    var payLink = $("#" + id).attr("link");    
+    $("#iframeSeancePayPage").prop("src", payLink);
+    $("#divSeancePayPage").show();
+    $("#divEditShowBody").hide();
+    $("#aBackToEdit").show();
 }
  
 function sendDataToServer(path, data, callbackSuccess, callbackError) {

@@ -1,12 +1,15 @@
 div(class="modal fade" id="editShowModal" role="dialog")
-  div(class="modal-dialog modal-lg")
+  div(class="modal-dialog" style="width:1100px;")
     div(class="modal-content")
       div(class="modal-header")
-        a(id="aClearTopFilter1" href="#" data-dismiss="modal" class="edit-show-close-a" style="text-transform: uppercase; float: right;")
+        a(id="aCloseEditShow" href="#" data-dismiss="modal" class="edit-show-close-a" style="text-transform: uppercase; float: right;")
           span(class="glyphicon glyphicon-remove-circle")        
         h4(class="modal-title" id="spanEditShowName")
+        a(id="aBackToEdit" style="float: left; color: black; cursor: pointer; display: none;")
+          span(class="glyphicon glyphicon-arrow-left" style="margin-right: 3px;")
+          span(style="text-transform: uppercase;") вернуться в событие
       
-      div(class="modal-body" style="display: block;")
+      div(id="divEditShowBody" class="modal-body" style="display: block;")
         div(class="col-md-12")
           img(id="imgEditMain" src="http://kartisinfo.co.il/media/show/videoimage/55912.jpg", style="width:350px; heigth: 270px; margin: 0 10px 10px 0;" class="pull-left")
           p(id="pEditShowAnnounce" style='text-align: justify;')
@@ -24,9 +27,8 @@ div(class="modal fade" id="editShowModal" role="dialog")
           div(class="panel-body")
             div(id="divEditGalary" class="row")
       
-       div(class="modal-body" style="display: none;")
-         iframe(height="800px;" width="100%" src="http://weekend_il.kaccabravo.co.il/announce/buy/92370" name="iframe_a")         
-         //-iframe(height="100%" width="100%" src="http://weekend-il.biletru.co.il/events/konstantin-habenskiy-v-izraile/telaviv/" name="iframe_a")   
+       div(id="divSeancePayPage" class="modal-body" style="display: none; text-align: justify;")
+         iframe(id="iframeSeancePayPage" height="800px;" width="100%" src="" name="iframe_a")       
       div(class="modal-footer")
-        button(type="button" class="btn btn-default" data-dismiss="modal" style="text-transform: uppercase;") закрыть     
+        button(id="btnCloseEditShow" type="button" class="btn btn-default" data-dismiss="modal" style="text-transform: uppercase;") закрыть     
 

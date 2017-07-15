@@ -9,8 +9,8 @@ a {
 
 .carousel-inner > .item > img,
 .carousel-inner > .item > a > img {
-      width: 70%;
-      height: 400px;
+      width: 60%;
+      height: 300px;
       margin: auto;
   }
 
@@ -162,7 +162,7 @@ a {
 {
 	margin-right:3px;
 	font-size:18pt;
-	 color: #7F8C8D;
+	color: #7F8C8D;
 }
 
 .edit-show-close-a :hover
