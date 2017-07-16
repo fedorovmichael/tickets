@@ -448,8 +448,13 @@ db.getShowsByFilters = function(filters, cb)
         console.log("sort filter: ", querySort);
         console.log("");
 
+        if(queryFiters == "")
+        {
+            queryFiters += "and sh.top = '1'";
+        }
+
         var queryDB = queryTempTable +" "+
-        " select distinct sh.id as show_id, sh.name as name, sh.announce as announce, sh.price_min, sh.price_max, sh.date_from, sh.date_to, sh.resource, sh.main_image, t.name as type_name " +  
+        " select distinct sh.id as show_id, sh.name as name, sh.announce as announce, sh.price_min, sh.price_max, sh.date_from, sh.date_to, sh.resource, sh.main_image, t.name as type_name, sh.top " +  
         "from shows as sh " +
         "join seances as s on  sh.id = s.show_id " +
         "join cities as c on s.city = c.name " +

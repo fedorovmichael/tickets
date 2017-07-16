@@ -44,8 +44,11 @@ html
     
           div(class="collapse navbar-collapse" id="mainNavbar")
             ul(class="nav navbar-nav")
-              li(class="active")
-                a(href="/") Главная
+              li(id="liHomePage" class="active")
+                a(href="#") Главная
+              
+              li(id="liAboutPage")
+                a(href="#") О нас
 
               //- li(class="dropdown")
               //-   a(href="#" class="dropdown-toggle" data-toggle="dropdown") Города
@@ -85,7 +88,7 @@ html
               
               li
                 form(class="navbar-form navbar-left")            
-                  input(id="txtSearch" type="text" class="form-control" placeholder="Search" style="width: 300px;")
+                  input(id="txtSearch" type="text" class="form-control" placeholder="Search" style="width: 250px;")
                   //- button(id="btnSearch" type="button" class="btn btn-default")
                   //-   span(class="glyphicon glyphicon-search")
 

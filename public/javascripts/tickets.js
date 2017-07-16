@@ -162,6 +162,20 @@ $(document).ready(function () {
         $("#divSeancePayPage").hide();
         $("#divEditShowBody").show();
         $("#aBackToEdit").hide();
+    });
+
+    $("#liHomePage").on("click", function(event){
+        $("#divAboutContent").hide();
+        $("#divMainContent").show();
+        $("#liAboutPage").removeClass('active');
+        $("#liHomePage").addClass('active');
+    });
+
+    $("#liAboutPage").on("click", function(event){
+        $("#divMainContent").hide();
+        $("#divAboutContent").show();
+        $("#liHomePage").removeClass('active');
+        $("#liAboutPage").addClass('active');
     }); 
 
 });
