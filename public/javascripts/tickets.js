@@ -275,12 +275,12 @@ function createShowHTML(arrShows, arrShowsSections) {
         var date_ft = date_f != date_t ? date_f + " - " + date_t : date_f;
         var show_price = value.price_min != value.price_max ? value.price_min + "&#8362; - " + value.price_max + "&#8362;" : value.price_min + "&#8362;";
 
-        if(index == 40)
-        {
-            html += "<li style='width:100%; text-align:center; padding-bottom:10px;'>" +
-                        "<a style='cursor: pointer; text-transform: uppercase; color:black;'>Показать ещё</a>" +
-                    "</li>";
-        }
+        // if(index == 40)
+        // {
+        //     html += "<li style='width:100%; text-align:center; padding-bottom:10px;'>" +
+        //                 "<a style='cursor: pointer; text-transform: uppercase; color:black;'>Показать ещё</a>" +
+        //             "</li>";
+        // }
 
         html += "<li id='liMainShowID_" + value.show_id + "' style='height: 285px; border: solid 0px red; cursor: pointer;' class='col-sm-3'>" +
             "<div>" +
