@@ -176,7 +176,15 @@ $(document).ready(function () {
         $("#divAboutContent").show();
         $("#liHomePage").removeClass('active');
         $("#liAboutPage").addClass('active');
-    }); 
+    });
+
+    $("body").on("click", "#btnShowMore", function(event){     
+        var arrShows = $("li[id^='liMainShowID_']");
+        $("#liShowMore").hide();
+        $.each(arrShows, function(i,v){
+            $(v).show();
+        });
+    });
 
 });
 
@@ -274,15 +282,21 @@ function createShowHTML(arrShows, arrShowsSections) {
 
         var date_ft = date_f != date_t ? date_f + " - " + date_t : date_f;
         var show_price = value.price_min != value.price_max ? value.price_min + "&#8362; - " + value.price_max + "&#8362;" : value.price_min + "&#8362;";
+        var displayEvent = ''; 
 
-        // if(index == 40)
-        // {
-        //     html += "<li style='width:100%; text-align:center; padding-bottom:10px;'>" +
-        //                 "<a style='cursor: pointer; text-transform: uppercase; color:black;'>Показать ещё</a>" +
-        //             "</li>";
-        // }
+        if(index == 40 )
+        {
+            html += "<li id='liShowMore' style='width:100%; text-align:center; padding-bottom:10px;'>" +                        
+                          "<button id='btnShowMore' style='cursor: pointer; text-transform: uppercase; color:black; width: 350px; margin-top: 20px;'>Показать ещё</button>"+                        
+                    "</li>";
+        }
 
-        html += "<li id='liMainShowID_" + value.show_id + "' style='height: 285px; border: solid 0px red; cursor: pointer;' class='col-sm-3'>" +
+        if(index >= 40)
+        {
+            displayEvent = "display:none;";
+        }
+
+        html += "<li id='liMainShowID_" + value.show_id + "' style='height: 285px; border: solid 0px red; cursor: pointer; "+ displayEvent +" ' class='col-sm-3'>" +
             "<div>" +
             "<div class='text-left'>" +
             "<a href='#' type_id='" + type_id + "' style='background:" + type_color + "; color:white; margin-right:5px; width:65px; font-size: 10pt;'>" + type + "</a>" +
