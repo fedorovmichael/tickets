@@ -425,6 +425,8 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia) {
     //$("#divEditGalary").remove();  
     $("#divEditGalary").append(mediaDivHTML);
 
+    imageSizeHandler();
+
 }
 
 function searchShowByText(text) {
@@ -922,6 +924,27 @@ function showSeancePayPage(id)
     $("#divSeancePayPage").show();
     $("#divEditShowBody").hide();
     $("#aBackToEdit").show();
+}
+
+function imageSizeHandler()
+{
+    var arrImg = $("#divEditGalary img");
+
+    $.each(arrImg, function(i, v)
+    {
+        var widthImg = $(this).width();
+        var heightImg = $(this).height();
+
+        var image = new Image();
+        image.src = $(this).attr("src");
+        alert('width: ' + image.naturalWidth + ' and height: ' + image.naturalHeight);
+    });
+}
+
+function getMeta(callback) {
+    var img = new Image();
+    img.src = "http://kaccabravo.co.il/media/show/gallery/57115.jpg";
+    img.onload = function() { callback(this.width, this.height); }
 }
  
 function sendDataToServer(path, data, callbackSuccess, callbackError) {
