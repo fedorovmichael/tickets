@@ -946,6 +946,7 @@ function getMeta(callback) {
     img.src = "http://kaccabravo.co.il/media/show/gallery/57115.jpg";
     img.onload = function() { callback(this.width, this.height); }
 }
+
  
 function sendDataToServer(path, data, callbackSuccess, callbackError) {
     try {
