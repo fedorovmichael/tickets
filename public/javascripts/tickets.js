@@ -923,6 +923,16 @@ function showSeancePayPage(id)
     $("#divEditShowBody").hide();
     $("#aBackToEdit").show();
 }
+
+function imageSizeHandler()
+{
+    arrImg = $("#divEditGalary img");
+
+    $.each(arrImg, function(i, v){
+        var width = $(this).width();    
+        var height = $(this).height();
+    });
+}
  
 function sendDataToServer(path, data, callbackSuccess, callbackError) {
     try {
