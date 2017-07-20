@@ -425,7 +425,7 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia) {
     //$("#divEditGalary").remove();  
     $("#divEditGalary").append(mediaDivHTML);
 
-    imageSizeHandler();
+    //imageSizeHandler();
 
 }
 
