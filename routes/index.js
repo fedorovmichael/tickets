@@ -7,7 +7,7 @@ var dateFormat = require('dateformat');
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
-  var resTypes = '', resShows = '', resShowsSection = '', resSubTypes = '', resCities = '';
+  var resTypes = '', resShows = '', resShowsSection = '', resSubTypes = '', resCities = '', resAgencesShows = '';
 
   async.waterfall([
     function getTypesFromDB(callback)
@@ -31,8 +31,8 @@ router.get('/', function(req, res, next) {
                 console.log("get shows from db error: ", err);
                 callback(err, null); 
                 return;
-            }
-
+            }           
+            
             resShows = showsResult;
             callback(null, showsResult);  
         });
@@ -84,7 +84,30 @@ router.get('/', function(req, res, next) {
         });
     },
 
-    function sendResponce(citiesResult, callback){
+    function getAgencesShowsFromDB(citiesResult, callback)
+    {
+       db.getAgencesShows(function(err, agencesShowsResult){
+            if(err){
+                console.log("get agences shows from db error: ", err);
+                callback(err, null); 
+                return;
+            }
+
+            console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            console.log("");
+            console.log("");
+            console.log('agences shows: ', agencesShowsResult);
+            resAgencesShows = agencesShowsResult;
+            callback(null, agencesShowsResult);  
+        });
+    },
+
+    function sendResponce(agencesShowsResult, callback){
+      
+      for(var i = 0; i < resAgencesShows.length; i++)
+      {
+          resShows.splice(0,0, resAgencesShows[i]);
+      }
 
       res.render('index', {types: resTypes, subTypes: resSubTypes,  shows: resShows, showsSections: resShowsSection, cities: resCities, dateFormat: dateFormat });
       callback(null, null);
@@ -454,10 +477,34 @@ router.post('/getShowByFilters', function(req, res, next) {
                
                 callback(null, showsSectionsResult);  
             });
+        },
+
+        function getAgencesShowsFromDB(callback)
+        {
+           db.getAgencesShows(function(err, agencesShowsResult){
+                if(err){
+                    console.log("get agences shows from db error: ", err);
+                    callback(err, null); 
+                    return;
+                }
+
+                console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                console.log("");
+                console.log("");
+                console.log('agences shows: ', agencesShowsResult);
+                
+                callback(null, agencesShowsResult);  
+            });
         }
     ], 
     function(err, result){
-        var resShows = result[0], resShowsSection = result[1];
+        var resShows = result[0], resShowsSection = result[1], agencesShows = result[2];
+
+        for(var i = 0; i < agencesShows.length; i++)
+        {
+            resShows.splice(0,0, agencesShows[i]);
+        }
+
         // console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         // console.log("");
         // console.log("result shows from db:  ", resShows );
