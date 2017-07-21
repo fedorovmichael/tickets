@@ -93,10 +93,10 @@ router.get('/', function(req, res, next) {
                 return;
             }
 
-            console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            console.log("");
-            console.log("");
-            console.log('agences shows: ', agencesShowsResult);
+            // console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            // console.log("");
+            // console.log("");
+            // console.log('agences shows: ', agencesShowsResult);
             resAgencesShows = agencesShowsResult;
             callback(null, agencesShowsResult);  
         });
@@ -106,7 +106,18 @@ router.get('/', function(req, res, next) {
       
       for(var i = 0; i < resAgencesShows.length; i++)
       {
-          resShows.splice(0,0, resAgencesShows[i]);
+          console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+          console.log("");
+          console.log("");
+          console.log('index of: ', resShows.findIndex(x => x.show_id === resAgencesShows[i].show_id));
+
+          var index = resShows.findIndex(x => x.show_id === resAgencesShows[i].show_id);          
+
+          if(index > 0)
+          {             
+             resShows.splice(index, 1);
+             resShows.splice(0,0, resAgencesShows[i]);
+          }          
       }
 
       res.render('index', {types: resTypes, subTypes: resSubTypes,  shows: resShows, showsSections: resShowsSection, cities: resCities, dateFormat: dateFormat });
@@ -498,11 +509,18 @@ router.post('/getShowByFilters', function(req, res, next) {
         }
     ], 
     function(err, result){
+        
         var resShows = result[0], resShowsSection = result[1], agencesShows = result[2];
 
         for(var i = 0; i < agencesShows.length; i++)
         {
-            resShows.splice(0,0, agencesShows[i]);
+            var index = resShows.findIndex(x => x.show_id === agencesShows[i].show_id);          
+
+            if(index > 0)
+            {             
+                resShows.splice(index, 1);
+                resShows.splice(0,0, agencesShows[i]);
+            }            
         }
 
         // console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");

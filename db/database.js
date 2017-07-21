@@ -56,11 +56,10 @@ db.getTypes = function(cb)
 db.getShows = function(cb)
 {
     try 
-    {
-        //var queryDB = "select * from shows where top = '1' and name not in(select show_name from agences_shows where enabled = true ) order by price_min desc";
+    {        
         var queryDB = "select sh.id as show_id, sh.name as name, sh.announce as announce, sh.price_min, sh.price_max, sh.date_from, sh.date_to, sh.resource, sh.main_image, sh.top " +
                       "from shows as sh " +  
-                      "where top = '1' and name not in(select show_name from agences_shows where enabled = true) " +
+                      "where top = '1' " +
                       "order by price_min desc"
         console.log("connect to db");
         
@@ -464,7 +463,7 @@ db.getShowsByFilters = function(filters, cb)
         "join cities as c on s.city = c.name " +
         "join show_section as ss on ss.show_id = sh.id " +
         "join type as t on t.id = ss.type_id " +
-        " where sh.id != '0' and sh.name not in(select show_name from agences_shows where enabled = true) " +
+        " where sh.id != '0' " +
         queryFiters +" "+ querySort +"; "+ queryDropTempTable;
 
         console.log("db.getShowsByFilters", queryDB);
