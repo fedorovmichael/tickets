@@ -1,5 +1,5 @@
 ul(id="ulShows" class="row list-unstyled")
-  -for(var i=0; i< shows.length; i++)
+  -for(var i=0; i< shows.length; i++)    
     li(id="liMainShowID_#{shows[i].show_id}" class="col-sm-3" style="height: 285px; border: solid 0px red; cursor: pointer;")
       div
         div(class="text-left")
@@ -42,4 +42,7 @@ ul(id="ulShows" class="row list-unstyled")
             -if(shows[i].price_min != shows[i].price_max)
               P Цена #{shows[i].price_min}&#8362; - #{shows[i].price_max}&#8362;
             -else
-              P Цена #{shows[i].price_min}&#8362;      
+              P Цена #{shows[i].price_min}&#8362;
+
+a(id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Наверх" data-toggle="tooltip")
+  span(class="glyphicon glyphicon-chevron-up")      
