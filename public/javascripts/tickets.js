@@ -199,7 +199,7 @@ $(document).ready(function () {
         }
     });
 
-    $("#aAboutPage").on("click", function(event)
+    $("#aAboutPage, #aHomePage").on("click", function(event)
     { 
         event.preventDefault(); 
     });
@@ -378,22 +378,13 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia) {
 
     $("#spanEditShowName").text(show[0].name);
 
+    $("#lblShowShareLink").hide();
     var params = decodeURIComponent(window.location.search.substring(1));
     $("#lblShowShareLink").text("");
-
-
-    if(params != "" &&  params.split("=")[0] == 'show')
-    {
-      $("#lblShowShareLink").text(window.location.href);
-      //$("#inpShowShareLink").val(window.location.href);            
-    }
-    else
-    {
-      $("#lblShowShareLink").text(window.location.href.split('?')[0] +"?show=" + show[0].id);
-      //$("#inpShowShareLink").val(window.location.href.split('?')[0] +"?show=" + show[0].id);
-    }
+  
+    $("#lblShowShareLink").text(window.location.href.split('?')[0] +"?show=" + show[0].id);
+    //$("#inpShowShareLink").val(window.location.href.split('?')[0] +"?show=" + show[0].id); 
     
-
     // if (show[0].second_image != null && show[0].second_image != '') {
 
     //     var fileType = show[0].second_image.split('.')[1];
