@@ -1,5 +1,4 @@
 
-
 $(document).on({
     ajaxStart: function(){ $("#divLoading").addClass("wait-modal"); $("#divLoading").removeClass("wait-modal-none");  },
     ajaxComplete: function(){ $("#divLoading").removeClass("wait-modal"); $("#divLoading").addClass("wait-modal-none"); $("body").scrollTop(0); }
@@ -185,7 +184,36 @@ $(document).ready(function () {
             $(v).show();
         });
     });
+    
+    $("#aShowShareLink").on("click", function(event){
+        
+        event.preventDefault();
 
+        if($("#lblShowShareLink").is(":visible"))
+        {
+            $("#lblShowShareLink").hide();
+        }
+        else
+        {
+            $("#lblShowShareLink").show();
+        }
+    });
+
+    $("#aAboutPage").on("click", function(event)
+    { 
+        event.preventDefault(); 
+    });
+
+    $("body").on("click", "a[id^='aShowMedia']", function (event)
+    { 
+        event.preventDefault(); 
+    });
+
+    $("#inpShowShareLink").on("focus", function(event){
+        this.select();
+    });
+
+    directLink();
 });
 
 function sortByHandler(parentID, param1ID, param2ID) {
@@ -350,6 +378,22 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia) {
 
     $("#spanEditShowName").text(show[0].name);
 
+    var params = decodeURIComponent(window.location.search.substring(1));
+    $("#lblShowShareLink").text("");
+
+
+    if(params != "" &&  params.split("=")[0] == 'show')
+    {
+      $("#lblShowShareLink").text(window.location.href);
+      //$("#inpShowShareLink").val(window.location.href);            
+    }
+    else
+    {
+      $("#lblShowShareLink").text(window.location.href.split('?')[0] +"?show=" + show[0].id);
+      //$("#inpShowShareLink").val(window.location.href.split('?')[0] +"?show=" + show[0].id);
+    }
+    
+
     // if (show[0].second_image != null && show[0].second_image != '') {
 
     //     var fileType = show[0].second_image.split('.')[1];
@@ -415,7 +459,7 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia) {
     $.each(arrMedia, function (index, value) {
 
         mediaDivHTML += "<div class='col-xs-6 col-md-3'>" +
-            "<a href='#' class='thumbnail'>" +
+            "<a id='aShowMedia_"+ value.id +"' href='' class='thumbnail'>" +
             "<img style='width:180px; height:180px;' src='" + resource + value.link + "' alt='" + show[0].name + "'></img>" +
             "<a/>" +
             "</div>";
@@ -424,8 +468,6 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia) {
     $("#divEditGalary").empty();
     //$("#divEditGalary").remove();  
     $("#divEditGalary").append(mediaDivHTML);
-
-    //imageSizeHandler();
 
 }
 
@@ -928,26 +970,32 @@ function showSeancePayPage(id)
 
 function imageSizeHandler()
 {
-    var arrImg = $("#divEditGalary img");
+    arrImg = $("#divEditGalary img");
 
-    $.each(arrImg, function(i, v)
-    {
-        var widthImg = $(this).width();
-        var heightImg = $(this).height();
-
-        var image = new Image();
-        image.src = $(this).attr("src");
-        alert('width: ' + image.naturalWidth + ' and height: ' + image.naturalHeight);
+    $.each(arrImg, function(i, v){
+        var width = $(this).width();    
+        var height = $(this).height();
     });
 }
+ 
+function directLink()
+{   
+    var params = decodeURIComponent(window.location.search.substring(1));    
+    
+    if(params == "")
+    {
+        return;
+    }
 
-function getMeta(callback) {
-    var img = new Image();
-    img.src = "http://kaccabravo.co.il/media/show/gallery/57115.jpg";
-    img.onload = function() { callback(this.width, this.height); }
+    if(params.split("=")[0] != "show")
+    {
+        return;
+    }
+    
+    var id = "liMainShowID_" + params.split('=')[1];
+    editShowHandler(id);
 }
 
- 
 function sendDataToServer(path, data, callbackSuccess, callbackError) {
     try {
         $.ajax({

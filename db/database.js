@@ -143,7 +143,7 @@ db.getShowByShowID = function(showID, cb)
     {
         console.log("db.getShowByShowID id: ", showID)
 
-        var queryDB = "select name, announce, main_image, second_image, resource from shows where id = '" + showID + "';"
+        var queryDB = "select id, name, announce, main_image, second_image, resource from shows where id = '" + showID + "';"
         getMultipleResponse(cb, queryDB);
     } 
     catch (error) 
@@ -173,7 +173,7 @@ db.getMediaByShowID = function(showID, cb)
     {
         console.log("db.getMediaByShowID show id: ", showID)
 
-        var queryDB = "select link from media where show_id = '"+ showID +"';"
+        var queryDB = "select id, link from media where show_id = '"+ showID +"';"
         getMultipleResponse(cb, queryDB);
     } 
     catch (error) 
