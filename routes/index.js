@@ -186,16 +186,21 @@ router.post('/getShowsByType', function(req, res, next) {
 
 router.post('/getShowByID', function(req, res, next) {
     
-    var showID = req.body.id;
+    var showID = req.body.id, showCode = req.body.showCode;
 
     async.series([
        function getShowsByShowIDFromDB(callback)
         {
-            db.getShowByShowID(showID, function(err, showsByIDResult){
+            db.getShowByShowID(showID, showCode, function(err, showsByIDResult){
                 if(err){
                     console.log("get show by id from db error: ", err);
                     callback(err, null); 
                     return;
+               }
+
+               if(showID == undefined && showCode != "")
+               {
+                   showID = showsByIDResult[0].id;
                }
 
                callback(null, showsByIDResult);

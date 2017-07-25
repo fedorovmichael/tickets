@@ -137,13 +137,26 @@ db.getShowsByType = function(stringIDs, cb)
     }
 }
 
-db.getShowByShowID = function(showID, cb)
+db.getShowByShowID = function(showID, showCode, cb)
 {
     try 
     {
-        console.log("db.getShowByShowID id: ", showID)
+        console.log("db.getShowByShowID id: ", showID);
+        console.log("db.getShowByShowID show code: ", showCode);
 
-        var queryDB = "select id, name, announce, main_image, second_image, resource from shows where id = '" + showID + "';"
+        var queryWhere = '';
+
+        if(showID != null && showID != '')
+        {
+            queryWhere = "where id = '"+ showID +"'";
+        }
+        
+        if(showCode != null && showCode != '')
+        {
+            queryWhere = "where show_code = '"+ showCode +"'";
+        }
+
+        var queryDB = "select id, name, announce, main_image, second_image, resource, show_code from shows " + queryWhere;
         getMultipleResponse(cb, queryDB);
     } 
     catch (error) 

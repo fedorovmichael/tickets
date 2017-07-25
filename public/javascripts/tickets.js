@@ -25,7 +25,7 @@ $(document).ready(function () {
     });
 
     $("body").on("click", "li[id^='liMainShowID_']", function (event) {
-        editShowHandler(this.id);
+        editShowHandler(this.id, '');
     });
 
     $("#txtSearch").on("keyup", function (event) {
@@ -367,9 +367,10 @@ function menuTypeHandlerCallbackSuccess(data) {
     createShowHTML(data.shows, data.showsSections);
 }
 
-function editShowHandler(showID) {
+function editShowHandler(showID, showCode) {
     var data = {};
     data.id = showID.split("_")[1];
+    data.showCode = showCode;
     sendDataToServer('/getShowByID', data, editShowHandlerCallbackSuccess, null);
 }
 
@@ -400,7 +401,7 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia) {
     var params = decodeURIComponent(window.location.search.substring(1));
     $("#lblShowShareLink").text("");
   
-    $("#lblShowShareLink").text(window.location.href.split('?')[0] +"?show=" + show[0].id);
+    $("#lblShowShareLink").text(window.location.href.split('?')[0] +"?show=" + show[0].show_code);
     //$("#inpShowShareLink").val(window.location.href.split('?')[0] +"?show=" + show[0].id); 
     
     // if (show[0].second_image != null && show[0].second_image != '') {
@@ -1001,8 +1002,8 @@ function directLink()
         return;
     }
     
-    var id = "liMainShowID_" + params.split('=')[1];
-    editShowHandler(id);
+    var showCode = params.split('=')[1];
+    editShowHandler('', showCode);
 }
 
 function sendDataToServer(path, data, callbackSuccess, callbackError) {
