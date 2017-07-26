@@ -19,10 +19,11 @@ ul(id="ulShows" class="row list-unstyled")
               a(href="#" subtype_id="#{subtype_id}" style="background: #{type_color}; color: white; font-size: 10pt;") #{subtype}
           div(class="thumbnail")
             -if(shows[i].resource == 'bravo')
-              img(src="http://kaccabravo.co.il#{shows[i].main_image}", alt="", style="width: 198px; height: 110px;")
+              img(src="http://kaccabravo.co.il#{shows[i].main_image}", alt="#{shows[i].announce}", style="width: 198px; height: 110px;")
             -else
-              img(src="http://biletru.co.il#{shows[i].main_image}", alt="", style="width: 198px; height: 110px;")
+              img(src="http://biletru.co.il#{shows[i].main_image}", alt="#{shows[i].announce}", style="width: 198px; height: 110px;")
             div(class="caption")
+              a(href="?show='#{shows[i].show_code}'" style="display:none;")
               -if(shows[i].name.length > 50){
                 -var n = shows[i].name.substr(0, 50);
                 -var name = n.substr(0, n.lastIndexOf(" "));
