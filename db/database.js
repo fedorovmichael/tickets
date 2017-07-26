@@ -493,7 +493,7 @@ db.getAgencesShows = function(cb)
 {
     try
     {
-       var queryDB = "select distinct sh.id as show_id, sh.name as name, sh.announce as announce, sh.price_min, sh.price_max, sh.date_from, sh.date_to, sh.resource, sh.main_image, t.name as type_name, sh.top " + 
+       var queryDB = "select distinct sh.id as show_id, sh.name as name, sh.announce as announce, sh.price_min, sh.price_max, sh.date_from, sh.date_to, sh.resource, sh.main_image, t.name as type_name, sh.top, sh.show_code " + 
        "from agences_shows as ash " +
        "join shows as sh on ash.show_name = sh.name " +
        "join show_section as ss on ss.show_id = sh.id " +
