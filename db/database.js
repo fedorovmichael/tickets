@@ -59,7 +59,7 @@ db.getShows = function(cb)
     {        
         var queryDB = "select sh.id as show_id, sh.name as name, sh.announce as announce, sh.price_min, sh.price_max, sh.date_from, sh.date_to, sh.resource, sh.main_image, sh.top " +
                       "from shows as sh " +  
-                      "where top = '1' " +
+                      //"where top = '1' " +
                       "order by price_min desc"
         console.log("connect to db");
         
