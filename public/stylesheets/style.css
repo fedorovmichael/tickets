@@ -201,3 +201,9 @@ a {
 {
 	background-color: black;
 }
+
+#ulSocialNetworks > li :hover
+{
+	width: 57px;
+	background-color: #fff !important;
+}

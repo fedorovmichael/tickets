@@ -179,13 +179,22 @@ html
 
                            
 
-          ul(class="nav navbar-nav navbar-right" style="display:none;")
+          ul(id="ulSocialNetworks" class="nav navbar-nav navbar-right" style="display:none;")
               li
                 a(href="#")
                   span(class="glyphicon glyphicon-log-in") Login
               li
                 a(href="#")
                   span(class="glyphicon glyphicon-user") Singup
+    
+    ul( class="nav nav-pills1 nav-stacked1" data-spy="affix" data-offset-top="0" style="width:75px; float:left;")
+      li
+        a(id="aFacebook" href="")
+          img(src="/images/facebook.jpg" style="width:50px;")        
+      li
+        a(id="aLivejournal" href="")
+          img(src="/images/Livejournal-icon.png" style="width:50px;")  
+
     block content
       div(class="container text-center")
     div(id="footer")  
