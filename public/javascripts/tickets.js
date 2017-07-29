@@ -467,10 +467,34 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia) {
 
     var mediaDivHTML = '';
     $.each(arrMedia, function (index, value) {
+        
+        var img = new Image(), w, h, maxW = 180, maxH = 180, ratio = 0, width = 0, height = 0;
+        img.src = resource + value.link;
+        img.id = "imgShowMedia_" + value.id;
+        img.onload = function()
+        {
+            w = this.width; 
+            h = this.height;
+
+            if(w > maxW)
+            {
+                ratio = maxW / w;
+                $("#"+this.id).css("width", maxW);
+                $("#"+this.id).css("height", h * ratio);
+            }
+
+            if(h > maxH)
+            {
+                ratio = maxH / h;                
+                $("#"+this.id).css("height", maxH);
+                $("#"+this.id).css("width", w * ratio);
+            }           
+
+        };        
 
         mediaDivHTML += "<div class='col-xs-6 col-md-3'>" +
             "<a id='aShowMedia_"+ value.id +"' href='' class='thumbnail'>" +
-            "<img style='width:180px; height:180px;' src='" + resource + value.link + "' alt='" + show[0].name + "'></img>" +
+            "<img id='imgShowMedia_"+ value.id + "' src='" + resource + value.link + "' alt='" + show[0].name + "'></img>" +
             "<a/>" +
             "</div>";
     });
