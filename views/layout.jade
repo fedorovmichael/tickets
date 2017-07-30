@@ -15,6 +15,10 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     <!--footer style-->
     link(rel='stylesheet', href='/stylesheets/sticky-footer-navbar.css')
+    <!-- bootstrap social icons style-->
+    link(rel='stylesheet', href='/stylesheets/bootstrap-social.css')
+    link(rel='stylesheet', href='/stylesheets/font-awesome.css')
+
     <!-- jquery -->
     script(src="https://code.jquery.com/jquery-3.2.1.min.js", integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=", crossorigin="anonymous")
     <!-- jquery ui -->
@@ -179,7 +183,7 @@ html
 
                            
 
-          ul(id="ulSocialNetworks" class="nav navbar-nav navbar-right" style="display:none;")
+          ul(class="nav navbar-nav navbar-right" style="display:none;")
               li
                 a(href="#")
                   span(class="glyphicon glyphicon-log-in") Login
@@ -187,16 +191,29 @@ html
                 a(href="#")
                   span(class="glyphicon glyphicon-user") Singup
     
-    ul( class="nav nav-pills1 nav-stacked1" data-spy="affix" data-offset-top="0" style="width:75px; float:left;")
+    ul(id="ulSocialNetworks" class="nav nav-pills1 nav-stacked1" data-spy="affix" data-offset-top="0" style="width:75px; float:left;")
       li
-        a(id="aFacebook" href="")
-          img(src="/images/facebook.jpg" style="width:50px;")        
+        a(id="aFacebook" href="https://www.facebook.com/groups/weekend.il/?fref=nf" target="_blank")
+          img(id="imgFacebook" src="/images/facebook.jpg")        
       li
-        a(id="aLivejournal" href="")
-          img(src="/images/Livejournal-icon.png" style="width:50px;")  
+        a(id="aLivejournal" href="http://weekend-il.livejournal.com/" target="_blank")
+          img(id="imgLivejournal" src="/images/Livejournal-icon.png")  
 
     block content
       div(class="container text-center")
     div(id="footer")  
       div(class="container")
+        div(class="row" style="display:none;")
+          ul(style="list-style:none; margin-top: 10px;")
+            li
+              a(class="btn btn-social-icon btn-facebook")
+                span(class="fa fa-facebook" style="margin-rigth: 40px;")
+              a(style="margin-left: 40px;")  
+                label facebook
+            li
+              a(class="")
+                img(id="" src="/images/Livejournal-icon.png" style="width:34px; height:34px;s")
+                span livejournal
+                
+  
         p(class="text-muted") Designed by fm#soft.

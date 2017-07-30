@@ -202,8 +202,27 @@ a {
 	background-color: black;
 }
 
-#ulSocialNetworks > li :hover
-{
-	width: 57px;
+#ulSocialNetworks li, 
+#aFacebook, #aFacebook,
+#aLivejournal, #aLivejournal
+{	
 	background-color: #fff !important;
+}
+
+#ulSocialNetworks li:hover, 
+#aFacebook:hover, #aFacebook:active,
+#aLivejournal:hover, #aLivejournal:active
+{	
+	background-color: #fff !important;
+}
+
+#imgFacebook, #imgLivejournal
+{
+	width: 55px !important;
+}
+
+#imgFacebook:hover, #imgFacebook:focus, 
+#imgLivejournal:hover, #imgLivejournal:focus 
+{
+	width: 57px !important;
 }
