@@ -95,36 +95,6 @@ html
               li(id="liAboutPage")
                 a(id="aAboutPage" href="") О нас
 
-              //- li(class="dropdown")
-              //-   a(href="#" class="dropdown-toggle" data-toggle="dropdown") Города
-              //-     b(class="caret")
-              //-   ul(id="ddlCities" class="dropdown-menu")
-              //-     -for(var i = 0; i < cities.length; i++)
-              //-       div(class="text-center" style="border-bottom-width: 0.5px; border-bottom-color: grey; border-bottom-style: solid;")
-              //-         span(class="text-center" style="") #{cities[i].regionName}
-                    
-              //-       -var arrCities = cities[i].cities;
-              //-       -for(var c = 0; c < arrCities.length; c++)                    
-              //-         li(id="liCity_#{arrCities[c].id}")
-              //-           input(id="cbCity_#{arrCities[c].id}" type="checkbox")
-              //-           label(for="cbCity_#{arrCities[c].id}" style="margin-right: 20px;") #{arrCities[c].name}  
-
-              //- li(class="dropdown")
-              //-   a(href="#" class="dropdown-toggle" data-toggle="dropdown") Города
-              //-     b(class="caret")
-              //-   -if(cities != undefined && cities != null)
-              //-     ul(id="ddlCities" class="dropdown-menu" style="width:1000px;")
-              //-       -for(var i = 0; i < cities.length; i++)
-              //-         li(class="col-sm-2")
-              //-           div(class="text-center" style="border-bottom-width: 0.5px; border-bottom-color: grey; border-bottom-style: solid;")
-              //-             span(class="" style="") #{cities[i].regionName}  
-              //-           ul(class="list-unstyled")
-              //-             -var arrCities = cities[i].cities;
-              //-             -for(var c = 0; c < arrCities.length; c++)
-              //-               li(id="liCity_#{arrCities[c].id}")
-              //-                 input(id="cbCity_#{arrCities[c].id}" type="checkbox")
-              //-                 label(for="cbCity_#{arrCities[c].id}" style="margin-right: 20px;") #{arrCities[c].name}  
-
               li(style="display: none;")
                 input(id="txtDateFrom1" type="text" class="navbar-form form-control" placeholder="Дата с:" style="margin-right: 5px;")
 
@@ -197,7 +167,17 @@ html
           img(id="imgFacebook" src="/images/facebook.jpg")        
       li
         a(id="aLivejournal" href="http://weekend-il.livejournal.com/" target="_blank")
-          img(id="imgLivejournal" src="/images/Livejournal-icon.png")  
+          img(id="imgLivejournal" src="/images/Livejournal-icon.png")
+      li
+        a(id="aIsraPortal" href="http://www.israportal.com/" title="Израильский портал")
+          img(id="imgIsraPortal" src="http://www.israportal.com/knopka_israportal.jpg" border="0" alt="Израильский портал")
+      li
+        a(id="aIsra" href="http://www.isra.com/" target="_blank" title="ISRA.com рейтинг")
+          img(id="imgIsra" src="http://rank.isra.com/button.php?u=andreydb" alt="ISRA.com рейтинг" border="0")      
+      li
+        a(id="aVestnik" href="http://www.vestnik-news.com" target="_blank" title="новости")
+          img(id="imgVestnik" src="images/88x31_1.gif" border="0" alt="новости")
+          
 
     block content
       div(class="container text-center")
