@@ -204,7 +204,7 @@ a {
 
 #ulSocialNetworks li, 
 #aFacebook, #aLivejournal,
-#aIsraPortal, #aIsra, #aVestnik
+#aIsraPortal, #aIsra, #ulSocialNetworks a
 {	
 	background-color: #fff !important;
 }
@@ -214,7 +214,7 @@ a {
 #aLivejournal:hover, #aLivejournal:active,
 #aIsraPortal:hover, #aIsraPortal:active,
 #aIsra:hover, #aIsra:active,
-#aVestnik:hover, #aVestnik:active
+#ulSocialNetworks a:hover, #ulSocialNetworks a:active
 {	
 	background-color: #fff !important;
 }
@@ -228,9 +228,4 @@ a {
 #imgLivejournal:hover, #imgLivejournal:focus 
 {
 	width: 57px !important;
-}
-
-#imgVestnik
-{
-	display:block !important;
 }
