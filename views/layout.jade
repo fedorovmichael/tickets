@@ -13,11 +13,10 @@ html
     link(rel='stylesheet', href='/stylesheets/jquery-ui.css')
     <!--project style-->
     link(rel='stylesheet', href='/stylesheets/style.css')
-    <!--footer style-->
-    link(rel='stylesheet', href='/stylesheets/sticky-footer-navbar.css')
+
     <!-- bootstrap social icons style-->
     link(rel='stylesheet', href='/stylesheets/bootstrap-social.css')
-    link(rel='stylesheet', href='/stylesheets/font-awesome.css')
+    link(rel='stylesheet', href='/stylesheets/font-awesome.min.css')
 
     <!-- jquery -->
     script(src="https://code.jquery.com/jquery-3.2.1.min.js", integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=", crossorigin="anonymous")
@@ -25,11 +24,11 @@ html
     script(src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js", integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=", crossorigin="anonymous")
     <!-- Latest compiled and minified JavaScript -->
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin="anonymous")
+    
+    script(src="/javascripts/tickets.js")
     <!-- styling checkbox -->
     script(src="/javascripts/customInput.jquery.js")
-    script(src="/javascripts/tickets.js")
-    <!-- multi date spicker-->
-    script(src="/javascripts/jquery-ui.multidatespicker.js")
+    
 
     <!-- Yandex Metrika Counter -->
     script.
@@ -69,7 +68,7 @@ html
 
       ga('create', 'UA-44852557-3', 'auto');
       ga('send', 'pageview');
-    <!-- Google Analytics Counter -->  
+    <!-- Google Analytics Counter -->      
 
   body(style='padding:0;')
     input(id="hdnSortElement" type="hidden")
@@ -170,11 +169,7 @@ html
           img(id="imgLivejournal" src="/images/Livejournal-icon.png")
       li
         a(id="aIsraPortal" href="http://www.israportal.com/" target="_blank" title="Израильский портал")
-          img(id="imgIsraPortal" src="http://www.israportal.com/knopka_israportal.jpg" border="0" alt="Израильский портал")
-      li
-        a(id="aIsra" href="http://www.isra.com/" target="_blank" title="ISRA.com рейтинг")
-          img(id="imgIsra" src="http://rank.isra.com/button.php?u=andreydb" alt="ISRA.com рейтинг" border="0")     
-
+          img(id="imgIsraPortal" src="http://www.israportal.com/knopka_israportal.jpg" border="0" alt="Израильский портал")      
       li
         a(href="http://shalom-friends.com/top/" target="_blank")
           img( border="0" width="88" height="31" src="http://shalom-friends.com/top/button.php?u=andreydb" alt="Шалом - Еврейские знакомства, Еврейский сайт знакомств, Сайт еврейских знакомств, Еврейский календарь, Новости, Flash игры, ТОП - Рейтинг - Каталог сайтов, рецепты Еврейской кухни. Shalom - Free Jewish Dating site.")
@@ -197,4 +192,6 @@ html
                 span livejournal
                 
   
-        p(class="text-muted") Designed by fm#soft.
+        p(class="text-muted") Designed by fm#soft.   
+
+  
