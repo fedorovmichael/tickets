@@ -395,6 +395,9 @@ function editClose() {
 function fillEditShowHTML(show, arrShowsSeances, arrMedia) {
     var resource = show[0].resource == "bravo" ? "http://kaccabravo.co.il" : "http://biletru.co.il";
 
+    $('html head').find('title').text(show[0].name + " - bilety.co.il" );
+    $("meta[name='description']").attr("content", show[0].announce);
+
     $("#spanEditShowName").text(show[0].name);
 
     $("#lblShowShareLink").hide();
