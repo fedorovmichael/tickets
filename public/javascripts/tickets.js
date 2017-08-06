@@ -383,6 +383,9 @@ function editShowHandlerCallbackSuccess(data) {
 
 function editClose() {
 
+    $('html head').find('title').text("BILETY.CO.IL – израильская афиша.");
+    $("meta[name='description']").attr("content", "BILETY.CO.IL – агрегатор билетов на спектакли, концерты и другие культурные мероприятия в Израиле");
+    
     $("#divShowEdit").hide();
     $("#editShowModal").modal('hide');
 
