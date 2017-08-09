@@ -3,7 +3,9 @@ var router = express.Router();
 var db = require('../db/database.js');
 var async = require('async');
 var dateFormat = require('dateformat');
+var appConfig = require("../config/index.js");
 
+var contentDescription = "BILETY.CO.IL – агрегатор билетов на спектакли, концерты и другие культурные мероприятия в Израиле";
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
@@ -120,7 +122,7 @@ router.get('/', function(req, res, next) {
           }          
       }
 
-      res.render('index', {types: resTypes, subTypes: resSubTypes,  shows: resShows, showsSections: resShowsSection, cities: resCities, dateFormat: dateFormat });
+      res.render('index', {types: resTypes, subTypes: resSubTypes,  shows: resShows, showsSections: resShowsSection, cities: resCities, dateFormat: dateFormat, content: contentDescription });
       callback(null, null);
     }
 
@@ -186,57 +188,7 @@ router.post('/getShowsByType', function(req, res, next) {
 
 router.post('/getShowByID', function(req, res, next) {
     
-    var showID = req.body.id, showCode = req.body.showCode;
-
-    async.series([
-       function getShowsByShowIDFromDB(callback)
-        {
-            db.getShowByShowID(showID, showCode, function(err, showsByIDResult){
-                if(err){
-                    console.log("get show by id from db error: ", err);
-                    callback(err, null); 
-                    return;
-               }
-
-               if(showID == undefined && showCode != "")
-               {
-                   showID = showsByIDResult[0].id;
-               }
-
-               callback(null, showsByIDResult);
-            })            
-        },
-
-       function getSeancesByShowIDFromDB(callback)
-        {
-            db.getSeancesByShowID(showID, function(err, seancesByShowIDResult){
-                if(err){
-                    console.log("get seances by show id from db error: ", err);
-                    callback(err, null); 
-                    return;
-               }
-
-               callback(null, seancesByShowIDResult);
-            })            
-        },
-
-        function getMediaByShowIDFromDB(callback)
-        {
-            db.getMediaByShowID(showID, function(err, mediaByShowIDResult){
-                if(err){
-                    console.log("get media by show id from db error: ", err);
-                    callback(err, null); 
-                    return;
-               }
-
-               callback(null, mediaByShowIDResult);
-            })            
-        },
-    ],
-    function(err, result){
-        var resShow = result[0], resShowSeances = result[1], resShowMedia = result[2];
-        res.json({show: resShow, showSeances: resShowSeances, showMedia: resShowMedia});  
-    });
+    getShowByShowIdOrShowCode(req, res, 'json');
 
 });
 
@@ -538,5 +490,105 @@ router.post('/getShowByFilters', function(req, res, next) {
     });
 
 });
+
+router.get('/event/:id', function(req, res, next){
+    
+    var bot = req.query._escaped_fragment_;
+
+    if(bot == undefined)
+    {
+        appConfig.loadConfig();
+        var baseUrl = appConfig.getConfig("urls", "base_url");
+       
+        var showCode = req.params.id;
+        res.redirect(baseUrl + "/?show=" + showCode);
+    }
+    else
+    {
+        getShowByShowIdOrShowCode(req, res, 'page'); 
+    }    
+    
+});
+
+function getShowByShowIdOrShowCode(req, res, resType)
+{
+     var showID = '', showCode = '';
+
+     if(resType == 'json')
+     {
+         showID = req.body.id; 
+         showCode = req.body.showCode;
+     }
+     else if(resType == 'page')
+     {
+         showCode = req.params.id
+     }
+
+    try
+    {    
+        async.series([
+            function getShowsByShowIDFromDB(callback)
+            {
+                db.getShowByShowID(showID, showCode, function(err, showsByIDResult){
+                    if(err){
+                        console.log("get show by id from db error: ", err);
+                        callback(err, null); 
+                        return;
+                }
+
+                if((showID == undefined || showID == '') && showCode != "")
+                {
+                    showID = showsByIDResult[0].id;
+                }
+
+                callback(null, showsByIDResult);
+                })            
+            },
+
+            function getSeancesByShowIDFromDB(callback)
+            {
+                db.getSeancesByShowID(showID, function(err, seancesByShowIDResult){
+                    if(err){
+                        console.log("get seances by show id from db error: ", err);
+                        callback(err, null); 
+                        return;
+                }
+
+                callback(null, seancesByShowIDResult);
+                })            
+            },
+
+            function getMediaByShowIDFromDB(callback)
+            {
+                db.getMediaByShowID(showID, function(err, mediaByShowIDResult){
+                    if(err){
+                        console.log("get media by show id from db error: ", err);
+                        callback(err, null); 
+                        return;
+                }
+
+                callback(null, mediaByShowIDResult);
+                })            
+            },
+        ],
+            function(err, result){
+                var resShow = result[0], resShowSeances = result[1], resShowMedia = result[2];
+                if(resType == 'json')
+                {
+                   res.json({show: resShow, showSeances: resShowSeances, showMedia: resShowMedia});
+                }
+                else if(resType == 'page')
+                {                   
+                   res.render('edit_show_page', { show: resShow, showSeances: resShowSeances, showMedia: resShowMedia, title: resShow[0].name, content: resShow[0].announce }); 
+                }
+                  
+            });
+    }
+    catch(e)
+    {
+        console.log("getShowByShowIdOrShowCode -> error: ", e);
+    }
+}
+
 
 module.exports = router;
