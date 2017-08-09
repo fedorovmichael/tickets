@@ -407,7 +407,7 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia) {
     var params = decodeURIComponent(window.location.search.substring(1));
     $("#lblShowShareLink").text("");
   
-    $("#lblShowShareLink").text(window.location.href.split('?')[0] +"?show=" + show[0].show_code);
+    $("#lblShowShareLink").text(window.location.href.split('?')[0] +"event/" + show[0].show_code);
     //$("#inpShowShareLink").val(window.location.href.split('?')[0] +"?show=" + show[0].id); 
     
     // if (show[0].second_image != null && show[0].second_image != '') {
@@ -1020,8 +1020,11 @@ function imageSizeHandler()
  
 function directLink()
 {   
-    var params = decodeURIComponent(window.location.search.substring(1));    
+    var params = decodeURIComponent(window.location.search.substring(1));
+    var agent = navigator.userAgent;    
     
+   // alert(agent);
+
     if(params == "")
     {
         return;
