@@ -307,8 +307,8 @@ db.getCities = function(cb)
                {
                    if(result[0][i].region == result[1][c].region)
                    {
-                       console.log("added city: ",  result[1][c].name);
-                       console.log("");
+                      // console.log("added city: ",  result[1][c].name);
+                      // console.log("");
                        arrCities.push(result[1][c]);
                    }
                }

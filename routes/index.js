@@ -4,6 +4,10 @@ var db = require('../db/database.js');
 var async = require('async');
 var dateFormat = require('dateformat');
 var appConfig = require("../config/index.js");
+var device = require('express-device');
+
+router.use(device.capture());
+device.enableDeviceHelpers(router);
 
 var contentDescription = "BILETY.CO.IL – агрегатор билетов на спектакли, концерты и другие культурные мероприятия в Израиле";
 /* GET home page. */
@@ -77,10 +81,10 @@ router.get('/', function(req, res, next) {
                 return;
             }
 
-             console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-             console.log("");
-             console.log("");
-            console.log('cities: ', citiesResult);
+            //  console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            //  console.log("");
+            //  console.log("");
+            // console.log('cities: ', citiesResult);
             resCities = citiesResult;
             callback(null, citiesResult);  
         });
@@ -246,7 +250,7 @@ router.post('/getShowByFilters', function(req, res, next) {
     //cities
     if(req.body.cities != null)
     {
-        console.log("cities: ", req.body.cities);        
+        //console.log("cities: ", req.body.cities);        
         var arrObjRegion = JSON.parse(req.body.cities);
 
         strCities = "";
@@ -491,11 +495,13 @@ router.post('/getShowByFilters', function(req, res, next) {
 
 });
 
-router.get('/event/:id', function(req, res, next){
-    
+router.get('/event/:id', function(req, res, next){   
+
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++ device property: ", req.device.type);
+
     var bot = req.query._escaped_fragment_;
 
-    if(bot == undefined)
+    if(bot == undefined && req.device.type != "bot")
     {
         appConfig.loadConfig();
         var baseUrl = appConfig.getConfig("urls", "base_url");
