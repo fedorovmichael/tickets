@@ -75,11 +75,11 @@ html
     input(id="hdnSortElement" type="hidden")
     input(id="hdnDateFilterData" type="hidden")
     input(id="hdnCitiesFilterData" type="hidden")    
-    nav(class="navbar navbar-inverse")
+    nav(class="navbar navbar-inverse navbar-fixed-top")
       div(class="container-fluid")
         div(class="container")
           div(class="navbar-header")
-            button(type="button", class="navbar-toggle", data-toggle="collapse", data-target="#mainNavbar")
+            button(type="button", class="navbar-toggle", data-toggle="collapse", data-target=".navbar-collapse")
               span(class="icon-bar")
               span(class="icon-bar")
               span(class="icon-bar")               
@@ -87,7 +87,7 @@ html
               span(style="text-transform: uppercase;") bilety.co.il
               span(style="font-size:10pt;") (beta)
     
-          div(class="collapse navbar-collapse" id="mainNavbar")
+          div(class="navbar-collapse collapse" id="mainNavbar")
             ul(class="nav navbar-nav")
               li(id="liHomePage" class="active")
                 a(id="aHomePage" href="") Главная
@@ -161,7 +161,7 @@ html
                 a(href="#")
                   span(class="glyphicon glyphicon-user") Singup
     
-    ul(id="ulSocialNetworks" class="nav nav-pills1 nav-stacked1" data-spy="affix" data-offset-top="0" style="width:75px; float:left;")
+    ul(id="ulSocialNetworks" class="nav nav-pills1 nav-stacked1" data-spy="affix" data-offset-top="0" style="width:75px; float:left; margin-top:50px;")
       li
         a(id="aFacebook" href="https://www.facebook.com/groups/weekend.il/?fref=nf" target="_blank")
           img(id="imgFacebook" src="/images/facebook.jpg")        

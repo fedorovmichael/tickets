@@ -497,7 +497,7 @@ router.post('/getShowByFilters', function(req, res, next) {
 
 router.get('/event/:id', function(req, res, next){   
 
-    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++ device property: ", req.device.type);
+    //console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++ device property: ", req.device.type);
 
     var bot = req.query._escaped_fragment_;
 
