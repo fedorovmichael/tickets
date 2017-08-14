@@ -270,7 +270,33 @@ a {
 		width: 248px;
 		max-width: 248px;
 		min-width: 248px;
-	} 
+    }  
+
+    #liFacebook, #liLivejournal
+    {
+      display: none;
+    }
+
+    #divLeftFilter
+    {
+      display: none;  
+      position: absolute;
+      top: 60px;
+      left: 0;
+      z-index: 10000;
+      background-color: white;
+      opacity: 0.95;
+      width: 200px;
+	  max-width: 200px;
+	  min-width: 200px;
+    }
+
+    #liMobileFilter
+    {
+       display: block !important;
+       z-index: 1000;
+       top: 150px;
+    }
 }
 
 

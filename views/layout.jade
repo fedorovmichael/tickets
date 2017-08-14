@@ -162,37 +162,41 @@ html
                   span(class="glyphicon glyphicon-user") Singup
     
     ul(id="ulSocialNetworks" class="nav nav-pills1 nav-stacked1" data-spy="affix" data-offset-top="0" style="width:75px; float:left; margin-top:50px;")
-      li
+      li(id="liFacebook")
         a(id="aFacebook" href="https://www.facebook.com/groups/weekend.il/?fref=nf" target="_blank")
           img(id="imgFacebook" src="/images/facebook.jpg")        
-      li
+      li(id="liLivejournal")
         a(id="aLivejournal" href="http://weekend-il.livejournal.com/" target="_blank")
           img(id="imgLivejournal" src="/images/Livejournal-icon.png")
-      li
-        a(id="aIsraPortal" href="http://www.israportal.com/" target="_blank" title="Израильский портал")
-          img(id="imgIsraPortal" src="http://www.israportal.com/knopka_israportal.jpg" border="0" alt="Израильский портал")      
-      li
-        a(href="http://shalom-friends.com/top/" target="_blank")
-          img( border="0" width="88" height="31" src="http://shalom-friends.com/top/button.php?u=andreydb" alt="Шалом - Еврейские знакомства, Еврейский сайт знакомств, Сайт еврейских знакомств, Еврейский календарь, Новости, Flash игры, ТОП - Рейтинг - Каталог сайтов, рецепты Еврейской кухни. Shalom - Free Jewish Dating site.")
+      li(id="liMobileFilter" style="width: 110px; background-color: #555 !important; display:none;")
+        a(id="aMobileFilter" href="#" style="background-color: #555 !important;")
+          span(style="text-transform: uppercase; color:#fff !important;") Фильтр
+          span(style="margin-right:3px; font-size:10pt; color:#fff !important;" class="glyphicon glyphicon-filter")
+           
+     
           
 
     block content
       div(class="container text-center")
     div(id="footer")  
-      div(class="container")
-        div(class="row" style="display:none;")
-          ul(style="list-style:none; margin-top: 10px;")
+      div(class="container text-center")
+        div(class="row" style="display:block;")
+          ul(class="list-inline" style="list-style:none; margin-top: 10px;")
+            li(id="btnFooterFacebook")
+              a(class="btn btn-social-icon btn-facebook" href="https://www.facebook.com/groups/weekend.il/?fref=nf" target="_blank")
+                span(class="fa fa-facebook")             
+            li(id="btnFooterLivejournal")
+              a(style="cursor: pointer;" href="http://weekend-il.livejournal.com/" target="_blank")
+                img(src="/images/Livejournal-icon.png" style="width:34px; height:34px;s")           
             li
-              a(class="btn btn-social-icon btn-facebook")
-                span(class="fa fa-facebook" style="margin-rigth: 40px;")
-              a(style="margin-left: 40px;")  
-                label facebook
+              a(id="aIsraPortal" href="http://www.israportal.com/" target="_blank" title="Израильский портал")
+                img(id="imgIsraPortal" src="http://www.israportal.com/knopka_israportal.jpg" border="0" alt="Израильский портал")      
             li
-              a(class="")
-                img(id="" src="/images/Livejournal-icon.png" style="width:34px; height:34px;s")
-                span livejournal
+              a(href="http://shalom-friends.com/top/" target="_blank")
+                img( border="0" width="88" height="31" src="http://shalom-friends.com/top/button.php?u=andreydb" alt="Шалом - Еврейские знакомства, Еврейский сайт знакомств, Сайт еврейских знакомств, Еврейский календарь, Новости, Flash игры, ТОП - Рейтинг - Каталог сайтов, рецепты Еврейской кухни. Shalom - Free Jewish Dating site.")
                 
-  
-        p(class="text-muted") Designed by fm#soft.   
+            li
+               span(class="text-muted") Designed by fm#soft.
+        
 
   
