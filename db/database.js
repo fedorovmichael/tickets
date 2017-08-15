@@ -56,11 +56,21 @@ db.getTypes = function(cb)
 db.getShows = function(cb)
 {
     try 
-    {        
-        var queryDB = "select sh.id as show_id, sh.name as name, sh.announce as announce, sh.price_min, sh.price_max, sh.date_from, sh.date_to, sh.resource, sh.main_image, sh.top, sh.show_code " +
-                      "from shows as sh " +  
-                      //"where top = '1' " +
-                      "order by price_min desc"
+    {
+       var queryDB ="select distinct sh.id as show_id, sh.name as name, sh.announce as announce, sh.price_min, sh.price_max, " +
+        " sh.date_from, sh.date_to, sh.resource, sh.main_image, sh.top, sh.show_code, t.id as type_id, " +
+        " t.name as type_name, t.color as type_color, st.id as subtype_id, st.name as subtype_name " + 
+        " from shows as sh " +
+        " join show_section as ss on sh.id = ss.show_id " +
+        " join type as t on t.id = ss.type_id " +
+        " join subtype as st on st.id = ss.subtype_id " +
+        " order by price_min desc "
+        
+        //old
+        // var queryDB = "select sh.id as show_id, sh.name as name, sh.announce as announce, sh.price_min, sh.price_max, sh.date_from, sh.date_to, sh.resource, sh.main_image, sh.top, sh.show_code " +
+        //               "from shows as sh " +  
+        //               //"where top = '1' " +
+        //               "order by price_min desc"
         console.log("connect to db");
         
         pool.connect(function(err, client, done){
