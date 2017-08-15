@@ -272,30 +272,36 @@ a {
 		min-width: 248px;
     }  
 
-    #liFacebook, #liLivejournal
+    #liFacebook, #liLivejournal, #liMobileFilter
     {
       display: none;
     }
 
+    /*for future use*/
     #divLeftFilter
-    {
-      display: none;  
-      position: absolute;
+    {        
+     /* position: absolute;
       top: 60px;
       left: 0;
       z-index: 10000;
       background-color: white;
-      opacity: 0.95;
-      width: 200px;
-	  max-width: 200px;
-	  min-width: 200px;
+      opacity: 0.95;*/
+      width: 190px;
+	    max-width: 190px;
+	    min-width: 190px;
+      margin-left: -70px;
     }
 
-    #liMobileFilter
+    /*#liMobileFilter
     {
        display: block !important;
        z-index: 1000;
        top: 150px;
+    }*/
+
+    #divShowsMain
+    {
+      margin-left: 70px;
     }
 }
 
