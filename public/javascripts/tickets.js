@@ -295,7 +295,7 @@ function createShowHTML(arrShows, arrShowsSections) {
 
         var type = '', subtype = '', type_id = '', subtype_id = '', type_color = '', subtypeHTML = '', imageURL = '', showName = '', date_f = '', date_t = '';
         for (var s = 0; s < arrShowsSections.length; s++) {
-            if (value.show_id == arrShowsSections[s].show_id) {
+            if (value.show_id == arrShowsSections[s].show_id && value.type_name == arrShowsSections[s].type_name && value.subtype_name == arrShowsSections[s].subtype_name) {
                 type = arrShowsSections[s].type_name;
                 type_id = arrShowsSections[s].type_id;
                 type_color = arrShowsSections[s].color;
