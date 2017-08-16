@@ -1,8 +1,11 @@
 -var hdnText ='';
+-var arrDisplayShows = [];
 ul(id="ulShows" class="row list-unstyled")
-  -for(var i=0; i< shows.length; i++)
-    -if(shows[i].top == 1){    
-      li(id="liMainShowID_#{shows[i].show_id}" class="col-sm-3" style="height: 285px; border: solid 0px red; cursor: pointer;")
+  -for(var i=0; i < shows.length; i++)
+    -var index = arrDisplayShows.findIndex(x => x === shows[i].show_id);  
+    -if(shows[i].top == 1 && index == -1){
+      -arrDisplayShows.push(shows[i].show_id);    
+      li(id="liMainShowID_#{shows[i].show_id}" index="#{index}" class="col-sm-3" style="height: 285px; border: solid 0px red; cursor: pointer;")
         div
           div(class="text-left")
             //- -var type='', subtype='', type_id='', subtype_id='', type_color='', date_f='', date_t='';
@@ -19,7 +22,7 @@ ul(id="ulShows" class="row list-unstyled")
             //-   a(href="#" subtype_id="#{subtype_id}" style="background: #{type_color}; color: white; font-size: 10pt;") #{subtype}
             //- -}
             a(href="#" type_id="#{shows[i].type_id}" style="background: #{shows[i].type_color}; color: white; margin-right: 5px; font-size: 10pt;") #{shows[i].type_name}
-            -if(shows[i].subtype_id != 'undefined' || shows[i].subtype_id != ''){
+            -if(shows[i].subtype_name != 'undefined'){
               a(href="#" subtype_id="#{shows[i].subtype_id}" style="background: #{shows[i].type_color}; color: white; font-size: 10pt;") #{shows[i].subtype_name}
             -}
           div(class="thumbnail")

@@ -339,7 +339,7 @@ db.getShowsByFilters = function(filters, cb)
 {
     try 
     {
-        var queryFiters = '', querySort = '', queryTempTable = '', queryDropTempTable = '';     
+        var queryFiters = '', querySort = '', queryTempTable = '', queryDropTempTable = '', queryTypeSubType = '';     
 
         console.log(""); 
         console.log("start get data by filter: ", filters);
@@ -352,7 +352,17 @@ db.getShowsByFilters = function(filters, cb)
             " create table t_subtypes as select show_id from show_section where subtype_id in ("+ filters.subtypes +"); " +            
             " create table t_shows as (select show_id from t_types union select show_id from t_subtypes); ";
 
-            queryFiters += " and sh.id in (select show_id from t_shows)";
+            if(filters.types != null)
+            {
+                queryTypeSubType += filters.subtypes != null ? " and (t.id in ("+ filters.types +") " : " and t.id in ("+ filters.types +") ";
+            }
+
+            if(filters.subtypes != null)
+            {
+                queryTypeSubType += filters.types != null ? "or st.id in ("+ filters.subtypes +")) " : " and st.id in ("+ filters.subtypes +") ";
+            }
+
+            queryFiters += " and sh.id in (select show_id from t_shows) " + queryTypeSubType;
             queryDropTempTable = "drop table t_types; drop table t_subtypes; drop table t_shows; ";            
 
         }
@@ -480,12 +490,14 @@ db.getShowsByFilters = function(filters, cb)
         }
 
         var queryDB = queryTempTable +" "+
-        " select distinct sh.id as show_id, sh.name as name, sh.announce as announce, sh.price_min, sh.price_max, sh.date_from, sh.date_to, sh.resource, sh.main_image, t.name as type_name, sh.top " +  
+        " select distinct sh.id as show_id, sh.name as name, sh.announce as announce, sh.price_min, sh.price_max, sh.date_from, sh.date_to, sh.resource, sh.main_image, sh.top, " +
+        " t.id as type_id, t.name as type_name, t.color as type_color, st.id as subtype_id, st.name as subtype_name " +
         "from shows as sh " +
         "join seances as s on  sh.id = s.show_id " +
         "join cities as c on s.city = c.name " +
         "join show_section as ss on ss.show_id = sh.id " +
         "join type as t on t.id = ss.type_id " +
+        "join subtype as st on st.id = ss.subtype_id " +
         " where sh.id != '0' " +
         queryFiters +" "+ querySort +"; "+ queryDropTempTable;
 
@@ -503,11 +515,13 @@ db.getAgencesShows = function(cb)
 {
     try
     {
-       var queryDB = "select distinct sh.id as show_id, sh.name as name, sh.announce as announce, sh.price_min, sh.price_max, sh.date_from, sh.date_to, sh.resource, sh.main_image, t.name as type_name, sh.top, sh.show_code " + 
+       var queryDB = "select distinct sh.id as show_id, sh.name as name, sh.announce as announce, sh.price_min, sh.price_max, sh.date_from, sh.date_to, sh.resource, sh.main_image, t.name as type_name, sh.top, sh.show_code, " +
+       " t.id as type_id, t.name as type_name, t.color as type_color, st.id as subtype_id, st.name as subtype_name " +  
        "from agences_shows as ash " +
        "join shows as sh on ash.show_name = sh.name " +
        "join show_section as ss on ss.show_id = sh.id " +
        "join type as t on t.id = ss.type_id " +
+       "join subtype as st on st.id = ss.subtype_id " +
        "where enabled = true";
 
        getMultipleResponse(cb, queryDB);
