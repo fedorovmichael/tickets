@@ -22,7 +22,7 @@ ul(id="ulShows" class="row list-unstyled")
             //-   a(href="#" subtype_id="#{subtype_id}" style="background: #{type_color}; color: white; font-size: 10pt;") #{subtype}
             //- -}
             a(href="#" type_id="#{shows[i].type_id}" style="background: #{shows[i].type_color}; color: white; margin-right: 5px; font-size: 10pt;") #{shows[i].type_name}
-            -if(shows[i].subtype_id != 'undefined' || shows[i].subtype_id != ''){
+            -if(shows[i].subtype_name != 'undefined'){
               a(href="#" subtype_id="#{shows[i].subtype_id}" style="background: #{shows[i].type_color}; color: white; font-size: 10pt;") #{shows[i].subtype_name}
             -}
           div(class="thumbnail")

@@ -286,26 +286,35 @@ function menuTypeHandler(id) {
 }
 
 function createShowHTML(arrShows, arrShowsSections) {
-    var html = "";
+
+    var html = "", arrDisplayShows = [];
 
     $("#ulShows").empty();
     $("#ulShows li").remove();
 
     $.each(arrShows, function (index, value) {
+        
+        var existsShow = arrDisplayShows.findIndex(x => x === value.show_id);
 
-        var type = '', subtype = '', type_id = '', subtype_id = '', type_color = '', subtypeHTML = '', imageURL = '', showName = '', date_f = '', date_t = '';
-        for (var s = 0; s < arrShowsSections.length; s++) {
-            if (value.show_id == arrShowsSections[s].show_id && value.type_name == arrShowsSections[s].type_name && value.subtype_name == arrShowsSections[s].subtype_name) {
-                type = arrShowsSections[s].type_name;
-                type_id = arrShowsSections[s].type_id;
-                type_color = arrShowsSections[s].color;
-                subtype = arrShowsSections[s].subtype_name;
-                subtype_id = arrShowsSections[s].subtype_id;
-            }
+        if(existsShow != -1)
+        {
+            return;
         }
 
-        if (subtype != 'undefined') {
-            subtypeHTML = "<a href='#' subtype_id='" + subtype_id + "' style='background:" + type_color + "; color:white; width:65px; font-size: 10pt;'>" + subtype + "</a>"
+        arrDisplayShows.push(value.show_id);
+        var type = '', subtype = '', type_id = '', subtype_id = '', type_color = '', subtypeHTML = '', imageURL = '', showName = '', date_f = '', date_t = '';
+        // for (var s = 0; s < arrShowsSections.length; s++) {
+        //     if (value.show_id == arrShowsSections[s].show_id && value.type_name == arrShowsSections[s].type_name && value.subtype_name == arrShowsSections[s].subtype_name) {
+        //         type = arrShowsSections[s].type_name;
+        //         type_id = arrShowsSections[s].type_id;
+        //         type_color = arrShowsSections[s].color;
+        //         subtype = arrShowsSections[s].subtype_name;
+        //         subtype_id = arrShowsSections[s].subtype_id;
+        //     }
+        // }
+
+        if (value.subtype_name != 'undefined') {
+            subtypeHTML = "<a href='#' subtype_id='" + value.subtype_id + "' style='background:" + value.type_color + "; color:white; width:65px; font-size: 10pt;'>" + value.subtype_name + "</a>"
         }
 
         if (value.resource == 'bravo') {
@@ -345,7 +354,7 @@ function createShowHTML(arrShows, arrShowsSections) {
         html += "<li id='liMainShowID_" + value.show_id + "' style='height: 285px; border: solid 0px red; cursor: pointer; "+ displayEvent +" ' class='col-sm-3'>" +
             "<div>" +
             "<div class='text-left'>" +
-            "<a href='#' type_id='" + type_id + "' style='background:" + type_color + "; color:white; margin-right:5px; width:65px; font-size: 10pt;'>" + type + "</a>" +
+            "<a href='#' type_id='" + value.type_id + "' style='background:" + value.type_color + "; color:white; margin-right:5px; width:65px; font-size: 10pt;'>" + value.type_name + "</a>" +
             subtypeHTML +
             "</div>" +
             "<div class='thumbnail'>" +
