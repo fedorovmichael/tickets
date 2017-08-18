@@ -313,8 +313,20 @@ function createShowHTML(arrShows, arrShowsSections) {
         //     }
         // }
 
-        if (value.subtype_name != 'undefined') {
-            subtypeHTML = "<a href='#' subtype_id='" + value.subtype_id + "' style='background:" + value.type_color + "; color:white; width:65px; font-size: 10pt;'>" + value.subtype_name + "</a>"
+        if (value.subcategory_name != 'undefined') {
+
+            var arrSubTypes = value.subcategory_name.split('|');
+            if(arrSubTypes.length > 1){
+                $.each(arrSubTypes, function(is, vs)
+                {
+                    //subtypeHTML += "<a href='#' subtype_id='" + value.subtype_id + "' style='background:" + value.type_color + "; color:white; width:65px; font-size: 8pt; text-transform: uppercase; margin-right:3px;'>" + vs + "</a>"
+                });
+            }
+            else
+            {
+                //subtypeHTML = "<a href='#' subtype_id='" + value.subtype_id + "' style='background:" + value.type_color + "; color:white; width:65px; font-size: 8pt; text-transform: uppercase;'>" + value.subtype_name + "</a>"
+            }
+
         }
 
         if (value.resource == 'bravo') {
@@ -354,8 +366,8 @@ function createShowHTML(arrShows, arrShowsSections) {
         html += "<li id='liMainShowID_" + value.show_id + "' style='height: 285px; border: solid 0px red; cursor: pointer; "+ displayEvent +" ' class='col-sm-3'>" +
             "<div>" +
             "<div class='text-left'>" +
-            "<a href='#' type_id='" + value.type_id + "' style='background:" + value.type_color + "; color:white; margin-right:5px; width:65px; font-size: 10pt;'>" + value.type_name + "</a>" +
-            subtypeHTML +
+            // "<a href='#' type_id='" + value.type_id + "' style='background:" + value.type_color + "; color:white; margin-right:5px; width:65px; font-size: 8pt;'>" + value.type_name + "</a>" +
+            // subtypeHTML +
             "</div>" +
             "<div class='thumbnail'>" +
             "<img src='" + imageURL + "' alt='' style='width: 198px; height: 110px;'>" +

@@ -516,6 +516,11 @@ router.get('/event/:id', function(req, res, next){
     
 });
 
+router.get('/he-il', function(req,res, next){
+    appConfig.loadConfig();
+    res.redirect(appConfig.getConfig("urls", "base_url"));
+});
+
 function getShowByShowIdOrShowCode(req, res, resType)
 {
      var showID = '', showCode = '';

@@ -491,7 +491,7 @@ db.getShowsByFilters = function(filters, cb)
 
         var queryDB = queryTempTable +" "+
         " select distinct sh.id as show_id, sh.name as name, sh.announce as announce, sh.price_min, sh.price_max, sh.date_from, sh.date_to, sh.resource, sh.main_image, sh.top, " +
-        " t.id as type_id, t.name as type_name, t.color as type_color, st.id as subtype_id, st.name as subtype_name " +
+        " t.id as type_id, t.name as type_name, t.color as type_color, st.id as subtype_id, st.name as subtype_name, ss.subcategory_name " +
         "from shows as sh " +
         "join seances as s on  sh.id = s.show_id " +
         "join cities as c on s.city = c.name " +
@@ -516,7 +516,7 @@ db.getAgencesShows = function(cb)
     try
     {
        var queryDB = "select distinct sh.id as show_id, sh.name as name, sh.announce as announce, sh.price_min, sh.price_max, sh.date_from, sh.date_to, sh.resource, sh.main_image, t.name as type_name, sh.top, sh.show_code, " +
-       " t.id as type_id, t.name as type_name, t.color as type_color, st.id as subtype_id, st.name as subtype_name " +  
+       " t.id as type_id, t.name as type_name, t.color as type_color, st.id as subtype_id, st.name as subtype_name, ss.subcategory_name " +  
        "from agences_shows as ash " +
        "join shows as sh on ash.show_name = sh.name " +
        "join show_section as ss on ss.show_id = sh.id " +
