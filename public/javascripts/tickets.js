@@ -313,21 +313,21 @@ function createShowHTML(arrShows, arrShowsSections) {
         //     }
         // }
 
-        if (value.subcategory_name != 'undefined') {
+        // if (value.subcategory_name != 'undefined') {
 
-            var arrSubTypes = value.subcategory_name.split('|');
-            if(arrSubTypes.length > 1){
-                $.each(arrSubTypes, function(is, vs)
-                {
-                    //subtypeHTML += "<a href='#' subtype_id='" + value.subtype_id + "' style='background:" + value.type_color + "; color:white; width:65px; font-size: 8pt; text-transform: uppercase; margin-right:3px;'>" + vs + "</a>"
-                });
-            }
-            else
-            {
-                //subtypeHTML = "<a href='#' subtype_id='" + value.subtype_id + "' style='background:" + value.type_color + "; color:white; width:65px; font-size: 8pt; text-transform: uppercase;'>" + value.subtype_name + "</a>"
-            }
+        //     var arrSubTypes = value.subcategory_name.split('|');
+        //     if(arrSubTypes.length > 1){
+        //         $.each(arrSubTypes, function(is, vs)
+        //         {
+        //             //subtypeHTML += "<a href='#' subtype_id='" + value.subtype_id + "' style='background:" + value.type_color + "; color:white; width:65px; font-size: 8pt; text-transform: uppercase; margin-right:3px;'>" + vs + "</a>"
+        //         });
+        //     }
+        //     else
+        //     {
+        //         //subtypeHTML = "<a href='#' subtype_id='" + value.subtype_id + "' style='background:" + value.type_color + "; color:white; width:65px; font-size: 8pt; text-transform: uppercase;'>" + value.subtype_name + "</a>"
+        //     }
 
-        }
+        // }
 
         if (value.resource == 'bravo') {
             imageURL = "http://kaccabravo.co.il" + value.main_image;
