@@ -1,0 +1,71 @@
+-var hdnText ='';
+-var arrDisplayShows = [];
+ul(id="ulShows" class="row list-unstyled")
+  -for(var i=0; i < shows.length; i++)
+    -var index = arrDisplayShows.findIndex(x => x === shows[i].show_id);  
+    -if(shows[i].top == 1 && index == -1){
+      -arrDisplayShows.push(shows[i].show_id);    
+      li(id="liMainShowID_#{shows[i].show_id}" index="#{index}" class="col-sm-3" style="height: 285px; border: solid 0px red; cursor: pointer;")
+        div
+          div(class="text-left")
+            //- -var type='', subtype='', type_id='', subtype_id='', type_color='', date_f='', date_t='';
+            //- -for(var s = 0; s < showsSections.length; s++)        
+            //-   -if(shows[i].show_id == showsSections[s].show_id){                   
+            //-   -type = showsSections[s].type_name;
+            //-   -type_id = showsSections[s].type_id;
+            //-   -type_color = showsSections[s].color;
+            //-   -subtype = showsSections[s].subtype_name;
+            //-   -subtype_id = showsSections[s].subtype_id;                   
+            //- -}
+            //- a(href="#" type_id="#{type_id}" style="background: #{type_color}; color: white; margin-right: 5px; font-size: 10pt;") #{type}
+            //- -if(subtype != 'undefined'){
+            //-   a(href="#" subtype_id="#{subtype_id}" style="background: #{type_color}; color: white; font-size: 10pt;") #{subtype}
+            //- -}
+            a(href="#" type_id="#{shows[i].type_id}" style="background: #{shows[i].type_color}; color: white; margin-right: 0px; font-size: 8pt;") #{shows[i].type_name}
+            -if(shows[i].subtype_name != 'undefined'){
+              span(class="glyphicon glyphicon-chevron-right" style="font-size: 10px; color:#{shows[i].type_color}")
+              a(href="#" subtype_id="#{shows[i].subtype_id}" style="background: #{shows[i].type_color}; color: white; font-size: 8pt;") #{shows[i].subtype_name}
+            -}
+          div(class="thumbnail")
+            //- -var arrImageName = shows[i].main_image.split('/');
+            //- -var imageName = arrImageName[arrImageName.length - 1];            
+            //- img(src="/images/shows/opt/#{imageName}", alt="#{shows[i].announce}", style="width: 198px; height: 110px;")
+            -if(shows[i].resource == 'bravo'){                                       
+              img(src="http://kaccabravo.co.il#{shows[i].main_image}", alt="#{shows[i].announce}", style="width: 198px; height: 110px;")
+            -}  
+            -else {                                   
+              img(src="http://biletru.co.il#{shows[i].main_image}", alt="#{shows[i].announce}", style="width: 198px; height: 110px;")
+            -}
+            div(class="caption")
+              a(href="http://www.bilety.co.il/?show=#{shows[i].show_code}" style="display:none;")
+              -if(shows[i].name.length > 50){
+                -var n = shows[i].name.substr(0, 50);
+                -var name = n.substr(0, n.lastIndexOf(" "));
+                p(style="height:54px; max-height:54px; min-height:54px;") #{name} 
+              -}                      
+              -else
+                p(style="height:54px; max-height:54px; min-height:54px;") #{shows[i].name}
+
+              -var dt_f = new Date(shows[i].date_from);
+              -date_f = dateFormat(dt_f, "dd.mm.yyyy");
+              -var dt_t = new Date(shows[i].date_to);
+              -date_t = dateFormat(dt_t, "dd.mm.yyyy");
+              
+              -if(date_f != date_t)            
+                p #{date_f} - #{date_t}
+              -else
+                p #{date_f}
+
+              -if(shows[i].price_min != shows[i].price_max)
+                P Цена #{shows[i].price_min}&#8362; - #{shows[i].price_max}&#8362;
+              -else
+                P Цена #{shows[i].price_min}&#8362;
+    -}
+    -else
+    -{
+        -hdnText += "<h2>" + shows[i].name + "</h2> <p>" + shows[i].announce + "</p>";
+    -}
+
+div(id="divHiddenEvents" style="display:none;") #{hdnText}
+a(id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Наверх" data-toggle="tooltip")
+  span(class="glyphicon glyphicon-chevron-up")      

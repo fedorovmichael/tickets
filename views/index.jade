@@ -1,0 +1,160 @@
+extends layout
+
+block content
+  script.
+      $(function(){ 
+          $("#txtDateFrom").datepicker({minDate: new Date(), dateFormat: 'dd/mm/yy'}); 
+          $("#txtDateTo").datepicker({minDate: new Date(), dateFormat: 'dd/mm/yy'}); 
+          $("#divMultiDatePicker").multiDatesPicker();      
+          $('input').customInput();
+          $('#editShowModal').modal({backdrop: 'static', keyboard: false, show: false });          
+        }); 
+
+  div(class="container text-center")
+    <!--carousel-->
+    div(class="container" style="margin-bottom: 10px;")
+      div(id="divAboutContent" class="jumbotron" style="display:none; text-align: left;")
+        p   BILETY.CO.IL – первый (и единственный) в Израиле агрегатор театральных и концертных билетов. 
+           | Сервис получает информацию от нескольких крупных продавцов. При этом компания не берет с покупателей комиссию за свои услуги. Партнеры делятся с ней частью выручки от продаж через сервис.
+           | Партнеры BILETY.CO.IL по продаже билетов в театр – билетные агентства BRAVO и BILETRU (в перспективе присоединение АНШЛАГ и HAIFA-SEASONS), а также продюсерские компании Rest International и Cruise International. Уже сейчас в базе сайта практически все гастроли (от "Сплина" и "Ленинграда" до Лолиты и Пенкина, от БДТ им. Г. А. Товстоногова и бенефиса Константина Хабенского до "Черного театра" из Праги и Оперы "Мадам Баттерфляй" в постановке оперного театра "Ла Скала") и большинство израильских концертов и спектаклей (в том числе постановки Камерного театра, театра Габима, театра Бейт Лесин, театра Гешер и израильских фриндж театров) . Кино и цирк, юмористические представления и мероприятия для детей, творческие встречи и лекции, выставки и спортивные мероприятия - все это вы также найдете на страницах сайта. Цель организаторов сайта – возможность покупки билетов на любое событие в стране в одном месте. Обратите внимание, что сайт не занимается продажей билетов. Сам процесс покупки происходит на сайте партнера, чье предложение покажется наиболее привлекательным для покупателя. При этом BILETY.CO.IL работает только с самыми проверенными партнерами.
+           | Основная задача сайта - помочь найти лучшее из того, что предлагают ВСЕ билетные кассы Израиля. Для этого разработана удобная и гибкая система поиска, фильтрации и сортировки мероприятий по категории, дате, месту проведения, цене и т.д. Такую систему не предлагает ни один сайт в Израиле (а возможно и в мире). С одной стороны, вы найдете ВСЕ мероприятия на одном сайте (ведь разные агентства продают билеты на разные мероприятия). С другой стороны, если несколько агентств продают билеты на одно мероприятие, то вы сможете в одном месте увидеть все свободные билеты на это мероприятие (ведь разные агентства продают разные места на одно и тоже мероприятие). Если вы привыкли планировать поход в театр заранее или организуете свой досуг в последнюю минуту - сайт BILETY.CO.IL для вас. Если вы всегда выбираете самые лучшие места на концерт или ищете только билеты со скидками - сайт BILETY.CO.IL поможет вам в этом.
+           | В ближайших планах компании - мобильная версия сайта и разработка раздела сайта с бесплатными и субсидированными мероприятиями по всей стране. Уже в работе и израильская ивритоязычная и немецкая русскоязычная версии сайта.
+           | Сайт пока проходит бета-тестирование и конечно пока имеет некоторые баги и недоработки. Но идея уже вроде бы ясна. Я буду очень рад узнать любые критические мнения о сайте, любые идеи и предложения как по самому сайту, так и его продвижению.
+           br
+           | Заранее спасибо.
+   
+
+      div(id="ticketsCarousel", class="carousel slide", data-ride="carousel", style="margin-bottom: 10px; display:none;")
+        <!-- Indicators-->
+        ol(class="carousel-indicators")
+          li(data-target="#ticketsCarousel", data-slide-to="0" class="active")
+          li(data-target="#ticketsCarousel", data-slide-to="1")
+          li(data-target="#ticketsCarousel", data-slide-to="2")
+          li(data-target="#ticketsCarousel", data-slide-to="3")
+
+        <!-- slides -->
+        div(class="carousel-inner", role="listbox")
+          div(class="item active")
+            img(src="", alt="Chania", width="460", height="345")
+            div(class="carousel-caption")
+              h3 slide 1
+              p The atmosphere in Chania has a touch of Florence and Venice
+
+          div(class="item")
+            img(src="", alt="Chania", width="460", height="345")
+            div(class="carousel-caption")
+              h3 slide 2
+              p The atmosphere in Chania has a touch of Florence and Venice
+
+          div(class="item")
+            img(src="", alt="Chania", width="460", height="345")
+            div(class="carousel-caption")
+              h3 slide 3
+              p The atmosphere in Chania has a touch of Florence and Venice
+
+          div(class="item")
+            img(src="", alt="Chania", width="460", height="345")
+            div(class="carousel-caption")
+              h3 slide 3
+              p The atmosphere in Chania has a touch of Florence and Venice
+
+        <!-- Left and right controls -->
+        a(class="left carousel-control" href="#ticketsCarousel" role="button" data-slide="prev")
+          span(class="glyphicon glyphicon-chevron-left" aria-hidden="true")
+          span(class="sr-only") Previous
+
+        a(class="right carousel-control" href="#ticketsCarousel" role="button" data-slide="next")
+          span(class="glyphicon glyphicon-chevron-right" aria-hidden="true")
+          span(class="sr-only") Next
+
+      div(id="divMainContent" class="row content" style="margin-left:0; margin-right:0; display: block;")        
+        div(id="divLeftFilter" class="col-sm-2 sidenav")
+          p(class="left-ul-filter label-filter-border" )
+            span(style="font-weight: bold; text-transform: uppercase;") Категория
+          include ./partials/types_menu          
+          div(id="divMultiDatePicker" class="text-left" style="margin-bottom:10px; display:none;")
+          p(class="left-ul-filter label-filter-border")
+            span(style="font-weight: bold;") ДАТА
+          ul(class="row list-unstyled")
+            li
+              input(id="txtDateFrom" type="text" class="text-box text-left left-ul-filter" placeholder="Дата с:" style="margin-bottom: 5px; box-shadow: none;")              
+            li(style="margin-bottom: 10px;")
+              input(id="txtDateTo" type="text" class="text-box text-left left-ul-filter" placeholder="Дата по:")
+
+            li(id="liLeftFilter_Today" class="text-left left-ul-filter border-bottom-grey" )
+              input(id="inputLeftFilter_Today" type="checkbox" name="genre" value="action")
+              label(for="inputLeftFilter_Today" class="label-left-filter-font") СЕГОДНЯ              
+
+            li(id="liLeftFilter_Tomorrow" class="text-left left-ul-filter border-bottom-grey")
+              input(id="inputLeftFilter_Tomorrow" type="checkbox" name="genre" value="action")
+              label(for="inputLeftFilter_Tomorrow" class="label-left-filter-font") ЗАВТРА              
+
+            li(id="liLeftFilter_Week" class="text-left left-ul-filter border-bottom-grey")
+              input(id="inputLeftFilter_Week" type="checkbox" name="genre" value="action")
+              label(for="inputLeftFilter_Week" class="label-left-filter-font") БЛИЖАЙШАЯ НЕДЕЛЯ              
+
+            li(id="liLeftFilter_Weekend" class="text-left left-ul-filter border-bottom-grey")
+              input(id="inputLeftFilter_Weekend" type="checkbox" name="genre" value="action")
+              label(for="inputLeftFilter_Weekend" class="label-left-filter-font") БЛИЖАЙШИЕ ВЫХОДНЫЕ             
+
+            li(id="liLeftFilter_NextWeekend" class="text-left left-ul-filter border-bottom-grey")
+              input(id="inputLeftFilter_NextWeekend" type="checkbox" name="genre" value="action")
+              label(for="inputLeftFilter_NextWeekend" class="label-left-filter-font") СЛЕДУЮЩИЕ ВЫХОДНЫЕ              
+
+            li(id="liLeftFilter_Month" class="text-left left-ul-filter border-bottom-grey")
+              input(id="inputLeftFilter_Month" type="checkbox" name="genre" value="action")
+              label(for="inputLeftFilter_Month" class="label-left-filter-font") БЛИЖАЙШИЙ МЕСЯЦ
+              
+            li(id="liLeftFilter_TreeMonth" class="text-left left-ul-filter border-bottom-grey")
+              input(id="inputLeftFilter_TreeMonth" type="checkbox" name="genre" value="action")
+              label(for="inputLeftFilter_TreeMonth" class="label-left-filter-font") БЛИЖАЙШИЕ 3 МЕСЯЦА              
+
+          p(class="left-ul-filter label-filter-border" ) 
+            span(style="font-weight: bold; text-transform: uppercase;") Место
+            include ./partials/cities_filter
+
+          p(class="left-ul-filter label-filter-border" ) 
+            span(style="font-weight: bold; text-transform: uppercase;") Другое 
+          ul(class="row list-unstyled")
+            li(id="liSuperPrice" class="text-left left-ul-filter border-bottom-grey")              
+              input(id="inputSuperPrice" type="checkbox" name="genre" value="action")
+              label(for="inputSuperPrice" class="label-left-filter-font") Супер-цена            
+
+            li(id="liDiscount" class="text-left left-ul-filter border-bottom-grey")
+              input(id="inputDiscount" type="checkbox" name="genre" value="action")
+              label(for="inputDiscount" class="label-left-filter-font") Со скидкой
+
+            li(id="liTour" class="text-left left-ul-filter border-bottom-grey")
+              input(id="inputTour" type="checkbox" name="genre" value="action")
+              label(for="inputTour" class="label-left-filter-font") Гастроли           
+            
+            li(id="liMinMaxPrice" class="text-left left-ul-filter border-bottom-grey")
+              label(class="label-left-filter-font" style="margin-right:10px;") Цена
+              input(id="inputPriceMin" type="text" style="margin-right:5px; width:60px;" placeholder="от" maxlength="5")
+              input(id="inputPriceMax" type="text" style="width:60px;" placeholder="до" maxlength="5")
+
+          div(class="text-left")  
+            a(id="aClearLeftFilter" href="#" style="margin-left: -10px; text-decoration-color: red;" )
+              span(class="glyphicon glyphicon-remove-circle" style="margin-right:3px; color:red;") 
+              span(style="color:red;") ОЧИСТИТЬ 
+
+             
+
+        div(class="col-sm-10 text-center")
+
+          div(id="divLoading" class="wait-modal-none")
+            img(src="/images/wait.gif" style="margin-top: 25%;")
+            br 
+            span(style="text-transform: uppercase; margin-top: 10px;") загрузка...
+
+          div(id="divShowsMain" style="display:block")
+            include ./partials/shows_main
+
+          div(id="divShowEdit" style="display:none")
+            include ./partials/shows_edit
+
+       
+                
+
+
+

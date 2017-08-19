@@ -1,0 +1,15 @@
+script.
+  $(function(){ $('input').customInput();});
+
+-if(cities != undefined && cities != null)
+  ul(class="row list-unstyled" style="")
+    -for(var i = 0; i < cities.length; i++)
+      li(class="text-left border-bottom-grey" id="liRegion_#{cities[i].regionName}")
+        input(type="checkbox" id="regionID_#{cities[i].regionName}" name="genre" value="action")
+        label(for="regionID_#{cities[i].regionName}" style="text-transform: uppercase; font-weight: normal;") #{cities[i].regionName}
+        ul(id="ulCitiesOfRegion_#{cities[i].regionName}" class="row list-unstyled" style="margin-left:10px; display:none;")
+          -var arrCities = cities[i].cities;
+          -for(var c = 0; c < arrCities.length; c++)
+            li(id="liCity_#{arrCities[c].id}" class="text-left border-bottom-grey")
+              input(id="cbCity_#{arrCities[c].id}" type="checkbox" name="genre" value="action" region="#{cities[i].regionName}")
+              label(for="cbCity_#{arrCities[c].id}" style="text-transform: uppercase; font-weight: normal;") #{arrCities[c].name}
