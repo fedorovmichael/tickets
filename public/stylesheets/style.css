@@ -308,6 +308,11 @@ a {
     {
       margin-right: 40px;
     }
+
+    .modal-dialog
+    {
+      width: 900px !important;
+    }
 }
 
 
