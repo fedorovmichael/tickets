@@ -287,10 +287,13 @@ function menuTypeHandler(id) {
 
 function createShowHTML(arrShows, arrShowsSections) {
 
-    var html = "", arrDisplayShows = [];
+    var html = "", arrDisplayShows = [], arrSelectedTypes = [], strSelectedTypes = '';
 
     $("#ulShows").empty();
     $("#ulShows li").remove();
+
+    strSelectedTypes = $("#hdnSelectedTypes").val();
+    arrSelectedTypes = strSelectedTypes.split(',');    
 
     $.each(arrShows, function (index, value) {
         
@@ -302,7 +305,7 @@ function createShowHTML(arrShows, arrShowsSections) {
         }
 
         arrDisplayShows.push(value.show_id);
-        var type = '', subtype = '', type_id = '', subtype_id = '', type_color = '', subtypeHTML = '', imageURL = '', showName = '', date_f = '', date_t = '';
+        var type = '', subtype = '', type_id = '', subtype_id = '', type_color = '', subtypeHTML = '', imageURL = '', showName = '', date_f = '', date_t = '', typeHTML = '';
         // for (var s = 0; s < arrShowsSections.length; s++) {
         //     if (value.show_id == arrShowsSections[s].show_id && value.type_name == arrShowsSections[s].type_name && value.subtype_name == arrShowsSections[s].subtype_name) {
         //         type = arrShowsSections[s].type_name;
@@ -312,23 +315,30 @@ function createShowHTML(arrShows, arrShowsSections) {
         //         subtype_id = arrShowsSections[s].subtype_id;
         //     }
         // }
+        if(arrSelectedTypes.findIndex(x=>x === value.type_id) == -1)
+        {
+            typeHTML =  "<a href='#' type_id='" + value.type_id + "' style='background:" + value.type_color + ";' class='top-category-of-event'>" + value.type_name + "</a>";
+        }
+        else
+        {
+            if (value.subcategory_name != 'undefined') {
 
-        // if (value.subcategory_name != 'undefined') {
+                var arrSubTypes = value.subcategory_name.split('|');
+                if(arrSubTypes.length > 1){
+                    $.each(arrSubTypes, function(is, vs)
+                    {
+                        // subtypeHTML += "<span class='glyphicon glyphicon-chevron-right' style='font-size: 10px; color:" + value.type_color + "'></span>";
+                        subtypeHTML += "<a href='#' subtype_id='" + value.subtype_id + "' style='background:" + value.type_color + ";' class='top-category-of-event'>" + vs + "</a>";
+                    });
+                }
+                else
+                {
+                    // subtypeHTML += "<span class='glyphicon glyphicon-chevron-right' style='font-size: 10px; color:" + value.type_color + "'></span>";
+                    subtypeHTML += "<a href='#' subtype_id='" + value.subtype_id + "' style='background:" + value.type_color + ";' class='top-category-of-event'>" + value.subcategory_name + "</a>";
+                }
 
-        //     var arrSubTypes = value.subcategory_name.split('|');
-        //     if(arrSubTypes.length > 1){
-        //         $.each(arrSubTypes, function(is, vs)
-        //         {
-        //             //subtypeHTML += "<a href='#' subtype_id='" + value.subtype_id + "' style='background:" + value.type_color + "; color:white; width:65px; font-size: 8pt; text-transform: uppercase; margin-right:3px;'>" + vs + "</a>"
-        //         });
-        //     }
-        //     else
-        //     {
-        //         //subtypeHTML = "<a href='#' subtype_id='" + value.subtype_id + "' style='background:" + value.type_color + "; color:white; width:65px; font-size: 8pt; text-transform: uppercase;'>" + value.subtype_name + "</a>"
-        //     }
-
-        // }
-
+            }
+        }
         if (value.resource == 'bravo') {
             imageURL = "http://kaccabravo.co.il" + value.main_image;
         }
@@ -366,8 +376,8 @@ function createShowHTML(arrShows, arrShowsSections) {
         html += "<li id='liMainShowID_" + value.show_id + "' style='height: 285px; border: solid 0px red; cursor: pointer; "+ displayEvent +" ' class='col-sm-3'>" +
             "<div>" +
             "<div class='text-left'>" +
-            // "<a href='#' type_id='" + value.type_id + "' style='background:" + value.type_color + "; color:white; margin-right:5px; width:65px; font-size: 8pt;'>" + value.type_name + "</a>" +
-            // subtypeHTML +
+            // "<a href='#' type_id='" + value.type_id + "' style='background:" + value.type_color + "; color:white; margin-right:0px; width:65px; font-size: 8pt;'>" + value.type_name + "</a>" +
+             typeHTML + subtypeHTML +
             "</div>" +
             "<div class='thumbnail'>" +
             "<img src='" + imageURL + "' alt='' style='width: 198px; height: 110px;'>" +
@@ -569,6 +579,7 @@ function filtersHandler() {
     var maxPrice = $("#inputPriceMax").val() == '' ? null : parseInt($("#inputPriceMax").val());
 
     var count = 0;
+    var arrSelectedTypes = [];
 
     //get checked types
     $.each(arrTypes, function (index, value) {
@@ -578,12 +589,13 @@ function filtersHandler() {
         var fullID = $(input).attr("id");
         var typeID = $(input).attr("id").split("_")[1];
 
-        $("#subMenuOfType_" + typeID).hide();
+        $("#subMenuOfType_" + typeID).hide();        
 
         if (isChecked) {
             $("#subMenuOfType_" + typeID).show();
             var subTypesLi = $("#subMenuOfType_" + typeID + " li");
             var subCount = 0;
+            arrSelectedTypes.push(typeID);
 
             $.each(subTypesLi, function (i, v) {
 
@@ -611,6 +623,9 @@ function filtersHandler() {
     if (count == 0) {
         arrTypesChecked = null;
     }
+
+    $("#hdnSelectedTypes").val('');
+    $("#hdnSelectedTypes").val(arrSelectedTypes.join(','));
 
     if ($("#hdnSortElement").text() == '') {
         $("#hdnSortElement").text('liSortByPrice');

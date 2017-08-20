@@ -21,9 +21,10 @@ ul(id="ulShows" class="row list-unstyled")
             //- -if(subtype != 'undefined'){
             //-   a(href="#" subtype_id="#{subtype_id}" style="background: #{type_color}; color: white; font-size: 10pt;") #{subtype}
             //- -}
-            //-a(href="#" type_id="#{shows[i].type_id}" style="background: #{shows[i].type_color}; color: white; margin-right: 5px; font-size: 10pt;") #{shows[i].type_name}
+            a(href="#" type_id="#{shows[i].type_id}" style="background: #{shows[i].type_color};" class="top-category-of-event") #{shows[i].type_name}
             //- -if(shows[i].subtype_name != 'undefined'){
-            //-   a(href="#" subtype_id="#{shows[i].subtype_id}" style="background: #{shows[i].type_color}; color: white; font-size: 10pt;") #{shows[i].subtype_name}
+            //-   span(class="glyphicon glyphicon-chevron-right" style="font-size: 10px; color:#{shows[i].type_color}")
+            //-   a(href="#" subtype_id="#{shows[i].subtype_id}" style="background: #{shows[i].type_color}; color: white; font-size: 8pt;") #{shows[i].subtype_name}
             //- -}
           div(class="thumbnail")
             //- -var arrImageName = shows[i].main_image.split('/');
