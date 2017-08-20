@@ -230,6 +230,28 @@ a {
 	width: 57px !important;
 }
 
+.top-category-of-event
+{
+    color: white;
+    margin-left: 3px;
+    width: 60px;
+    font-size: 7pt;
+    padding-bottom: 1px;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 1px;
+    text-decoration: none;
+    font-weight: 600;
+    /*font-family: 'pt-sansnarrowbold';*/
+    text-transform: uppercase;
+}
+
+.top-category-of-event:hover, .top-category-of-event:active 
+{
+  text-decoration: none;
+  color: white;
+}
+
 @media (max-width: 1280px) {
      .navbar-header {
         float: none;
