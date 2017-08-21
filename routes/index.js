@@ -12,130 +12,10 @@ device.enableDeviceHelpers(router);
 var contentDescription = "BILETY.CO.IL – агрегатор билетов на спектакли, концерты и другие культурные мероприятия в Израиле";
 /* GET home page. */
 router.get('/', function(req, res, next) {
-
-  var resTypes = '', resShows = '', resShowsSection = '', resSubTypes = '', resCities = '', resAgencesShows = '';
-
-  async.waterfall([
-    function getTypesFromDB(callback)
-    {
-        db.getTypes(function(err, typesResult){
-            if(err){
-                console.log("get types from db error: ", err);
-                callback(err, null); 
-                return;
-            }
-
-            resTypes = typesResult;
-            callback(null, typesResult);  
-        });
-    },
-
-    function getShowsFromDB(typesResult, callback)
-    {
-        db.getShows(function(err, showsResult){
-            if(err){
-                console.log("get shows from db error: ", err);
-                callback(err, null); 
-                return;
-            }           
-            
-            resShows = showsResult;
-            callback(null, showsResult);  
-        });
-    },
-
-    function getShowsSectionsFromDB(showsResult, callback)
-    {
-        db.getShowsSections(function(err, showsSectionsResult){
-            if(err){
-                console.log("get shows sections from db error: ", err);
-                callback(err, null); 
-                return;
-            }
-
-            resShowsSection = showsSectionsResult;
-            callback(null, showsSectionsResult);  
-        });
-    },
-
-    function getSubTypesFromDB(showsSectionsResult, callback)
-    {
-        db.getSubTypes(function(err, subTypesResult){
-            if(err){
-                console.log("get sub types from db error: ", err);
-                callback(err, null); 
-                return;
-            }
-
-            resSubTypes = subTypesResult;
-            callback(null, subTypesResult);  
-        });
-    },
-
-    function getCitiesFromDB(subTypesResult, callback)
-    {
-        db.getCities(function(err, citiesResult){
-            if(err){
-                console.log("get cities from db error: ", err);
-                callback(err, null); 
-                return;
-            }
-
-            //  console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            //  console.log("");
-            //  console.log("");
-            // console.log('cities: ', citiesResult);
-            resCities = citiesResult;
-            callback(null, citiesResult);  
-        });
-    },
-
-    function getAgencesShowsFromDB(citiesResult, callback)
-    {
-       db.getAgencesShows(function(err, agencesShowsResult){
-            if(err){
-                console.log("get agences shows from db error: ", err);
-                callback(err, null); 
-                return;
-            }
-
-            // console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            // console.log("");
-            // console.log("");
-            // console.log('agences shows: ', agencesShowsResult);
-            resAgencesShows = agencesShowsResult;
-            callback(null, agencesShowsResult);  
-        });
-    },
-
-    function sendResponce(agencesShowsResult, callback){
-      
-      for(var i = 0; i < resAgencesShows.length; i++)
-      {
-          console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-          console.log("");
-          console.log("");
-          console.log('index of: ', resShows.findIndex(x => x.show_id === resAgencesShows[i].show_id));
-
-          var index = resShows.findIndex(x => x.show_id === resAgencesShows[i].show_id);          
-
-          if(index > 0)
-          {             
-             resShows.splice(index, 1);
-             resShows.splice(0,0, resAgencesShows[i]);
-          }          
-      }
-
-      res.render('index', {types: resTypes, subTypes: resSubTypes,  shows: resShows, showsSections: resShowsSection, cities: resCities, dateFormat: dateFormat, content: contentDescription });
-      callback(null, null);
-    }
-
-  ], function(err, result){
-      if(err){
-        console.log('start parse error: ', err)
-      }
-  })
-  
+    appConfig.loadConfig();
+    var linkhref = appConfig.getConfig("urls", "base_url") + "/he-il"
+    var headParams = { content: contentDescription, linkhref: linkhref, linklang: "he-il"};
+    loadDefaulPage(req, res, next, headParams);
 });
 
 router.post('/getShowsByType', function(req, res, next) {
@@ -518,7 +398,10 @@ router.get('/event/:id', function(req, res, next){
 
 router.get('/he-il', function(req,res, next){
     appConfig.loadConfig();
-    res.redirect(appConfig.getConfig("urls", "base_url"));
+    var content = "BILETY.CO.IL – агрегатор билетов на спектакли, концерты и другие культурные мероприятия в Израиле,כרטיסים,תאטרון,הופעות";
+    var headParams = { content: content, linkhref: appConfig.getConfig("urls", "base_url"), linklang: "ru-il"};
+    loadDefaulPage(req, res, next, headParams);
+    //res.redirect(appConfig.getConfig("urls", "base_url"));
 });
 
 function getShowByShowIdOrShowCode(req, res, resType)
@@ -601,5 +484,130 @@ function getShowByShowIdOrShowCode(req, res, resType)
     }
 }
 
+function loadDefaulPage(req, res, next, headParams)
+{
+    var resTypes = '', resShows = '', resShowsSection = '', resSubTypes = '', resCities = '', resAgencesShows = '';
+    
+      async.waterfall([
+        function getTypesFromDB(callback)
+        {
+            db.getTypes(function(err, typesResult){
+                if(err){
+                    console.log("get types from db error: ", err);
+                    callback(err, null); 
+                    return;
+                }
+    
+                resTypes = typesResult;
+                callback(null, typesResult);  
+            });
+        },
+    
+        function getShowsFromDB(typesResult, callback)
+        {
+            db.getShows(function(err, showsResult){
+                if(err){
+                    console.log("get shows from db error: ", err);
+                    callback(err, null); 
+                    return;
+                }           
+                
+                resShows = showsResult;
+                callback(null, showsResult);  
+            });
+        },
+    
+        function getShowsSectionsFromDB(showsResult, callback)
+        {
+            db.getShowsSections(function(err, showsSectionsResult){
+                if(err){
+                    console.log("get shows sections from db error: ", err);
+                    callback(err, null); 
+                    return;
+                }
+    
+                resShowsSection = showsSectionsResult;
+                callback(null, showsSectionsResult);  
+            });
+        },
+    
+        function getSubTypesFromDB(showsSectionsResult, callback)
+        {
+            db.getSubTypes(function(err, subTypesResult){
+                if(err){
+                    console.log("get sub types from db error: ", err);
+                    callback(err, null); 
+                    return;
+                }
+    
+                resSubTypes = subTypesResult;
+                callback(null, subTypesResult);  
+            });
+        },
+    
+        function getCitiesFromDB(subTypesResult, callback)
+        {
+            db.getCities(function(err, citiesResult){
+                if(err){
+                    console.log("get cities from db error: ", err);
+                    callback(err, null); 
+                    return;
+                }
+    
+                //  console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                //  console.log("");
+                //  console.log("");
+                // console.log('cities: ', citiesResult);
+                resCities = citiesResult;
+                callback(null, citiesResult);  
+            });
+        },
+    
+        function getAgencesShowsFromDB(citiesResult, callback)
+        {
+           db.getAgencesShows(function(err, agencesShowsResult){
+                if(err){
+                    console.log("get agences shows from db error: ", err);
+                    callback(err, null); 
+                    return;
+                }
+    
+                // console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                // console.log("");
+                // console.log("");
+                // console.log('agences shows: ', agencesShowsResult);
+                resAgencesShows = agencesShowsResult;
+                callback(null, agencesShowsResult);  
+            });
+        },
+    
+        function sendResponce(agencesShowsResult, callback){
+          
+          for(var i = 0; i < resAgencesShows.length; i++)
+          {
+            //   console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            //   console.log("");
+            //   console.log("");
+            //   console.log('index of: ', resShows.findIndex(x => x.show_id === resAgencesShows[i].show_id));
+    
+              var index = resShows.findIndex(x => x.show_id === resAgencesShows[i].show_id);          
+    
+              if(index > 0)
+              {             
+                 resShows.splice(index, 1);
+                 resShows.splice(0,0, resAgencesShows[i]);
+              }          
+          }
+    
+          res.render('index', {types: resTypes, subTypes: resSubTypes, shows: resShows, showsSections: resShowsSection, cities: resCities, dateFormat: dateFormat, headParams: headParams });
+          callback(null, null);
+        }
+    
+      ], function(err, result){
+          if(err){
+            console.log('start parse error: ', err)
+          }
+      })
+}
 
 module.exports = router;

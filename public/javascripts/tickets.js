@@ -321,7 +321,7 @@ function createShowHTML(arrShows, arrShowsSections) {
         }
         else
         {
-            if (value.subcategory_name != 'undefined') {
+            if (value.subcategory_name != 'undefined' && value.subcategory_name != '' && value.subtype_id != '0') {
 
                 var arrSubTypes = value.subcategory_name.split('|');
                 if(arrSubTypes.length > 1){
@@ -337,6 +337,10 @@ function createShowHTML(arrShows, arrShowsSections) {
                     subtypeHTML += "<a href='#' subtype_id='" + value.subtype_id + "' style='background:" + value.type_color + ";' class='top-category-of-event'>" + value.subcategory_name + "</a>";
                 }
 
+            }
+            else
+            {
+                typeHTML =  "<a href='#' type_id='" + value.type_id + "' style='background:" + value.type_color + ";' class='top-category-of-event'>" + value.type_name + "</a>";
             }
         }
         if (value.resource == 'bravo') {

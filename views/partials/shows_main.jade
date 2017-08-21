@@ -7,25 +7,8 @@ ul(id="ulShows" class="row list-unstyled")
       -arrDisplayShows.push(shows[i].show_id);    
       li(id="liMainShowID_#{shows[i].show_id}" index="#{index}" class="col-sm-3" style="height: 285px; border: solid 0px red; cursor: pointer;")
         div
-          div(class="text-left")
-            //- -var type='', subtype='', type_id='', subtype_id='', type_color='', date_f='', date_t='';
-            //- -for(var s = 0; s < showsSections.length; s++)        
-            //-   -if(shows[i].show_id == showsSections[s].show_id){                   
-            //-   -type = showsSections[s].type_name;
-            //-   -type_id = showsSections[s].type_id;
-            //-   -type_color = showsSections[s].color;
-            //-   -subtype = showsSections[s].subtype_name;
-            //-   -subtype_id = showsSections[s].subtype_id;                   
-            //- -}
-            //- a(href="#" type_id="#{type_id}" style="background: #{type_color}; color: white; margin-right: 5px; font-size: 10pt;") #{type}
-            //- -if(subtype != 'undefined'){
-            //-   a(href="#" subtype_id="#{subtype_id}" style="background: #{type_color}; color: white; font-size: 10pt;") #{subtype}
-            //- -}
+          div(class="text-left")            
             a(href="#" type_id="#{shows[i].type_id}" style="background: #{shows[i].type_color};" class="top-category-of-event") #{shows[i].type_name}
-            //- -if(shows[i].subtype_name != 'undefined'){
-            //-   span(class="glyphicon glyphicon-chevron-right" style="font-size: 10px; color:#{shows[i].type_color}")
-            //-   a(href="#" subtype_id="#{shows[i].subtype_id}" style="background: #{shows[i].type_color}; color: white; font-size: 8pt;") #{shows[i].subtype_name}
-            //- -}
           div(class="thumbnail")
             //- -var arrImageName = shows[i].main_image.split('/');
             //- -var imageName = arrImageName[arrImageName.length - 1];            
