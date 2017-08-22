@@ -13,11 +13,12 @@ ul(id="ulShows" class="row list-unstyled")
             //- -var arrImageName = shows[i].main_image.split('/');
             //- -var imageName = arrImageName[arrImageName.length - 1];            
             //- img(src="/images/shows/opt/#{imageName}", alt="#{shows[i].announce}", style="width: 198px; height: 110px;")
+
             -if(shows[i].resource == 'bravo'){                                       
-              img(id="imgShowMain_#{shows[i].show_id}" src="http://kaccabravo.co.il#{shows[i].main_image}", alt="#{shows[i].announce}", style="width: 198px; height: 110px;")
+              img(id="imgShowMain_#{shows[i].show_id}" src="http://kaccabravo.co.il#{shows[i].main_image}", alt="#{shows[i].announce}", style="width: 198px; height: 110px;" onerror="handleImageError(this);")
             -}  
             -else {                                   
-              img(id="imgShowMain_#{shows[i].show_id}" src="http://biletru.co.il#{shows[i].main_image}", alt="#{shows[i].announce}", style="width: 198px; height: 110px;")
+              img(id="imgShowMain_#{shows[i].show_id}" src="http://biletru.co.il1#{shows[i].main_image}", alt="#{shows[i].announce}", style="width: 198px; height: 110px;" onerror="handleImageError(this);" )
             -}
             div(class="caption")
               a(href="http://www.bilety.co.il/?show=#{shows[i].show_code}" style="display:none;")

@@ -9,12 +9,12 @@ var device = require('express-device');
 router.use(device.capture());
 device.enableDeviceHelpers(router);
 
-var contentDescription = "BILETY.CO.IL – агрегатор билетов на спектакли, концерты и другие культурные мероприятия в Израиле";
 /* GET home page. */
 router.get('/', function(req, res, next) {
+    var content = "BILETY.CO.IL – агрегатор билетов на спектакли, концерты и другие культурные мероприятия в Израиле";
     appConfig.loadConfig();
     var linkhref = appConfig.getConfig("urls", "base_url") + "/he-il"
-    var headParams = { content: contentDescription, linkhref: linkhref, linklang: "he-il"};
+    var headParams = { content: content, linkhref: linkhref, linklang: "he-il"};
     loadDefaulPage(req, res, next, headParams);
 });
 
@@ -599,7 +599,7 @@ function loadDefaulPage(req, res, next, headParams)
               }          
           }
     
-          res.render('index', {types: resTypes, subTypes: resSubTypes, shows: resShows, showsSections: resShowsSection, cities: resCities, dateFormat: dateFormat, headParams: headParams });
+          res.render('index', {types: resTypes, subTypes: resSubTypes, shows: resShows, showsSections: resShowsSection, cities: resCities, dateFormat: dateFormat, content: headParams.content });
           callback(null, null);
         }
     

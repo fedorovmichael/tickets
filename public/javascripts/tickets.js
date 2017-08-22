@@ -4,6 +4,10 @@ $(document).on({
     ajaxComplete: function(){ $("#divLoading").removeClass("wait-modal"); $("#divLoading").addClass("wait-modal-none"); $("body").scrollTop(0); }
 });
 
+// $(document).on("error", "img[id^='imgShowMain_']", function(){
+//     debugger;
+//     $(this).attr('src', '/images/default-image.jpg');
+// });
 
 $(document).ready(function () {
     $("input[id^='typeID_']").on("click", function (event) {
@@ -232,6 +236,14 @@ $(document).ready(function () {
     $('#back-to-top').tooltip('show');
 
     directLink();
+
+    // $("img[id^='imgShowMain_']").each(function(i,v){
+    //     debugger;
+    //     $(v).on("error", function(){                    
+    //       $(v).attr('src', '/images/default-image.jpg');
+    //   });
+    // });
+
     
 });
 
@@ -1077,6 +1089,12 @@ function directLink()
     
     var showCode = params.split('=')[1];
     editShowHandler('', showCode);
+}
+
+function handleImageError(obj)
+{
+  $(obj).attr('src', '/images/default-image.jpg');
+  //debugger;
 }
 
 function sendDataToServer(path, data, callbackSuccess, callbackError) {
