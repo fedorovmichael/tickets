@@ -337,6 +337,10 @@ a {
     }
 }
 
+.no-image
+{
+  background-image: url(../images/default-image.jpg);
+}
 
 
 /* Sticky footer styles

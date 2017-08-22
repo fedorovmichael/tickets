@@ -232,6 +232,7 @@ $(document).ready(function () {
     $('#back-to-top').tooltip('show');
 
     directLink();
+    
 });
 
 function sortByHandler(parentID, param1ID, param2ID) {
@@ -306,15 +307,7 @@ function createShowHTML(arrShows, arrShowsSections) {
 
         arrDisplayShows.push(value.show_id);
         var type = '', subtype = '', type_id = '', subtype_id = '', type_color = '', subtypeHTML = '', imageURL = '', showName = '', date_f = '', date_t = '', typeHTML = '';
-        // for (var s = 0; s < arrShowsSections.length; s++) {
-        //     if (value.show_id == arrShowsSections[s].show_id && value.type_name == arrShowsSections[s].type_name && value.subtype_name == arrShowsSections[s].subtype_name) {
-        //         type = arrShowsSections[s].type_name;
-        //         type_id = arrShowsSections[s].type_id;
-        //         type_color = arrShowsSections[s].color;
-        //         subtype = arrShowsSections[s].subtype_name;
-        //         subtype_id = arrShowsSections[s].subtype_id;
-        //     }
-        // }
+    
         if(arrSelectedTypes.findIndex(x=>x === value.type_id) == -1)
         {
             typeHTML =  "<a href='#' type_id='" + value.type_id + "' style='background:" + value.type_color + ";' class='top-category-of-event'>" + value.type_name + "</a>";
@@ -347,7 +340,7 @@ function createShowHTML(arrShows, arrShowsSections) {
             imageURL = "http://kaccabravo.co.il" + value.main_image;
         }
         else {
-            imageURL = "http://biletru.co.il" + value.main_image;
+            imageURL = "http://biletru.co.il1" + value.main_image;
         }
 
         if (value.name.length > 50) {
@@ -377,6 +370,13 @@ function createShowHTML(arrShows, arrShowsSections) {
             displayEvent = "display:none;";
         }
 
+        var img = new Image();
+        img.src = imageURL;
+        img.id = "imgShowMain_" + value.show_id;        
+        img.onerror = function(){            
+            $("#imgShowMain_" + value.show_id).unbind("error").attr('src', '/images/default-image.jpg');
+        }
+
         html += "<li id='liMainShowID_" + value.show_id + "' style='height: 285px; border: solid 0px red; cursor: pointer; "+ displayEvent +" ' class='col-sm-3'>" +
             "<div>" +
             "<div class='text-left'>" +
@@ -384,7 +384,7 @@ function createShowHTML(arrShows, arrShowsSections) {
              typeHTML + subtypeHTML +
             "</div>" +
             "<div class='thumbnail'>" +
-            "<img src='" + imageURL + "' alt='' style='width: 198px; height: 110px;'>" +
+            "<img id='imgShowMain_" + value.show_id + "' src='" + imageURL + "' alt='' style='width: 198px; height: 110px;'>" +
             "<div class='caption'>" +
             "<p style='height:54px; max-height:54px; min-height:54px;'>" + showName + "</p>" +
             "<p>" + date_ft + "</p>" +
