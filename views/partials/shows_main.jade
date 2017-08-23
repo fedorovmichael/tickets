@@ -22,13 +22,15 @@ ul(id="ulShows" class="row list-unstyled")
             -}
             div(class="caption")
               a(href="http://www.bilety.co.il/?show=#{shows[i].show_code}" style="display:none;")
+              -var name = '';
               -if(shows[i].name.length > 50){
                 -var n = shows[i].name.substr(0, 50);
-                -var name = n.substr(0, n.lastIndexOf(" "));
-                p(style="height:54px; max-height:54px; min-height:54px;") #{name} 
+                -var name = n.substr(0, n.lastIndexOf(" "));                
               -}                      
-              -else
-                p(style="height:54px; max-height:54px; min-height:54px;") #{shows[i].name}
+              -else{
+                -var name = shows[i].name;                
+              -}
+              p(style="height:54px; max-height:54px; min-height:54px;") #{name}
 
               -var dt_f = new Date(shows[i].date_from);
               -date_f = dateFormat(dt_f, "dd.mm.yyyy");
