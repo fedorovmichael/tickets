@@ -414,10 +414,12 @@ function editShowHandler(showID, showCode) {
 }
 
 function editShowHandlerCallbackSuccess(data) {    
-    $("#divShowEdit").show();
-    $("#editShowModal").modal('show');
-
-    fillEditShowHTML(data.show, data.showSeances, data.showMedia);
+    if(data.show != undefined){
+        $("#divShowEdit").show();
+        $("#editShowModal").modal('show');
+    
+        fillEditShowHTML(data.show, data.showSeances, data.showMedia);
+    }    
 }
 
 function editClose() {
