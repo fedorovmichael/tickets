@@ -424,8 +424,8 @@ function editShowHandlerCallbackSuccess(data) {
 
 function editClose() {
 
-    $('html head').find('title').text("BILETY.CO.IL – израильская афиша.");
-    $("meta[name='description']").attr("content", "BILETY.CO.IL – агрегатор билетов на спектакли, концерты и другие культурные мероприятия в Израиле");
+    $('html head').find('title').text("Афиша 2017 - купить билет на концерт, театр онлайн в Израиле - BILETY.CO.IL");
+    $("meta[name='description']").attr("content", "Самая большая афиша в Израиле. Куда сходить: расписания концертов, выставок, спектаклей, гастролей, израильских театров, балета, оперы, цирка, клубных событий и развлечений для детей");
     
     $("#divShowEdit").hide();
     $("#editShowModal").modal('hide');

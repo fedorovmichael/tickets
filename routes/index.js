@@ -11,10 +11,11 @@ device.enableDeviceHelpers(router);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    var content = "BILETY.CO.IL – агрегатор билетов на спектакли, концерты и другие культурные мероприятия в Израиле";
+    var content = "Самая большая афиша в Израиле. Куда сходить: расписания концертов, выставок, спектаклей, гастролей, израильских театров, балета, оперы, цирка, клубных событий и развлечений для детей";
+    var title = "Афиша 2017 - купить билет на концерт, театр онлайн в Израиле - BILETY.CO.IL";
     appConfig.loadConfig();
     var linkhref = appConfig.getConfig("urls", "base_url") + "/he-il"
-    var headParams = { content: content, linkhref: linkhref, linklang: "he-il"};
+    var headParams = { content: content, linkhref: linkhref, linklang: "he-il", title: title };
     loadDefaulPage(req, res, next, headParams);
 });
 
@@ -388,7 +389,7 @@ router.get('/event/:id', function(req, res, next){
        
         var showCode = req.params.id;
         res.redirect(baseUrl + "/?show=" + showCode);
-        //getShowByShowIdOrShowCode(req, res, next, 'page');         
+        //getShowByShowIdOrShowCode(req, res, next, 'page');       
     }
     else
     {
@@ -400,7 +401,8 @@ router.get('/event/:id', function(req, res, next){
 router.get('/he-il', function(req,res, next){
     appConfig.loadConfig();
     var content = "BILETY.CO.IL – агрегатор билетов на спектакли, концерты и другие культурные мероприятия в Израиле,כרטיסים,תאטרון,הופעות";
-    var headParams = { content: content, linkhref: appConfig.getConfig("urls", "base_url"), linklang: "ru-il"};
+    var title = "BILETY.CO.IL – израильская афиша.";
+    var headParams = { content: content, linkhref: appConfig.getConfig("urls", "base_url"), linklang: "ru-il", title: title};
     loadDefaulPage(req, res, next, headParams);
     //res.redirect(appConfig.getConfig("urls", "base_url"));
 });
@@ -438,7 +440,7 @@ function getShowByShowIdOrShowCode(req, res, next, resType)
                     }
                     else
                     {
-                        var content = "BILETY.CO.IL – агрегатор билетов на спектакли, концерты и другие культурные мероприятия в Израиле";
+                        var content = "Самая большая афиша в Израиле. Куда сходить: расписания концертов, выставок, спектаклей, гастролей, израильских театров, балета, оперы, цирка, клубных событий и развлечений для детей";
                         var headParams = { content: content };
                         loadDefaulPage(req, res, next, headParams);
                         return;
@@ -477,14 +479,14 @@ function getShowByShowIdOrShowCode(req, res, next, resType)
             },
         ],
             function(err, result){
-                var resShow = result[0], resShowSeances = result[1], resShowMedia = result[2];
+                var resShow = result[0], resShowSeances = result[1], resShowMedia = result[2], headParams = {title: resShow[0].name};
                 if(resType == 'json')
                 {
                    res.json({show: resShow, showSeances: resShowSeances, showMedia: resShowMedia});
                 }
                 else if(resType == 'page')
                 {                   
-                   res.render('edit_show_page', { show: resShow, showSeances: resShowSeances, showMedia: resShowMedia, title: resShow[0].name, content: resShow[0].announce }); 
+                   res.render('edit_show_page', { show: resShow, showSeances: resShowSeances, showMedia: resShowMedia, headParams: headParams, content: resShow[0].announce }); 
                 }
                   
             });
@@ -610,7 +612,7 @@ function loadDefaulPage(req, res, next, headParams)
               }          
           }
     
-          res.render('index', {types: resTypes, subTypes: resSubTypes, shows: resShows, showsSections: resShowsSection, cities: resCities, dateFormat: dateFormat, content: headParams.content });
+          res.render('index', {types: resTypes, subTypes: resSubTypes, shows: resShows, showsSections: resShowsSection, cities: resCities, dateFormat: dateFormat, content: headParams.content, headParams: headParams });
           callback(null, null);
         }
     
