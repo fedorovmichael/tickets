@@ -352,7 +352,7 @@ function createShowHTML(arrShows, arrShowsSections) {
             imageURL = "http://kaccabravo.co.il" + value.main_image;
         }
         else {
-            imageURL = "http://biletru.co.il1" + value.main_image;
+            imageURL = "http://biletru.co.il" + value.main_image;
         }
 
         if (value.name.length > 50) {
@@ -380,23 +380,15 @@ function createShowHTML(arrShows, arrShowsSections) {
         if(index >= 40)
         {
             displayEvent = "display:none;";
-        }
-
-        var img = new Image();
-        img.src = imageURL;
-        img.id = "imgShowMain_" + value.show_id;        
-        img.onerror = function(){            
-            $("#imgShowMain_" + value.show_id).unbind("error").attr('src', '/images/default-image.jpg');
-        }
+        }       
 
         html += "<li id='liMainShowID_" + value.show_id + "' style='height: 285px; border: solid 0px red; cursor: pointer; "+ displayEvent +" ' class='col-sm-3'>" +
             "<div>" +
             "<div class='text-left'>" +
-            // "<a href='#' type_id='" + value.type_id + "' style='background:" + value.type_color + "; color:white; margin-right:0px; width:65px; font-size: 8pt;'>" + value.type_name + "</a>" +
              typeHTML + subtypeHTML +
             "</div>" +
             "<div class='thumbnail'>" +
-            "<img id='imgShowMain_" + value.show_id + "' src='" + imageURL + "' alt='' style='width: 198px; height: 110px;'>" +
+            "<img id='imgShowMain_" + value.show_id + "' src='" + imageURL + "' alt='' style='width: 198px; height: 110px;' onerror='handleImageError(this);'>" +
             "<div class='caption'>" +
             "<p style='height:54px; max-height:54px; min-height:54px;'>" + showName + "</p>" +
             "<p>" + date_ft + "</p>" +
@@ -422,15 +414,17 @@ function editShowHandler(showID, showCode) {
 }
 
 function editShowHandlerCallbackSuccess(data) {    
-    $("#divShowEdit").show();
-    $("#editShowModal").modal('show');
-
-    fillEditShowHTML(data.show, data.showSeances, data.showMedia);
+    if(data.show != undefined){
+        $("#divShowEdit").show();
+        $("#editShowModal").modal('show');
+    
+        fillEditShowHTML(data.show, data.showSeances, data.showMedia);
+    }    
 }
 
 function editClose() {
 
-    $('html head').find('title').text("BILETY.CO.IL – израильская афиша.");
+    $('html head').find('title').text("Афиша 2017 - купить билет на концерт, театр онлайн в Израиле - BILETY.CO.IL");
     $("meta[name='description']").attr("content", "BILETY.CO.IL – агрегатор билетов на спектакли, концерты и другие культурные мероприятия в Израиле");
     
     $("#divShowEdit").hide();

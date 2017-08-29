@@ -12,9 +12,10 @@ device.enableDeviceHelpers(router);
 /* GET home page. */
 router.get('/', function(req, res, next) {
     var content = "BILETY.CO.IL – агрегатор билетов на спектакли, концерты и другие культурные мероприятия в Израиле";
+    var title = "Афиша 2017 - купить билет на концерт, театр онлайн в Израиле - BILETY.CO.IL";
     appConfig.loadConfig();
     var linkhref = appConfig.getConfig("urls", "base_url") + "/he-il"
-    var headParams = { content: content, linkhref: linkhref, linklang: "he-il", title: ""};
+    var headParams = { content: content, linkhref: linkhref, linklang: "he-il", title: title };
     loadDefaulPage(req, res, next, headParams);
 });
 
@@ -72,7 +73,7 @@ router.post('/getShowsByType', function(req, res, next) {
 
 router.post('/getShowByID', function(req, res, next) {
     
-    getShowByShowIdOrShowCode(req, res, 'json');
+    getShowByShowIdOrShowCode(req, res, next, 'json');
 
 });
 
@@ -387,12 +388,12 @@ router.get('/event/:id', function(req, res, next){
         var baseUrl = appConfig.getConfig("urls", "base_url");
        
         var showCode = req.params.id;
-        //res.redirect(baseUrl + "/?show=" + showCode);
-        getShowByShowIdOrShowCode(req, res, 'page');
+        res.redirect(baseUrl + "/?show=" + showCode);
+        //getShowByShowIdOrShowCode(req, res, next, 'page');       
     }
     else
     {
-        getShowByShowIdOrShowCode(req, res, 'page'); 
+        getShowByShowIdOrShowCode(req, res, next, 'page'); 
     }    
     
 });
@@ -406,7 +407,7 @@ router.get('/he-il', function(req,res, next){
     //res.redirect(appConfig.getConfig("urls", "base_url"));
 });
 
-function getShowByShowIdOrShowCode(req, res, resType)
+function getShowByShowIdOrShowCode(req, res, next, resType)
 {
      var showID = '', showCode = '';
 
@@ -431,11 +432,21 @@ function getShowByShowIdOrShowCode(req, res, resType)
                         callback(err, null); 
                         return;
                 }
-
+                
                 if((showID == undefined || showID == '') && showCode != "")
                 {
-                    showID = showsByIDResult[0].id;
+                    if(showsByIDResult[0] != undefined && showsByIDResult.length > 0){
+                        showID = showsByIDResult[0].id;
+                    }
+                    else
+                    {
+                        var content = "BILETY.CO.IL – агрегатор билетов на спектакли, концерты и другие культурные мероприятия в Израиле";
+                        var headParams = { content: content };
+                        loadDefaulPage(req, res, next, headParams);
+                        return;
+                    }
                 }
+                
 
                 callback(null, showsByIDResult);
                 })            
