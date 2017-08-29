@@ -11,7 +11,7 @@ device.enableDeviceHelpers(router);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    var content = "BILETY.CO.IL – агрегатор билетов на спектакли, концерты и другие культурные мероприятия в Израиле";
+    var content = "Самая большая афиша в Израиле. Куда сходить: расписания концертов, выставок, спектаклей, гастролей, израильских театров, балета, оперы, цирка, клубных событий и развлечений для детей";
     var title = "Афиша 2017 - купить билет на концерт, театр онлайн в Израиле - BILETY.CO.IL";
     appConfig.loadConfig();
     var linkhref = appConfig.getConfig("urls", "base_url") + "/he-il"
@@ -440,7 +440,7 @@ function getShowByShowIdOrShowCode(req, res, next, resType)
                     }
                     else
                     {
-                        var content = "BILETY.CO.IL – агрегатор билетов на спектакли, концерты и другие культурные мероприятия в Израиле";
+                        var content = "Самая большая афиша в Израиле. Куда сходить: расписания концертов, выставок, спектаклей, гастролей, израильских театров, балета, оперы, цирка, клубных событий и развлечений для детей";
                         var headParams = { content: content };
                         loadDefaulPage(req, res, next, headParams);
                         return;
