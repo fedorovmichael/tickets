@@ -2,7 +2,11 @@ doctype html
 html
   head
     meta(name="fragment" content="!")
-    title=headParams.title == undefined || headParams.title == ""? "Афиша 2017 - купить билет на концерт, театр онлайн в Израиле - BILETY.CO.IL" : headParams.title
+    -var title = "Афиша 2017 - купить билет на концерт, театр онлайн в Израиле - BILETY.CO.IL";
+    -if(title != undefined || title != ""){
+      -title = title;
+    -}        
+    title = "#{title}"
     meta(name="yandex-verification" content="3e6525a8260eb088")
     meta(name="description" content="#{content}")    
     meta(name="keywords" content="купить билеты, афиша,  концерты, театр, билеты, купить, фестивали, балет, спектакли, опера, мюзикл, цирк, комедия, билеты в Израиле, гастроли в Израиле, классика, эстрада, поп-музыка, рок-музыка")

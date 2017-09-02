@@ -610,9 +610,8 @@ function loadDefaulPage(req, res, next, headParams)
                  resShows.splice(index, 1);
                  resShows.splice(0,0, resAgencesShows[i]);
               }          
-          }
-    
-          res.render('index', {types: resTypes, subTypes: resSubTypes, shows: resShows, showsSections: resShowsSection, cities: resCities, dateFormat: dateFormat, content: headParams.content, headParams: headParams });
+          }    
+          
           callback(null, null);
         }
     
@@ -620,6 +619,8 @@ function loadDefaulPage(req, res, next, headParams)
           if(err){
             console.log('start parse error: ', err)
           }
+
+          res.render('index', {types: resTypes, subTypes: resSubTypes, shows: resShows, showsSections: resShowsSection, cities: resCities, dateFormat: dateFormat, content: headParams.content, title: headParams.title });
       })
 }
 
