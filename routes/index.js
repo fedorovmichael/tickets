@@ -1,10 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../db/database.js');
+var db_comments = require('../db/database_comments.js');
 var async = require('async');
 var dateFormat = require('dateformat');
 var appConfig = require("../config/index.js");
 var device = require('express-device');
+var uuid = require('node-uuid');
 
 router.use(device.capture());
 device.enableDeviceHelpers(router);
@@ -407,6 +409,33 @@ router.get('/he-il', function(req,res, next){
     //res.redirect(appConfig.getConfig("urls", "base_url"));
 });
 
+//comments++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+router.post('/createComment', function(req, res, next){
+    var comment = JSON.parse(req.param('data'));
+    comment.id = uuid.v1();
+    comment.avatar = "/images/comment-avatar.jpg";
+    comment.publish_date = new Date();
+
+    async.series([
+        function createCommentInDB(callback){
+            db_comments.createComment(comment, function(err, resultCreateComment){
+                 if(err){
+                    console.log("create comment in db error: ", err);
+                    callback(err, null); 
+                    return;
+               }
+
+               callback(null, resultCreateComment);
+            });
+        }
+    ],
+    function(err, result){
+        res.json({data: result[0]});
+    });    
+});
+
+
+//general methods+++++++++++++++++++++++++++++++++++++++++++++++++++++
 function getShowByShowIdOrShowCode(req, res, next, resType)
 {
      var showID = '', showCode = '';
@@ -477,19 +506,31 @@ function getShowByShowIdOrShowCode(req, res, next, resType)
                 callback(null, mediaByShowIDResult);
                 })            
             },
-        ],
-            function(err, result){
-                var resShow = result[0], resShowSeances = result[1], resShowMedia = result[2], headParams = {title: resShow[0].name};
-                if(resType == 'json')
-                {
-                   res.json({show: resShow, showSeances: resShowSeances, showMedia: resShowMedia});
-                }
-                else if(resType == 'page')
-                {                   
-                   res.render('edit_show_page', { show: resShow, showSeances: resShowSeances, showMedia: resShowMedia, headParams: headParams, content: resShow[0].announce }); 
-                }
-                  
-            });
+
+            function getCommentsByShowIDFromDB(callback)
+            {
+                db_comments.getCommentsByShowID(showID, function(err, resultGetCommentsByShowID){
+                    if(err){
+                        console.log("get comments by show id from db error: ", err);
+                        callback(err, null); 
+                        return;
+                    }
+
+                    callback(null, resultGetCommentsByShowID);
+                });
+            }
+        ],        
+        function(err, result){
+            var resShow = result[0], resShowSeances = result[1], resShowMedia = result[2], resComments = result[3], headParams = {title: resShow[0].name};
+            if(resType == 'json')
+            {
+                res.json({show: resShow, showSeances: resShowSeances, showMedia: resShowMedia, comments: resComments});
+            }
+            else if(resType == 'page')
+            {                   
+                res.render('edit_show_page', { show: resShow, showSeances: resShowSeances, showMedia: resShowMedia, headParams: headParams, content: resShow[0].announce, comments: resComments }); 
+            }                
+        });
     }
     catch(e)
     {
