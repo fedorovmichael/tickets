@@ -237,12 +237,9 @@ $(document).ready(function () {
 
     directLink();
 
-    // $("img[id^='imgShowMain_']").each(function(i,v){
-    //     debugger;
-    //     $(v).on("error", function(){                    
-    //       $(v).attr('src', '/images/default-image.jpg');
-    //   });
-    // });
+    $("#btnSendComment").on("click", function(event){
+        sendComment();
+    });
 
     
 });
@@ -411,6 +408,8 @@ function editShowHandler(showID, showCode) {
     data.id = showID.split("_")[1];
     data.showCode = showCode;
     sendDataToServer('/getShowByID', data, editShowHandlerCallbackSuccess, null);
+    $("#hdnEditShowID").val('');
+    $("#hdnEditShowID").val(data.id);
 }
 
 function editShowHandlerCallbackSuccess(data) {    
@@ -1089,6 +1088,42 @@ function handleImageError(obj)
 {
   $(obj).attr('src', '/images/default-image.jpg');
   //debugger;
+}
+
+function sendComment(){
+    
+    var name = $("#txtCommentName").val(), email = $("#txtCommentEmail").val(), text = $("#txtCommentText").val();
+    
+    if(!isValidEmail(email)){
+        alert("Email address not valid.");
+        return;
+    }
+    
+    if($.trim(name).length == 0 || $.trim(text).length == 0){
+        alert("Please fill name and text fields");
+        return;
+    }        
+
+    var data = {
+        name: name,
+        email: email,
+        text: text,
+        showID: $("#hdnEditShowID").val()
+    };
+
+    sendDataToServer("/createComment", data, sendCommentCallbackSuccess, sendCommentCallbackError)
+}
+
+function sendCommentCallbackSuccess()
+{}
+
+function sendCommentCallbackError()
+{}
+
+
+function isValidEmail(email) {
+    var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+    return pattern.test(email);
 }
 
 function sendDataToServer(path, data, callbackSuccess, callbackError) {
