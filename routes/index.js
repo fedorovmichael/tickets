@@ -411,34 +411,37 @@ router.get('/he-il', function(req,res, next){
 
 //comments++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 router.post('/createComment', function(req, res, next){
-    console.log("===================================================================== req.param");
-    console.log("");
-    console.log(req.params);
-    console.log("");    
-    console.log("=====================================================================");
-    var comment = req.body;
+    // console.log("===================================================================== req.param");
+    // console.log("");
+    // console.log(req.params);
+    // console.log("");    
+    // console.log("=====================================================================");
+    var comment = req.body, dateComment = dateFormat(new Date(), "isoDateTime");//dateFormat(new Date(), "yyyy-mm-dd HH:MM");
     comment.id = uuid.v1();
     comment.avatar = "/images/comment-avatar.jpg";
-    comment.publish_date = new Date();
+    comment.publish_date = dateComment;
+    comment.host = "creator";
+    comment.status = "inprogress";
 
-    res.json({data: true});
 
-    // async.series([
-    //     function createCommentInDB(callback){
-    //         db_comments.createComment(comment, function(err, resultCreateComment){
-    //              if(err){
-    //                 console.log("create comment in db error: ", err);
-    //                 callback(err, null); 
-    //                 return;
-    //            }
+    //res.json({data: true});
 
-    //            callback(null, resultCreateComment);
-    //         });
-    //     }
-    // ],
-    // function(err, result){
-    //     res.json({data: result[0]});
-    // });    
+    async.series([
+        function createCommentInDB(callback){
+            db_comments.createComment(comment, function(err, resultCreateComment){
+                 if(err){
+                    console.log("create comment in db error: ", err);
+                    callback(err, null); 
+                    return;
+               }
+
+               callback(null, resultCreateComment);
+            });
+        }
+    ],
+    function(err, result){
+        res.json({data: result[0]});
+    });    
 });
 
 
