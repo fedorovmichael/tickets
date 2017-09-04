@@ -35,10 +35,11 @@ div(class="modal fade" id="editShowModal" role="dialog")
             div(id="divEditGalary" class="row") 
         
         div(class="panel panel-default" style="margin-top:20px; display:block;")
-          div(class="panel-heading") Комментарии
+          div(class="panel-heading")             
+            span(id="spanCommentsCount")
           div(class="panel-body")
             div(id="divEditComments" class="row")
-              ul(class="row list-unstyled" style="width: 500px; margin:auto;")
+              ul(id="ulEditComments" class="row list-unstyled" style="width: 500px; margin:auto;")
                 li
                   div(id="divCommentHeader" style="text-align: left; margin-bottom:5px;")
                     img(src="images/comment-avatar.jpg" style="margin-right:5px; width:42px; height:34px;")

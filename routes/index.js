@@ -411,18 +411,12 @@ router.get('/he-il', function(req,res, next){
 
 //comments++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 router.post('/createComment', function(req, res, next){
-    // console.log("===================================================================== req.param");
-    // console.log("");
-    // console.log(req.params);
-    // console.log("");    
-    // console.log("=====================================================================");
     var comment = req.body, dateComment = dateFormat(new Date(), "isoDateTime");//dateFormat(new Date(), "yyyy-mm-dd HH:MM");
     comment.id = uuid.v1();
     comment.avatar = "/images/comment-avatar.jpg";
     comment.publish_date = dateComment;
     comment.host = "creator";
     comment.status = "inprogress";
-
 
     //res.json({data: true});
 
@@ -484,8 +478,7 @@ function getShowByShowIdOrShowCode(req, res, next, resType)
                         loadDefaulPage(req, res, next, headParams);
                         return;
                     }
-                }
-                
+                }             
 
                 callback(null, showsByIDResult);
                 })            
@@ -517,16 +510,16 @@ function getShowByShowIdOrShowCode(req, res, next, resType)
                 })            
             },
 
-            function getCommentsByShowIDFromDB(callback)
-            {
-                db_comments.getCommentsByShowID(showID, function(err, resultGetCommentsByShowID){
+            function getCommentsByShowCodeFromDB(callback)
+            {               
+                db_comments.getCommentsByShowCode(showCode, function(err, resultGetCommentsByShowCode){
                     if(err){
-                        console.log("get comments by show id from db error: ", err);
+                        console.log("get comments by show code from db error: ", err);
                         callback(err, null); 
                         return;
                     }
 
-                    callback(null, resultGetCommentsByShowID);
+                    callback(null, resultGetCommentsByShowCode);
                 });
             }
         ],        

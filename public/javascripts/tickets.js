@@ -29,7 +29,10 @@ $(document).ready(function () {
     });
 
     $("body").on("click", "li[id^='liMainShowID_']", function (event) {
-        editShowHandler(this.id, '');
+        var showCode = $(this).attr('showcode');
+        $("#hdnEditShowID").val('');
+        $("#hdnEditShowID").val(showCode);
+        editShowHandler(this.id, showCode);
     });
 
     $("#txtSearch").on("keyup", function (event) {
@@ -379,7 +382,7 @@ function createShowHTML(arrShows, arrShowsSections) {
             displayEvent = "display:none;";
         }       
 
-        html += "<li id='liMainShowID_" + value.show_id + "' style='height: 285px; border: solid 0px red; cursor: pointer; "+ displayEvent +" ' class='col-sm-3'>" +
+        html += "<li id='liMainShowID_" + value.show_id + "' showCode='"+ value.show_code +"' style='height: 285px; border: solid 0px red; cursor: pointer; "+ displayEvent +" ' class='col-sm-3'>" +
             "<div>" +
             "<div class='text-left'>" +
              typeHTML + subtypeHTML +
@@ -407,9 +410,7 @@ function editShowHandler(showID, showCode) {
     var data = {};
     data.id = showID.split("_")[1];
     data.showCode = showCode;
-    sendDataToServer('/getShowByID', data, editShowHandlerCallbackSuccess, null);
-    $("#hdnEditShowID").val('');
-    $("#hdnEditShowID").val(data.id);
+    sendDataToServer('/getShowByID', data, editShowHandlerCallbackSuccess, null);    
 }
 
 function editShowHandlerCallbackSuccess(data) {    
@@ -417,7 +418,7 @@ function editShowHandlerCallbackSuccess(data) {
         $("#divShowEdit").show();
         $("#editShowModal").modal('show');
     
-        fillEditShowHTML(data.show, data.showSeances, data.showMedia);
+        fillEditShowHTML(data.show, data.showSeances, data.showMedia, data.comments);
     }    
 }
 
@@ -435,7 +436,7 @@ function editClose() {
     $("#aBackToEdit").hide();
 }
 
-function fillEditShowHTML(show, arrShowsSeances, arrMedia) {
+function fillEditShowHTML(show, arrShowsSeances, arrMedia, arrComments) {
     var resource = show[0].resource == "bravo" ? "http://kaccabravo.co.il" : "http://biletru.co.il";
 
     $('html head').find('title').text(show[0].name + " - bilety.co.il" );
@@ -545,9 +546,29 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia) {
             "</div>";
     });
 
-    $("#divEditGalary").empty();
-    //$("#divEditGalary").remove();  
+    $("#divEditGalary").empty();      
     $("#divEditGalary").append(mediaDivHTML);
+
+    var commentsDivHTML = '', commentsCount = "Комментарии(" + arrComments.length + ")";
+    $("#spanCommentsCount").text(commentsCount);
+    $.each(arrComments, function(index, value){
+        commentsDivHTML += '<li style="border-bottom: 1px;border-bottom-color:#ccc;border-bottom-style: solid;margin-bottom: 15px;">'+
+                                '<div id="divCommentHeader" style="text-align: left; margin-bottom:5px;">' +
+                                  '<img src="images/comment-avatar.jpg" style="margin-right:5px; width:42px; height:34px;"/>' +
+                                  '<span id="spnCommentName" style="margin-right:5px;">'+ value.name +'</span>' +
+                                  '<span id="spnCommentDate" style="">'+ $.datepicker.formatDate("dd.mm.yy", new Date(value.publish_date)) +'</span>' +
+                                '</div>' +
+                                '<div id="divCommentBody" style="text-align: left; margin-bottom:5px;">' +
+                                  '<span id="spnCommentText" style=""> '+ value.text +' </span>' +
+                                '</div>' +
+                                '<div id="divCommentFooter" style="text-align:right; margin-bottom:5px; margin-top:15px;">' +
+                                  '<a id="aCommentReply" style="cursor: pointer;">Ответить</a>' +
+                                '</div>' +
+                            '</li>'
+    });
+
+    $("#ulEditComments li").empty();     
+    $("#ulEditComments").append(commentsDivHTML);
 
 }
 
@@ -1108,7 +1129,7 @@ function sendComment(){
         name: name,
         email: email,
         text: text,
-        showID: $("#hdnEditShowID").val()
+        showCode: $("#hdnEditShowID").val()
     };
 
     sendDataToServer("/createComment", data, sendCommentCallbackSuccess, sendCommentCallbackError)
