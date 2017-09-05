@@ -49,8 +49,17 @@ div(class="modal fade" id="editShowModal" role="dialog")
                     span(id="spnCommentText" style="") Интересно, получилась ли версия с Runtime CPU dispatching в результате быстрее чем референс с march=native под конкретный сервер. Можно и на этапе деплоймента, а не в рантайме, разбираться какие инструкции есть. 
                   div(id="divCommentFooter" style="text-align: left; margin-bottom:5px;") 
                     a(id="aCommentReply") ответить
+                  div(id="divCommentReplyForm" style="margin-bottom:5px;")
 
             div(id="divEditCommentForm")
+              div(id="divEditCommentFormAlertSuccess" class="alert alert-success" style="display:none;")
+                a(href="#" class="close" data-dismiss="alert" aria-label="close") &times;
+                span(id="spanEditCommentFormAlertSuccess") Комментарий успешно отправлен на проверку администратору проекта.
+              
+              div(id="divEditCommentFormAlertError" class="alert alert-danger" style="display:none;")
+                a(href="#" class="close" data-dismiss="alert" aria-label="close") &times;
+                span(id="spanEditCommentFormAlertError") Произошла ошибка при сохранение комментария.
+              
               ul(class="row list-unstyled" style="width: 500px; margin:auto;")
                 li(style="margin-bottom:5px;")                  
                   input(id="txtCommentName" type="text" class="form-control" placeholder="Имя" required="")

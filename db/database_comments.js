@@ -26,9 +26,9 @@ db.createComment = function(comment, cb){
         console.log(comment);
         console.log("");
 
-        var queryDB = "insert into comments(id,text,avatar,publish_date,name,host,email,status,show_code) values" +
+        var queryDB = "insert into comments(id,text,avatar,publish_date,name,host,email,status,show_code, parent_id) values" +
                     "('"+ comment.id +"', '"+ comment.text +"','"+ comment.avatar +"','"+ comment.publish_date +"'," +
-                    "'"+ comment.name +"', '"+ comment.host +"', '"+ comment.email +"', '"+ comment.status +"', '"+ comment.showCode +"')";
+                    "'"+ comment.name +"', '"+ comment.host +"', '"+ comment.email +"', '"+ comment.status +"', '"+ comment.showCode +"', '"+ comment.parent_id +"')";
 
         console.log("create comment queryDB: ", queryDB);
         getMultipleResponse(cb, queryDB);

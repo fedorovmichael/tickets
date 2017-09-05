@@ -415,7 +415,7 @@ router.post('/createComment', function(req, res, next){
     comment.id = uuid.v1();
     comment.avatar = "/images/comment-avatar.jpg";
     comment.publish_date = dateComment;
-    comment.host = "creator";
+    //comment.host = "creator";
     comment.status = "inprogress";
 
     //res.json({data: true});
@@ -434,7 +434,12 @@ router.post('/createComment', function(req, res, next){
         }
     ],
     function(err, result){
-        res.json({data: result[0]});
+        if(err){
+            res.json({error: err});
+        }
+        else{
+            res.json({success: result[0]});
+        }        
     });    
 });
 

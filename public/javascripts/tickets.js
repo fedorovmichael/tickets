@@ -241,7 +241,27 @@ $(document).ready(function () {
     directLink();
 
     $("#btnSendComment").on("click", function(event){
-        sendComment();
+        sendComment('creator', null);
+    });
+    
+    $("body").on("click", "button[id^='btnReplyComment_']" , function(event){
+        var parentID = $(this).attr("parentID");
+        sendComment('answerer', parentID);
+    });
+
+    $("body").on("click", "a[id^='aCommentReply_']" , function(event){
+        event.preventDefault();
+        var commentID = $(this).attr("commentID"), replyOpen = $(this).attr("reply");
+        
+        if(replyOpen == "true"){
+           $("#divCommentReplyForm_" + commentID).html('');
+           $(this).attr("reply", "false");
+           $(this).text("Ответить");
+        }
+        else{
+            loadCommentForm(commentID);
+        }
+        
     });
 
     
@@ -552,18 +572,19 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia, arrComments) {
     var commentsDivHTML = '', commentsCount = "Комментарии(" + arrComments.length + ")";
     $("#spanCommentsCount").text(commentsCount);
     $.each(arrComments, function(index, value){
-        commentsDivHTML += '<li style="border-bottom: 1px;border-bottom-color:#ccc;border-bottom-style: solid;margin-bottom: 15px;">'+
-                                '<div id="divCommentHeader" style="text-align: left; margin-bottom:5px;">' +
-                                  '<img src="images/comment-avatar.jpg" style="margin-right:5px; width:42px; height:34px;"/>' +
+        commentsDivHTML += '<li class="comment-li">'+
+                                '<div id="divCommentHeader" class="comment-left-mar-bottom5">' +
+                                  '<img src="images/comment-avatar.jpg" class="comment-avatar"/>' +
                                   '<span id="spnCommentName" style="margin-right:5px;">'+ value.name +'</span>' +
                                   '<span id="spnCommentDate" style="">'+ $.datepicker.formatDate("dd.mm.yy", new Date(value.publish_date)) +'</span>' +
                                 '</div>' +
-                                '<div id="divCommentBody" style="text-align: left; margin-bottom:5px;">' +
+                                '<div id="divCommentBody" class="comment-left-mar-bottom5">' +
                                   '<span id="spnCommentText" style=""> '+ value.text +' </span>' +
                                 '</div>' +
-                                '<div id="divCommentFooter" style="text-align:right; margin-bottom:5px; margin-top:15px;">' +
-                                  '<a id="aCommentReply" style="cursor: pointer;">Ответить</a>' +
+                                '<div id="divCommentFooter" class="comment-div-footer">' +
+                                  '<a id="aCommentReply_'+ value.id +'" commentID="'+ value.id +'" reply="false" style="cursor: pointer;">Ответить</a>' +
                                 '</div>' +
+                                '<div id="divCommentReplyForm_'+ value.id +'" style="margin-bottom:5px;"></div>' + 
                             '</li>'
     });
 
@@ -1111,7 +1132,7 @@ function handleImageError(obj)
   //debugger;
 }
 
-function sendComment(){
+function sendComment(typeComment, parentID){
     
     var name = $("#txtCommentName").val(), email = $("#txtCommentEmail").val(), text = $("#txtCommentText").val();
     
@@ -1129,6 +1150,8 @@ function sendComment(){
         name: name,
         email: email,
         text: text,
+        host: typeComment,
+        parentID: parentID,
         showCode: $("#hdnEditShowID").val()
     };
 
@@ -1136,15 +1159,67 @@ function sendComment(){
 }
 
 function sendCommentCallbackSuccess()
-{}
+{
+    $("#divEditCommentFormAlertSuccess").show();
+    $("#divEditCommentFormAlertSuccess").delay(5000).fadeOut(400);
+}
 
-function sendCommentCallbackError()
-{}
+function sendCommentCallbackError(error)
+{    
+    $("#divEditCommentFormAlertError").show();
+    $("#divEditCommentFormAlertError").delay(5000).fadeOut(400);
+}
 
 
 function isValidEmail(email) {
     var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
     return pattern.test(email);
+}
+
+function loadCommentForm(commentID)
+{
+    closeReplyForms();
+    $("#aCommentReply_"+ commentID).text('Закрыть');
+    $("#aCommentReply_"+ commentID).attr("reply", "true");
+
+    var html = '<div id="divCommentReplyForm">' +
+                    '<div id="divCommentFormReplyAlertSuccess" style="display:none;" class="alert alert-success">' +
+                        '<a href="#" data-dismiss="alert" aria-label="close" class="close">&times;</a>' +
+                        '<span>Комментарий успешно отправлен на проверку администратору проекта.</span>' +
+                    '</div>' +
+                    '<div id="divCommentFormReplyAlertError" style="display:none;" class="alert alert-danger">' +
+                        '<a href="#" data-dismiss="alert" aria-label="close" class="close">&times;</a>' +
+                        '<span>Произошла ошибка при сохранение комментария.</span>' +
+                    '</div>' +
+                    '<ul style="width: 500px; margin:auto;" class="row list-unstyled">' +
+                        '<li style="margin-bottom:5px;">' +
+                            '<input id="txtCommentName" type="text" placeholder="Имя" required="" class="form-control"/>' +
+                        '</li>' +
+                        '<li style="margin-bottom:5px;">' +
+                            '<input id="txtCommentEmail" type="email" name="email" placeholder="Email" required="" class="form-control"/>' +
+                        '</li>' +
+                        '<li style="margin-bottom:5px;">' +
+                            '<textarea id="txtCommentText" type="text" cols="40" rows="5" placeholder="" required="" class="form-control"></textarea>' +
+                        '</li>' +
+                        '<li style="margin-bottom:5px;">' +
+                            '<button id="btnReplyComment_'+ commentID +'" parentID="'+ commentID +'" type="button" style="text-transform: uppercase; float: left;" class="btn btn-default">отправить</button>' +
+                        '</li>' +
+                    '</ul>' +
+                '</div>';
+
+    $("#divCommentReplyForm_" + commentID).html('');
+    $("#divCommentReplyForm_" + commentID).append(html);
+}
+
+function closeReplyForms()
+{
+    var arrReplyForm = $("div[id^='divCommentReplyForm_']");
+    $.each(arrReplyForm, function(index, value){
+        $(this).html('');
+        var id = value.id.split("_")[1];        
+        $("a#aCommentReply_" + id).attr("reply", "false");
+        $("a#aCommentReply_" + id).text("Ответить");
+    });  
 }
 
 function sendDataToServer(path, data, callbackSuccess, callbackError) {
