@@ -244,27 +244,28 @@ $(document).ready(function () {
         sendComment('creator', null);
     });
     
-    $("body").on("click", "button[id^='btnReplyComment_']" , function(event){
-        var parentID = $(this).attr("parentID");
-        sendComment('answerer', parentID);
-    });
+    //for future use comments reply
+    // $("body").on("click", "button[id^='btnReplyComment_']" , function(event){
+    //     var parentID = $(this).attr("parentID");
+    //     sendComment('answerer', parentID);
+    // });
 
-    $("body").on("click", "a[id^='aCommentReply_']" , function(event){
-        event.preventDefault();
-        var commentID = $(this).attr("commentID"), replyOpen = $(this).attr("reply");
+    //for future use comments reply
+    // $("body").on("click", "a[id^='aCommentReply_']" , function(event){
+    //     event.preventDefault();
         
-        if(replyOpen == "true"){
-           $("#divCommentReplyForm_" + commentID).html('');
-           $(this).attr("reply", "false");
-           $(this).text("Ответить");
-        }
-        else{
-            loadCommentForm(commentID);
-        }
+    //     var commentID = $(this).attr("commentID"), replyOpen = $(this).attr("reply");
         
-    });
-
-    
+    //     if(replyOpen == "true"){
+    //        $("#divCommentReplyForm_" + commentID).html('');
+    //        $(this).attr("reply", "false");
+    //        $(this).text("Ответить");
+    //     }
+    //     else{
+    //         loadCommentForm(commentID);
+    //     }
+        
+    // });    
 });
 
 function sortByHandler(parentID, param1ID, param2ID) {
@@ -581,14 +582,15 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia, arrComments) {
                                 '<div id="divCommentBody" class="comment-left-mar-bottom5">' +
                                   '<span id="spnCommentText" style=""> '+ value.text +' </span>' +
                                 '</div>' +
-                                '<div id="divCommentFooter" class="comment-div-footer">' +
+                                '<div id="divCommentFooter" class="comment-div-footer" style="display:none;">' +
                                   '<a id="aCommentReply_'+ value.id +'" commentID="'+ value.id +'" reply="false" style="cursor: pointer;">Ответить</a>' +
                                 '</div>' +
                                 '<div id="divCommentReplyForm_'+ value.id +'" style="margin-bottom:5px;"></div>' + 
                             '</li>'
     });
 
-    $("#ulEditComments li").empty();     
+    $("#ulEditComments li").empty();
+    $("#ulEditComments li").remove();     
     $("#ulEditComments").append(commentsDivHTML);
 
 }

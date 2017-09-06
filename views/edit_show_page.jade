@@ -51,15 +51,15 @@ block content
             div(id="divEditComments" class="row")
               ul(id="ulEditComments" class="row list-unstyled" style="width: 500px; margin:auto;")
                 each comment in comments                    
-                  li
+                  li(class="comment-li")
                     div(id="divCommentHeader" style="text-align: left; margin-bottom:5px;")
                       img(src="/images/comment-avatar.jpg" style="margin-right:5px; width:42px; height:34px;")
                       span(id="spnCommentName" style="margin-right:5px;") #{comment.name}
                       span(id="spnCommentDate" style="") #{comment.publish_date}
                     div(id="divCommentBody" style="text-align: left; margin-bottom:5px;")
                       span(id="spnCommentText" style="") #{comment.text}
-                    div(id="divCommentFooter" style="text-align: left; margin-bottom:5px;") 
-                      a(id="aCommentReply") Ответить
+                    //- div(id="divCommentFooter" style="text-align: left; margin-bottom:5px;") 
+                    //-   a(id="aCommentReply") Ответить
 
             div(id="divEditCommentForm")
               ul(class="row list-unstyled" style="width: 500px; margin:auto;")

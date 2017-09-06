@@ -529,13 +529,31 @@ function getShowByShowIdOrShowCode(req, res, next, resType)
             }
         ],        
         function(err, result){
-            var resShow = result[0], resShowSeances = result[1], resShowMedia = result[2], resComments = result[3], headParams = {title: resShow[0].name};
-            if(resType == 'json')
-            {
+
+            var resShow = result[0], 
+                resShowSeances = result[1],
+                resShowMedia = result[2],
+                resComments = result[3],
+                headParams = {title: resShow[0].name}, 
+                arrCommentsObjects = [];
+
+            // for(var i=0; i< resComments.length; i++){
+            //     var comm = resComments[i], commentsObject = {}; 
+            //     if(comm.host == 'creator'){
+            //         comm.answerers = [];
+            //         commentsObject[comm.id] = comm;                    
+            //     }
+            //     else if(comm.host == 'answerer'){
+            //         //!dicItemsByCategoryID.hasOwnProperty(arrCategories[index].id)
+            //     }
+
+            //     arrCommentsObjects.push({commentsObject});
+            // }
+            
+            if(resType == 'json'){
                 res.json({show: resShow, showSeances: resShowSeances, showMedia: resShowMedia, comments: resComments});
             }
-            else if(resType == 'page')
-            {                   
+            else if(resType == 'page'){                   
                 res.render('edit_show_page', { show: resShow, showSeances: resShowSeances, showMedia: resShowMedia, headParams: headParams, content: resShow[0].announce, comments: resComments }); 
             }                
         });
