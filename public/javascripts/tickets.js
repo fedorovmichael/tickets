@@ -1162,8 +1162,10 @@ function sendComment(typeComment, parentID){
 
 function sendCommentCallbackSuccess()
 {
+    $("#txtCommentName").val(''); $("#txtCommentEmail").val(''); $("#txtCommentText").val('');
     $("#divEditCommentFormAlertSuccess").show();
     $("#divEditCommentFormAlertSuccess").delay(5000).fadeOut(400);
+
 }
 
 function sendCommentCallbackError(error)
