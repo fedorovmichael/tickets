@@ -26,10 +26,11 @@ db.createComment = function(comment, cb){
         console.log(comment);
         console.log("");
 
-        var queryDB = "insert into comments(id,text,avatar,publish_date,name,host,email,status,show_id) values" +
+        var queryDB = "insert into comments(id,text,avatar,publish_date,name,host,email,status,show_code, parent_id) values" +
                     "('"+ comment.id +"', '"+ comment.text +"','"+ comment.avatar +"','"+ comment.publish_date +"'," +
-                    "'"+ comment.name +"', '"+ comment.host +"', '"+ comment.email +"', '"+ comment.status +"', '"+ comment.show_id +"')";
+                    "'"+ comment.name +"', '"+ comment.host +"', '"+ comment.email +"', '"+ comment.status +"', '"+ comment.showCode +"', '"+ comment.parentID +"')";
 
+        console.log("create comment queryDB: ", queryDB);
         getMultipleResponse(cb, queryDB);
     } 
     catch (error) 
@@ -38,17 +39,18 @@ db.createComment = function(comment, cb){
     }
 }
 
-db.getCommentsByShowID = function(showID, cb){
+db.getCommentsByShowCode = function(showCode, cb){
 
     try 
     {
-        console.log("db.getCommentsByShowID show id: ", showID);      
-        var queryDB = "select * from comments where show_id = '" + showID + "'";
+        console.log("db.getCommentsByShowCode show code: ", showCode);      
+        var queryDB = "select * from comments where show_code = '" + showCode + "' and status = 'show'";
+        //console.log("comments query: ", queryDB);
         getMultipleResponse(cb, queryDB);
     } 
     catch (error) 
     {
-        console.log("db.getCommentsByShowID error: ", error);    
+        console.log("db.getCommentsByShowCode error: ", error);    
     }
 }
 

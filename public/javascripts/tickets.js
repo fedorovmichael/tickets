@@ -29,7 +29,10 @@ $(document).ready(function () {
     });
 
     $("body").on("click", "li[id^='liMainShowID_']", function (event) {
-        editShowHandler(this.id, '');
+        var showCode = $(this).attr('showcode');
+        $("#hdnEditShowID").val('');
+        $("#hdnEditShowID").val(showCode);
+        editShowHandler(this.id, showCode);
     });
 
     $("#txtSearch").on("keyup", function (event) {
@@ -237,14 +240,32 @@ $(document).ready(function () {
 
     directLink();
 
-    // $("img[id^='imgShowMain_']").each(function(i,v){
-    //     debugger;
-    //     $(v).on("error", function(){                    
-    //       $(v).attr('src', '/images/default-image.jpg');
-    //   });
+    $("#btnSendComment").on("click", function(event){
+        sendComment('creator', null);
+    });
+    
+    //for future use comments reply
+    // $("body").on("click", "button[id^='btnReplyComment_']" , function(event){
+    //     var parentID = $(this).attr("parentID");
+    //     sendComment('answerer', parentID);
     // });
 
-    
+    //for future use comments reply
+    // $("body").on("click", "a[id^='aCommentReply_']" , function(event){
+    //     event.preventDefault();
+        
+    //     var commentID = $(this).attr("commentID"), replyOpen = $(this).attr("reply");
+        
+    //     if(replyOpen == "true"){
+    //        $("#divCommentReplyForm_" + commentID).html('');
+    //        $(this).attr("reply", "false");
+    //        $(this).text("Ответить");
+    //     }
+    //     else{
+    //         loadCommentForm(commentID);
+    //     }
+        
+    // });    
 });
 
 function sortByHandler(parentID, param1ID, param2ID) {
@@ -382,7 +403,7 @@ function createShowHTML(arrShows, arrShowsSections) {
             displayEvent = "display:none;";
         }       
 
-        html += "<li id='liMainShowID_" + value.show_id + "' style='height: 285px; border: solid 0px red; cursor: pointer; "+ displayEvent +" ' class='col-sm-3'>" +
+        html += "<li id='liMainShowID_" + value.show_id + "' showCode='"+ value.show_code +"' style='height: 285px; border: solid 0px red; cursor: pointer; "+ displayEvent +" ' class='col-sm-3'>" +
             "<div>" +
             "<div class='text-left'>" +
              typeHTML + subtypeHTML +
@@ -410,7 +431,7 @@ function editShowHandler(showID, showCode) {
     var data = {};
     data.id = showID.split("_")[1];
     data.showCode = showCode;
-    sendDataToServer('/getShowByID', data, editShowHandlerCallbackSuccess, null);
+    sendDataToServer('/getShowByID', data, editShowHandlerCallbackSuccess, null);    
 }
 
 function editShowHandlerCallbackSuccess(data) {    
@@ -418,7 +439,7 @@ function editShowHandlerCallbackSuccess(data) {
         $("#divShowEdit").show();
         $("#editShowModal").modal('show');
     
-        fillEditShowHTML(data.show, data.showSeances, data.showMedia);
+        fillEditShowHTML(data.show, data.showSeances, data.showMedia, data.comments);
     }    
 }
 
@@ -436,7 +457,7 @@ function editClose() {
     $("#aBackToEdit").hide();
 }
 
-function fillEditShowHTML(show, arrShowsSeances, arrMedia) {
+function fillEditShowHTML(show, arrShowsSeances, arrMedia, arrComments) {
     var resource = show[0].resource == "bravo" ? "http://kaccabravo.co.il" : "http://biletru.co.il";
 
     $('html head').find('title').text(show[0].name + " - bilety.co.il" );
@@ -546,9 +567,31 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia) {
             "</div>";
     });
 
-    $("#divEditGalary").empty();
-    //$("#divEditGalary").remove();  
+    $("#divEditGalary").empty();      
     $("#divEditGalary").append(mediaDivHTML);
+
+    var commentsDivHTML = '', commentsCount = "Комментарии(" + arrComments.length + ")";
+    $("#spanCommentsCount").text(commentsCount);
+    $.each(arrComments, function(index, value){
+        commentsDivHTML += '<li class="comment-li">'+
+                                '<div id="divCommentHeader" class="comment-left-mar-bottom5">' +
+                                  '<img src="images/comment-avatar.jpg" class="comment-avatar"/>' +
+                                  '<span id="spnCommentName" style="margin-right:5px;">'+ value.name +'</span>' +
+                                  '<span id="spnCommentDate" style="">'+ $.datepicker.formatDate("dd.mm.yy", new Date(value.publish_date)) +'</span>' +
+                                '</div>' +
+                                '<div id="divCommentBody" class="comment-left-mar-bottom5">' +
+                                  '<span id="spnCommentText" style=""> '+ value.text +' </span>' +
+                                '</div>' +
+                                '<div id="divCommentFooter" class="comment-div-footer" style="display:none;">' +
+                                  '<a id="aCommentReply_'+ value.id +'" commentID="'+ value.id +'" reply="false" style="cursor: pointer;">Ответить</a>' +
+                                '</div>' +
+                                '<div id="divCommentReplyForm_'+ value.id +'" style="margin-bottom:5px;"></div>' + 
+                            '</li>'
+    });
+
+    $("#ulEditComments li").empty();
+    $("#ulEditComments li").remove();     
+    $("#ulEditComments").append(commentsDivHTML);
 
 }
 
@@ -1089,6 +1132,96 @@ function handleImageError(obj)
 {
   $(obj).attr('src', '/images/default-image.jpg');
   //debugger;
+}
+
+function sendComment(typeComment, parentID){
+    
+    var name = $("#txtCommentName").val(), email = $("#txtCommentEmail").val(), text = $("#txtCommentText").val();
+    
+    if(!isValidEmail(email)){
+        alert("Email address not valid.");
+        return;
+    }
+    
+    if($.trim(name).length == 0 || $.trim(text).length == 0){
+        alert("Please fill name and text fields");
+        return;
+    }        
+
+    var data = {
+        name: name,
+        email: email,
+        text: text,
+        host: typeComment,
+        parentID: parentID,
+        showCode: $("#hdnEditShowID").val()
+    };
+
+    sendDataToServer("/createComment", data, sendCommentCallbackSuccess, sendCommentCallbackError)
+}
+
+function sendCommentCallbackSuccess()
+{
+    $("#divEditCommentFormAlertSuccess").show();
+    $("#divEditCommentFormAlertSuccess").delay(5000).fadeOut(400);
+}
+
+function sendCommentCallbackError(error)
+{    
+    $("#divEditCommentFormAlertError").show();
+    $("#divEditCommentFormAlertError").delay(5000).fadeOut(400);
+}
+
+
+function isValidEmail(email) {
+    var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+    return pattern.test(email);
+}
+
+function loadCommentForm(commentID)
+{
+    closeReplyForms();
+    $("#aCommentReply_"+ commentID).text('Закрыть');
+    $("#aCommentReply_"+ commentID).attr("reply", "true");
+
+    var html = '<div id="divCommentReplyForm">' +
+                    '<div id="divCommentFormReplyAlertSuccess" style="display:none;" class="alert alert-success">' +
+                        '<a href="#" data-dismiss="alert" aria-label="close" class="close">&times;</a>' +
+                        '<span>Комментарий успешно отправлен на проверку администратору проекта.</span>' +
+                    '</div>' +
+                    '<div id="divCommentFormReplyAlertError" style="display:none;" class="alert alert-danger">' +
+                        '<a href="#" data-dismiss="alert" aria-label="close" class="close">&times;</a>' +
+                        '<span>Произошла ошибка при сохранение комментария.</span>' +
+                    '</div>' +
+                    '<ul style="width: 500px; margin:auto;" class="row list-unstyled">' +
+                        '<li style="margin-bottom:5px;">' +
+                            '<input id="txtCommentName" type="text" placeholder="Имя" required="" class="form-control"/>' +
+                        '</li>' +
+                        '<li style="margin-bottom:5px;">' +
+                            '<input id="txtCommentEmail" type="email" name="email" placeholder="Email" required="" class="form-control"/>' +
+                        '</li>' +
+                        '<li style="margin-bottom:5px;">' +
+                            '<textarea id="txtCommentText" type="text" cols="40" rows="5" placeholder="" required="" class="form-control"></textarea>' +
+                        '</li>' +
+                        '<li style="margin-bottom:5px;">' +
+                            '<button id="btnReplyComment_'+ commentID +'" parentID="'+ commentID +'" type="button" style="text-transform: uppercase; float: left;" class="btn btn-default">отправить</button>' +
+                        '</li>' +
+                    '</ul>' +
+                '</div>';
+
+    $("#divCommentReplyForm_" + commentID).html('');
+    $("#divCommentReplyForm_" + commentID).append(html);
+}
+
+function closeReplyForms()
+{
+    var arrReplyForm = $("div[id^='divCommentReplyForm_']");
+    $.each(arrReplyForm, function(index, value){
+        $(this).html('');
+        var id = value.id.split("_")[1];        
+        $("a#aCommentReply_" + id).attr("reply", "false");
+        $("a#aCommentReply_" + id).text("Ответить");
+    });  
 }
 
 function sendDataToServer(path, data, callbackSuccess, callbackError) {

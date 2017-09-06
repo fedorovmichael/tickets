@@ -42,4 +42,33 @@ block content
                       a(href="#" class="thumbnail")
                         -var imagePath = resource + showMedia[i].link;
                         img(img src="#{imagePath}" alt="#{show[0].name}")
+
+
+        div(class="panel panel-default" style="margin-top:20px; display:block;")
+          div(class="panel-heading")             
+            h4 Комментарии
+          div(class="panel-body")
+            div(id="divEditComments" class="row")
+              ul(id="ulEditComments" class="row list-unstyled" style="width: 500px; margin:auto;")
+                each comment in comments                    
+                  li(class="comment-li")
+                    div(id="divCommentHeader" style="text-align: left; margin-bottom:5px;")
+                      img(src="/images/comment-avatar.jpg" style="margin-right:5px; width:42px; height:34px;")
+                      span(id="spnCommentName" style="margin-right:5px;") #{comment.name}
+                      span(id="spnCommentDate" style="") #{comment.publish_date}
+                    div(id="divCommentBody" style="text-align: left; margin-bottom:5px;")
+                      span(id="spnCommentText" style="") #{comment.text}
+                    //- div(id="divCommentFooter" style="text-align: left; margin-bottom:5px;") 
+                    //-   a(id="aCommentReply") Ответить
+
+            div(id="divEditCommentForm")
+              ul(class="row list-unstyled" style="width: 500px; margin:auto;")
+                li(style="margin-bottom:5px;")                  
+                  input(id="txtCommentName" type="text" class="form-control" placeholder="Имя" required="")
+                li(style="margin-bottom:5px;")
+                  input(id="txtCommentEmail" type="email" name="email" class="form-control" placeholder="Email" required="")
+                li(style="margin-bottom:5px;")
+                  textarea(id="txtCommentText" type="text" class="form-control" cols="40" rows="5" placeholder="" required="")
+                li(style="margin-bottom:5px;")
+                  button(id="btnSendComment" type="button" class="btn btn-default" style="text-transform: uppercase; float: left;") отправить
                 

@@ -342,6 +342,31 @@ a {
   background-image: url(../images/default-image.jpg);
 }
 
+/* comments styles */
+.comment-li{
+  border-bottom: 1px;
+  border-bottom-color:#ccc;
+  border-bottom-style: solid;
+  margin-bottom: 15px;
+}
+
+.comment-left-mar-bottom5{
+  text-align: left;
+  margin-bottom:5px;
+}
+
+.comment-avatar{
+  margin-right:5px;
+  width:42px;
+  height:34px;
+}
+
+.comment-div-footer{
+  text-align:right;
+  margin-bottom:5px;
+  margin-top:15px;
+}
+
 
 /* Sticky footer styles
 -------------------------------------------------- */
