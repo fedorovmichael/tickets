@@ -443,6 +443,27 @@ router.post('/createComment', function(req, res, next){
     });    
 });
 
+router.get('/comment/:id', function(req, res, next){
+    var showCode = req.params.id;
+    async.series([
+        function getCommentByShowCodeFromDB(callback){
+            db_comments.getCommentsByShowCode(showCode, function(err, resultGetCommentsByShowCode){
+                if(err){
+                    console.log("get comments by show code from db error: ", err);
+                    callback(err, null); 
+                    return;
+                }
+
+                callback(null, resultGetCommentsByShowCode);
+            });
+        }
+    ], 
+    function(err, result){
+        
+        res.render('comment', { comments: result[0] });
+    });
+});
+
 
 //general methods+++++++++++++++++++++++++++++++++++++++++++++++++++++
 function getShowByShowIdOrShowCode(req, res, next, resType)
