@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var db = require('../db/database.js');
 var db_comments = require('../db/database_comments.js');
+var sm_comments = require('../xml/sm_comments.js');
 var async = require('async');
 var dateFormat = require('dateformat');
 var appConfig = require("../config/index.js");
@@ -431,7 +432,20 @@ router.post('/createComment', function(req, res, next){
 
                callback(null, resultCreateComment);
             });
+        },
+
+        function addCommentToSM(callback){
+            sm_comments.updateSiteMap(comment.showCode, function(err, resultAddCommentToSM){
+                 if(err){
+                    console.log("add comment in sitemap error: ", err);
+                    callback(err, null); 
+                    return;
+               }
+
+               callback(null, resultAddCommentToSM);
+            });
         }
+
     ],
     function(err, result){
         if(err){
@@ -458,8 +472,7 @@ router.get('/comment/:id', function(req, res, next){
             });
         }
     ], 
-    function(err, result){
-        
+    function(err, result){     
         res.render('comment', { comments: result[0] });
     });
 });
