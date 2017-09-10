@@ -1136,7 +1136,9 @@ function handleImageError(obj)
 
 function sendComment(typeComment, parentID){
     
-    var name = $("#txtCommentName").val(), email = $("#txtCommentEmail").val(), text = $("#txtCommentText").val();
+    var name = $("#txtCommentName").val(), 
+        email = $("#txtCommentEmail").val(), 
+        text = $("#txtCommentText").val();        
     
     if(!isValidEmail(email)){
         alert("Email address not valid.");
@@ -1165,6 +1167,8 @@ function sendCommentCallbackSuccess()
     $("#txtCommentName").val(''); $("#txtCommentEmail").val(''); $("#txtCommentText").val('');
     $("#divEditCommentFormAlertSuccess").show();
     $("#divEditCommentFormAlertSuccess").delay(5000).fadeOut(400);
+
+    var htmlComments = $("#divEditComments").html();
 
 }
 
