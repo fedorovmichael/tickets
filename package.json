@@ -17,6 +17,7 @@
     "morgan": "~1.7.0",
     "node-uuid": "^1.4.8",
     "pg": "^6.1.5",
-    "serve-favicon": "~2.3.2"
+    "serve-favicon": "~2.3.2",
+    "xml2js": "^0.4.19"
   }
 }

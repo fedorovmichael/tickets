@@ -5,8 +5,13 @@ block content
     div(class="panel panel-default")
         div(id="divEditShowName" class="panel-heading")
           h4
-            span(id="spanEditShowName") #{comments[0].show_name}
-            span(style="margin-left:5px;") в Израиле 2017
+            -if (comments.length > 0){
+              span(id="spanEditShowName") #{comments[0].show_name}
+              span(style="margin-left:5px;") в Израиле 2017
+            -}  
+            -else{
+              span(id="spanEditShowName") Комментарии для этого события в данный момент не доступны.
+            -}   
             a(id="btnCommentClose" href="/" class="close" data-dismiss="modal")&times;  
 
         div(class="panel panel-default" style="margin-top:20px; display:block;")
