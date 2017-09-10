@@ -472,8 +472,22 @@ router.get('/comment/:id', function(req, res, next){
             });
         }
     ], 
-    function(err, result){     
-        res.render('comment', { comments: result[0] });
+    function(err, result){
+        var arrComments = result[0], con = '';
+        
+        if(arrComments[0].announce.length > 160){
+            con = arrComments[0].announce.substring(0, 160);
+            con = con.substring(con.lastIndexOf(' '));
+        }
+        else{
+            con = arrComments[0].announce;
+        }
+
+        console.log("==============================================================");
+        console.log("title : ", arrComments[0].show_name);
+        console.log("content : ", arrComments[0].announce);
+        console.log("==============================================================");    
+        res.render('comment', { comments: arrComments, title: "Комментарий к " + arrComments[0].show_name, content: con });
     });
 });
 

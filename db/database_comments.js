@@ -44,7 +44,7 @@ db.getCommentsByShowCode = function(showCode, cb){
     try 
     {
         console.log("db.getCommentsByShowCode show code: ", showCode);      
-        var queryDB = "select sh.name as show_name, com.* from comments as com " +
+        var queryDB = "select sh.name as show_name, sh.announce, com.* from comments as com " +
         " join shows as sh on com.show_code = sh.show_code " +
         " where com.show_code = '" + showCode + "' and com.status = 'show'";        
         console.log("comments query: ", queryDB);
