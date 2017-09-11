@@ -2,11 +2,14 @@ doctype html
 html
   head
     meta(name="fragment" content="!")
-    -var title = "Афиша 2017 - купить билет на концерт, театр онлайн в Израиле - BILETY.CO.IL";
+    -var titleStatic = "";    
     -if(title != undefined || title != ""){
-      -title = title;
+      -titleStatic = title;
+    -}
+    -else{
+      -titleStatic = "Афиша 2017 - купить билет на концерт, театр онлайн в Израиле - BILETY.CO.IL";
     -}        
-    title = "#{title}"
+    title #{titleStatic}
     meta(name="yandex-verification" content="3e6525a8260eb088")
     meta(name="description" content="#{content}")    
     meta(name="keywords" content="купить билеты, афиша,  концерты, театр, билеты, купить, фестивали, балет, спектакли, опера, мюзикл, цирк, комедия, билеты в Израиле, гастроли в Израиле, классика, эстрада, поп-музыка, рок-музыка")

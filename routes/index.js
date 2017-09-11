@@ -472,8 +472,17 @@ router.get('/comment/:id', function(req, res, next){
             });
         }
     ], 
-    function(err, result){     
-        res.render('comment', { comments: result[0] });
+    function(err, result){
+        var arrComments = result[0], con = '', content = '';
+        
+        if(arrComments[0].announce.length > 160){
+            con = arrComments[0].announce.substring(0, 160);
+            content = con.substring(0, con.lastIndexOf(' '));
+        }
+        else{
+            content = arrComments[0].announce;
+        }          
+        res.render('comment', { comments: arrComments, title: "Комментарий к " + arrComments[0].show_name, content: con });
     });
 });
 
