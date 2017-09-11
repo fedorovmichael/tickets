@@ -473,16 +473,21 @@ router.get('/comment/:id', function(req, res, next){
         }
     ], 
     function(err, result){
-        var arrComments = result[0], con = '', content = '';
+        var arrComments = result[0], con = '', content = '', showName = 'Комментарии не доступны';
         
-        if(arrComments[0].announce.length > 160){
-            con = arrComments[0].announce.substring(0, 160);
-            content = con.substring(0, con.lastIndexOf(' '));
+        if(arrComments.length > 0){
+            if(arrComments[0].announce.length > 160){
+                con = arrComments[0].announce.substring(0, 160);
+                content = con.substring(0, con.lastIndexOf(' '));
+            }
+            else{
+                content = arrComments[0].announce;
+            }
+            
+            showName = "Комментарий к " + arrComments[0].show_name;
         }
-        else{
-            content = arrComments[0].announce;
-        }          
-        res.render('comment', { comments: arrComments, title: "Комментарий к " + arrComments[0].show_name, content: con });
+                
+        res.render('comment', { comments: arrComments, title: showName, content: content });
     });
 });
 
