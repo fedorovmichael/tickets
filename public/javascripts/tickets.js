@@ -1114,18 +1114,22 @@ function directLink()
     
    // alert(agent);
 
-    if(params == "")
-    {
+    if(params == ""){
         return;
     }
 
-    if(params.split("=")[0] != "show")
-    {
-        return;
-    }
+    if(params.split("=")[0] == "show"){
+       var showCode = params.split('=')[1];
+       editShowHandler('', showCode);
+    }    
+    else if(params.split("=")[0] == "type"){
+       var typeID = params.split('=')[1];
+       var fullID = "#typeID_" + typeID; 
+       $(fullID).prop('checked', true);
+       $('label[for=' + fullID + ']').addClass('checked');
+       filtersHandler();
+    }   
     
-    var showCode = params.split('=')[1];
-    editShowHandler('', showCode);
 }
 
 function handleImageError(obj)

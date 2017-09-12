@@ -741,10 +741,10 @@ function getShowsByFilter(req, res, next, headParams)
                     return;
                 }
 
-                console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                console.log("");
-                console.log("");
-                console.log('agences shows: ', agencesShowsResult);
+                // console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                // console.log("");
+                // console.log("");
+                // console.log('agences shows: ', agencesShowsResult);
                 
                 callback(null, agencesShowsResult);  
             });
