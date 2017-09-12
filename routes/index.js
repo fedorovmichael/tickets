@@ -126,257 +126,7 @@ router.post('/getSearchShowByText', function(req, res, next) {
 
 router.post('/getShowByFilters', function(req, res, next) {
 
-    var strCities = null, strTypes = null, strSubTypes = null, objTypes = null;    
-    var dateFrom = null, dataTo = null, arrDates = [], searchText = null, superPrice = false,
-        discount = false, tour = false, sortByPrice = null, sortByName = null, sortByDate = null, 
-        sortBySection = null, minPrice = null, maxPrice = null;
-
-    //cities
-    if(req.body.cities != null)
-    {
-        //console.log("cities: ", req.body.cities);        
-        var arrObjRegion = JSON.parse(req.body.cities);
-
-        strCities = "";
-
-        for(var i = 0; i < arrObjRegion.length; i++)
-        {
-            var arrCities = arrObjRegion[i].cities;
-
-            for(var c = 0; c < arrCities.length; c++)
-            {
-              strCities +=  "'" + arrCities[c] + "',"; 
-            }          
-        }
-
-        if(strCities != "")
-        {
-            strCities = strCities.substring(0, strCities.length - 1);
-        }
-        else
-        {
-            strCities = null;
-        }
-        console.log(""); 
-        console.log("cities ids: ", strCities);
-        console.log("");
-    }
-
-    //types
-    console.log("");
-    console.log("types ", req.body.types);
-    console.log("");
-    if(req.body.types != null)
-    {        
-        var typesIDs = req.body.types;
-        console.log("");
-        console.log("array types ", typesIDs);
-        console.log("types length: ", typesIDs.length);  
-
-        console.log("");
-        
-        for(var i = 0; i < typesIDs.length; i++)
-        {
-            //console.log("subtypes: ", typesIDs[i].subTypes );
-            if(typesIDs[i].subTypes == null){
-
-                if(strTypes == null)
-                {
-                    strTypes = "";
-                }
-
-                strTypes += "'" + typesIDs[i].type + "',";
-            }
-
-            if(typesIDs[i].subTypes != null){
-
-                strSubTypes = "";
-                var subTypesIDs = typesIDs[i].subTypes.split(',');
-                console.log("subtypes splited: ", subTypesIDs );  
-
-                for(var s = 0; s < subTypesIDs.length; s++)
-                {
-                    strSubTypes += "'" + subTypesIDs[s] + "',";
-                }
-
-                console.log("subtypes substring: ", strSubTypes );
-                strSubTypes = strSubTypes.substring(0, strSubTypes.length - 1);
-                console.log("subtypes after substring: ", strSubTypes );
-            }            
-        }
-
-        if(strTypes != null)
-        {
-            strTypes = strTypes.substring(0, strTypes.length - 1);
-        }       
-
-        console.log(""); 
-        console.log("types ids: ", strTypes);
-        console.log("");
-
-        console.log(""); 
-        console.log("subtypes ids: ", strSubTypes);
-        console.log("");
-    }    
-
-    if(req.body.searchText != null)
-    {
-        searchText = req.body.searchText;
-    }
-
-    if(req.body.superPrice)
-    {
-        superPrice = req.body.superPrice ? "1" : "0";
-    }   
-
-    console.log("start discount"); 
-    console.log("discount : ", req.body.discount);
-    console.log("");
-    if(req.body.discount)
-    {
-        discount = req.body.discount ? "1" : "0";
-    } 
-
-    if(req.body.tour)
-    {
-        tour = req.body.tour ? "1" : "0";
-    }
-    console.log("start min price"); 
-    console.log("min price : ", req.body.minPrice);
-    console.log("");
-    if(req.body.minPrice != null)
-    {
-        minPrice = req.body.minPrice;
-    }
-    console.log("start max price"); 
-    console.log("max price : ", req.body.maxPrice);
-    console.log("");
-    if(req.body.maxPrice != null)
-    {
-        maxPrice = req.body.maxPrice;
-    }  
-
-    if(req.body.sortByPrice != null)
-    {
-        sortByPrice = req.body.sortByPrice;
-    }
-
-    if(req.body.sortByName != null)
-    {
-        sortByName = req.body.sortByName;
-    }
-    
-    if(req.body.dates != null)
-    {
-        arrDates = JSON.parse(req.body.dates);
-    }
-    else
-    {
-        arrDates = null;
-    }
-
-    if(req.body.sortByDate != null)
-    {
-        sortByDate = req.body.sortByDate;
-    }
-
-    if(req.body.sortBySection != null)
-    {
-        sortBySection = req.body.sortBySection;
-    }
-    
-
-    var filter = {
-        cities: strCities,
-        types: strTypes,
-        subtypes: strSubTypes,        
-        searchText: searchText,
-        superPrice: superPrice,
-        discount: discount,
-        sortByPrice: sortByPrice,
-        sortByName: sortByName,
-        sortByDate: sortByDate,
-        sortBySection: sortBySection,
-        tour: tour,
-        dates: arrDates,
-        minPrice: minPrice,
-        maxPrice: maxPrice
-    };
-
-    console.log(""); 
-    console.log("filter: ", filter);
-    console.log("");
-
-    async.series([
-
-        function getShowsByFiltersFromDB(callback)
-        {
-            db.getShowsByFilters(filter, function(err, showsByFilterResult){
-                if(err){
-                    console.log("get shows by filters from db error: ", err);
-                    callback(err, null); 
-                    return;
-               }
-
-               callback(null, showsByFilterResult);
-            })            
-        },
-
-        function getShowSectionFromDB(callback)
-        {
-           db.getShowsSections(function(err, showsSectionsResult){
-                if(err){
-                    console.log("get shows sections from db error: ", err);
-                    callback(err, null); 
-                    return;
-                }
-               
-                callback(null, showsSectionsResult);  
-            });
-        },
-
-        function getAgencesShowsFromDB(callback)
-        {
-           db.getAgencesShows(function(err, agencesShowsResult){
-                if(err){
-                    console.log("get agences shows from db error: ", err);
-                    callback(err, null); 
-                    return;
-                }
-
-                console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                console.log("");
-                console.log("");
-                console.log('agences shows: ', agencesShowsResult);
-                
-                callback(null, agencesShowsResult);  
-            });
-        }
-    ], 
-    function(err, result){
-        
-        var resShows = result[0], resShowsSection = result[1], agencesShows = result[2];
-
-        for(var i = 0; i < agencesShows.length; i++)
-        {
-            var index = resShows.findIndex(x => x.show_id === agencesShows[i].show_id);          
-
-            if(index > 0)
-            {             
-                resShows.splice(index, 1);
-                resShows.splice(0,0, agencesShows[i]);
-            }            
-        }
-
-        // console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        // console.log("");
-        // console.log("result shows from db:  ", resShows );
-        // console.log("result section from db:  ", resShowsSection );
-        // console.log("");
-        // console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        res.json({shows: resShows, showsSections: resShowsSection});
-    });
-
+    getShowsByFilter(req, res, next, null);
 });
 
 router.get('/event/:id', function(req, res, next){   
@@ -489,6 +239,38 @@ router.get('/comment/:id', function(req, res, next){
                 
         res.render('comment', { comments: arrComments, title: showName, content: content });
     });
+});
+
+router.get('/type/:id', function(req, res, next){
+    //req.params.id;
+   var arrTypesChecked = []; 
+   
+   arrTypesChecked.push({
+        type: req.params.id,
+        subTypes: null
+    });
+
+    req.body.types = JSON.stringify(arrTypesChecked);
+
+    console.log("================================================");
+    console.log("req body: ", req.body.types);
+    console.log("================================================");
+
+    getShowsByFilter(req, res, next, null);
+});
+
+router.get('/subtype', function(req, res, next){
+    
+    // var arrTypesChecked = [];
+
+    // arrTypesChecked.push({
+    //     type: req.params.id,
+    //     subTypes: subCount == 0 ? arrSubTypesChecked = null : arrSubTypesChecked.join()
+    // });
+
+    // req.body.types = JSON.stringify(arrTypesChecked);
+   
+    getShowsByFilter(req, res, next, null);
 });
 
 
@@ -737,6 +519,266 @@ function loadDefaulPage(req, res, next, headParams)
 
           res.render('index', {types: resTypes, subTypes: resSubTypes, shows: resShows, showsSections: resShowsSection, cities: resCities, dateFormat: dateFormat, content: headParams.content, title: headParams.title });
       })
+}
+
+function getShowsByFilter(req, res, next, headParams)
+{
+    var strCities = null, strTypes = null, strSubTypes = null, objTypes = null;    
+    var dateFrom = null, dataTo = null, arrDates = [], searchText = null, superPrice = false,
+        discount = false, tour = false, sortByPrice = null, sortByName = null, sortByDate = null, 
+        sortBySection = null, minPrice = null, maxPrice = null;
+
+    //cities
+    if(req.body.cities != null)
+    {
+        //console.log("cities: ", req.body.cities);        
+        var arrObjRegion = JSON.parse(req.body.cities);
+
+        strCities = "";
+
+        for(var i = 0; i < arrObjRegion.length; i++)
+        {
+            var arrCities = arrObjRegion[i].cities;
+
+            for(var c = 0; c < arrCities.length; c++)
+            {
+              strCities +=  "'" + arrCities[c] + "',"; 
+            }          
+        }
+
+        if(strCities != "")
+        {
+            strCities = strCities.substring(0, strCities.length - 1);
+        }
+        else
+        {
+            strCities = null;
+        }
+        console.log(""); 
+        console.log("cities ids: ", strCities);
+        console.log("");
+    }
+
+    //types
+    console.log("");
+    console.log("types ", req.body.types);
+    console.log("");
+    if(req.body.types != null)
+    {        
+        var typesIDs = req.body.types;
+        console.log("");
+        console.log("array types ", typesIDs);
+        console.log("types length: ", typesIDs.length);  
+
+        console.log("");
+        
+        for(var i = 0; i < typesIDs.length; i++)
+        {
+            //console.log("subtypes: ", typesIDs[i].subTypes );
+            if(typesIDs[i].subTypes == null){
+
+                if(strTypes == null)
+                {
+                    strTypes = "";
+                }
+
+                strTypes += "'" + typesIDs[i].type + "',";
+            }
+
+            if(typesIDs[i].subTypes != null){
+
+                strSubTypes = "";
+                var subTypesIDs = typesIDs[i].subTypes.split(',');
+                console.log("subtypes splited: ", subTypesIDs );  
+
+                for(var s = 0; s < subTypesIDs.length; s++)
+                {
+                    strSubTypes += "'" + subTypesIDs[s] + "',";
+                }
+
+                console.log("subtypes substring: ", strSubTypes );
+                strSubTypes = strSubTypes.substring(0, strSubTypes.length - 1);
+                console.log("subtypes after substring: ", strSubTypes );
+            }            
+        }
+
+        if(strTypes != null)
+        {
+            strTypes = strTypes.substring(0, strTypes.length - 1);
+        }       
+
+        console.log(""); 
+        console.log("types ids: ", strTypes);
+        console.log("");
+
+        console.log(""); 
+        console.log("subtypes ids: ", strSubTypes);
+        console.log("");
+    }    
+
+    if(req.body.searchText != null)
+    {
+        searchText = req.body.searchText;
+    }
+
+    if(req.body.superPrice)
+    {
+        superPrice = req.body.superPrice ? "1" : "0";
+    }   
+
+    console.log("start discount"); 
+    console.log("discount : ", req.body.discount);
+    console.log("");
+    if(req.body.discount)
+    {
+        discount = req.body.discount ? "1" : "0";
+    } 
+
+    if(req.body.tour)
+    {
+        tour = req.body.tour ? "1" : "0";
+    }
+    console.log("start min price"); 
+    console.log("min price : ", req.body.minPrice);
+    console.log("");
+    if(req.body.minPrice != null)
+    {
+        minPrice = req.body.minPrice;
+    }
+    console.log("start max price"); 
+    console.log("max price : ", req.body.maxPrice);
+    console.log("");
+    if(req.body.maxPrice != null)
+    {
+        maxPrice = req.body.maxPrice;
+    }  
+
+    if(req.body.sortByPrice != null)
+    {
+        sortByPrice = req.body.sortByPrice;
+    }
+
+    if(req.body.sortByName != null)
+    {
+        sortByName = req.body.sortByName;
+    }
+    
+    if(req.body.dates != null)
+    {
+        arrDates = JSON.parse(req.body.dates);
+    }
+    else
+    {
+        arrDates = null;
+    }
+
+    if(req.body.sortByDate != null)
+    {
+        sortByDate = req.body.sortByDate;
+    }
+
+    if(req.body.sortBySection != null)
+    {
+        sortBySection = req.body.sortBySection;
+    }
+    
+
+    var filter = {
+        cities: strCities,
+        types: strTypes,
+        subtypes: strSubTypes,        
+        searchText: searchText,
+        superPrice: superPrice,
+        discount: discount,
+        sortByPrice: sortByPrice,
+        sortByName: sortByName,
+        sortByDate: sortByDate,
+        sortBySection: sortBySection,
+        tour: tour,
+        dates: arrDates,
+        minPrice: minPrice,
+        maxPrice: maxPrice
+    };
+
+    console.log(""); 
+    console.log("filter: ", filter);
+    console.log("");
+
+    async.series([
+
+        function getShowsByFiltersFromDB(callback)
+        {
+            db.getShowsByFilters(filter, function(err, showsByFilterResult){
+                if(err){
+                    console.log("get shows by filters from db error: ", err);
+                    callback(err, null); 
+                    return;
+               }
+
+               callback(null, showsByFilterResult);
+            })            
+        },
+
+        function getShowSectionFromDB(callback)
+        {
+           db.getShowsSections(function(err, showsSectionsResult){
+                if(err){
+                    console.log("get shows sections from db error: ", err);
+                    callback(err, null); 
+                    return;
+                }
+               
+                callback(null, showsSectionsResult);  
+            });
+        },
+
+        function getAgencesShowsFromDB(callback)
+        {
+           db.getAgencesShows(function(err, agencesShowsResult){
+                if(err){
+                    console.log("get agences shows from db error: ", err);
+                    callback(err, null); 
+                    return;
+                }
+
+                console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                console.log("");
+                console.log("");
+                console.log('agences shows: ', agencesShowsResult);
+                
+                callback(null, agencesShowsResult);  
+            });
+        }
+    ], 
+    function(err, result){
+        
+        var resShows = result[0], resShowsSection = result[1], agencesShows = result[2];
+
+        for(var i = 0; i < agencesShows.length; i++)
+        {
+            var index = resShows.findIndex(x => x.show_id === agencesShows[i].show_id);          
+
+            if(index > 0)
+            {             
+                resShows.splice(index, 1);
+                resShows.splice(0,0, agencesShows[i]);
+            }            
+        }
+
+        // console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        // console.log("");
+        // console.log("result shows from db:  ", resShows );
+        // console.log("result section from db:  ", resShowsSection );
+        // console.log("");
+        // console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        if (req.method == "POST"){
+            res.json({shows: resShows, showsSections: resShowsSection});
+        }
+        else{
+            res.render('partials/shows_main', {shows: resShows, showsSections: resShowsSection, dateFormat: dateFormat});//, content: headParams.content, title: headParams.title });
+        }
+
+    });
 }
 
 module.exports = router;
