@@ -666,7 +666,7 @@ function filtersHandler() {
 
             arrTypesChecked.push({
                 type: typeID,
-                subTypes: subCount == 0 ? arrSubTypesChecked = null : arrSubTypesChecked.join()
+                subTypes: subCount == 0 ? null : arrSubTypesChecked.join()
             });
 
             count++;
@@ -1110,26 +1110,40 @@ function imageSizeHandler()
 function directLink()
 {   
     var params = decodeURIComponent(window.location.search.substring(1));
-    var agent = navigator.userAgent;    
+    var agent = navigator.userAgent, typeID = '', subTypeID = '';    
     
    // alert(agent);
+   try { 
+        if(params == ""){ return; }
 
-    if(params == ""){
-        return;
-    }
+        if(params.split("=")[0] == "show"){
+            var showCode = params.split('=')[1];
+            editShowHandler('', showCode);
+        }    
+        else if(params.split("=")[0] == "type"){
+            
+            typeID = params.split('=')[1];
 
-    if(params.split("=")[0] == "show"){
-       var showCode = params.split('=')[1];
-       editShowHandler('', showCode);
-    }    
-    else if(params.split("=")[0] == "type"){
-       var typeID = params.split('=')[1];
-       var fullID = "#typeID_" + typeID; 
-       $(fullID).prop('checked', true);
-       $('label[for=' + fullID + ']').addClass('checked');
-       filtersHandler();
-    }   
+            if(params.indexOf('&') != -1){
+
+                typeID = typeID.split("&")[0];                
+                subTypeID = params.split("&")[1].split("=")[1];
+
+                var fullSubTypeID = "subTypeID_" + subTypeID;
+                $("#" + fullSubTypeID).prop('checked', true);
+                $('label[for=' + fullSubTypeID + ']').addClass('checked');
+            }           
+            
+            var fullID = "typeID_" + typeID; 
+            $("#" + fullID).prop('checked', true);
+            $('label[for=' + fullID + ']').addClass('checked');
+
+            filtersHandler();
+        }
     
+    } catch (error) {
+        console.log("directLink error: ", error);
+    }
 }
 
 function handleImageError(obj)

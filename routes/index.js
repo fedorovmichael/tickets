@@ -241,39 +241,6 @@ router.get('/comment/:id', function(req, res, next){
     });
 });
 
-router.get('/type/:id', function(req, res, next){
-    //req.params.id;
-   var arrTypesChecked = []; 
-   
-   arrTypesChecked.push({
-        type: req.params.id,
-        subTypes: null
-    });
-
-    req.body.types = JSON.stringify(arrTypesChecked);
-
-    console.log("================================================");
-    console.log("req body: ", req.body.types);
-    console.log("================================================");
-
-    getShowsByFilter(req, res, next, null);
-});
-
-router.get('/subtype', function(req, res, next){
-    
-    // var arrTypesChecked = [];
-
-    // arrTypesChecked.push({
-    //     type: req.params.id,
-    //     subTypes: subCount == 0 ? arrSubTypesChecked = null : arrSubTypesChecked.join()
-    // });
-
-    // req.body.types = JSON.stringify(arrTypesChecked);
-   
-    getShowsByFilter(req, res, next, null);
-});
-
-
 //general methods+++++++++++++++++++++++++++++++++++++++++++++++++++++
 function getShowByShowIdOrShowCode(req, res, next, resType)
 {
