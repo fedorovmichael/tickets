@@ -241,6 +241,19 @@ router.get('/comment/:id', function(req, res, next){
     });
 });
 
+router.get('/?/?', function(req, res, next){ ///concert/poprock
+
+    console.log("");
+    console.log("=========================================== route path /?/?");
+    console.log("");
+    var content = "Самая большая афиша в Израиле. Куда сходить: расписания концертов, выставок, спектаклей, гастролей, израильских театров, балета, оперы, цирка, клубных событий и развлечений для детей";
+    var title = "Афиша 2017 - купить билет на концерт, театр онлайн в Израиле - BILETY.CO.IL";
+    appConfig.loadConfig();
+    var linkhref = appConfig.getConfig("urls", "base_url") + "/he-il"
+    var headParams = { content: content, linkhref: linkhref, linklang: "he-il", title: title };
+    loadDefaulPage(req, res, next, headParams);
+});
+
 //general methods+++++++++++++++++++++++++++++++++++++++++++++++++++++
 function getShowByShowIdOrShowCode(req, res, next, resType)
 {
