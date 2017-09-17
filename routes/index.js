@@ -241,7 +241,7 @@ router.get('/comment/:id', function(req, res, next){
     });
 });
 
-router.get('/?/?', function(req, res, next){ ///concert/poprock
+router.get('/concert/:id?', function(req, res, next){ ///concert/poprock
 
     console.log("");
     console.log("=========================================== route path /?/?");

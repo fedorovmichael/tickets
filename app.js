@@ -30,7 +30,7 @@ app.use('/getSearchShowByText', index);
 app.use('/getShowByFilters', index);
 app.use('/event/:id', index);
 app.use('/comment/:id', index); 
-app.use('/?/?', index); 
+app.use('/concert/:id?', index); 
 app.use('/users', users);
 
 // catch 404 and forward to error handler

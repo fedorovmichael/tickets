@@ -1124,8 +1124,9 @@ function directLink()
         }    
         else if(arrURL.length > 3){           
 
-            window.stop();            
-            typeID = typeNameValueDictionary[arrURL[arrURL.length - 2]];
+            //window.stop();
+            var lastIndex  = arrURL.length == 4 ? 1 : 2;            
+            typeID = typeNameValueDictionary[arrURL[arrURL.length - lastIndex]];
 
             if(arrURL.length > 4){
                                 
@@ -1140,7 +1141,7 @@ function directLink()
             $("#" + fullID).prop('checked', true);
             $('label[for=' + fullID + ']').addClass('checked');
 
-            //filtersHandler();
+            filtersHandler();
         }
     
     } catch (error) {
