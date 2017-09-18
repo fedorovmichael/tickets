@@ -1,15 +1,14 @@
 
+var typeNameValueDictionary = {};
+var subTypeNameValueDictionary = {};
+
 $(document).on({
     ajaxStart: function(){ $("#divLoading").addClass("wait-modal"); $("#divLoading").removeClass("wait-modal-none");  },
     ajaxComplete: function(){ $("#divLoading").removeClass("wait-modal"); $("#divLoading").addClass("wait-modal-none"); $("body").scrollTop(0); }
 });
 
-// $(document).on("error", "img[id^='imgShowMain_']", function(){
-//     debugger;
-//     $(this).attr('src', '/images/default-image.jpg');
-// });
-
-$(document).ready(function () {
+$(document).ready(function () {   
+    //mehtods
     $("input[id^='typeID_']").on("click", function (event) {
         //menuTypeHandler(this.id); subTypeID
         filtersHandler();
@@ -237,12 +236,12 @@ $(document).ready(function () {
     });
         
     $('#back-to-top').tooltip('show');
-
+    
     directLink();
 
     $("#btnSendComment").on("click", function(event){
         sendComment('creator', null);
-    });
+    });    
     
     //for future use comments reply
     // $("body").on("click", "button[id^='btnReplyComment_']" , function(event){
@@ -666,7 +665,7 @@ function filtersHandler() {
 
             arrTypesChecked.push({
                 type: typeID,
-                subTypes: subCount == 0 ? arrSubTypesChecked = null : arrSubTypesChecked.join()
+                subTypes: subCount == 0 ? null : arrSubTypesChecked.join()
             });
 
             count++;
@@ -1110,22 +1109,44 @@ function imageSizeHandler()
 function directLink()
 {   
     var params = decodeURIComponent(window.location.search.substring(1));
-    var agent = navigator.userAgent;    
+    var agent = navigator.userAgent, typeID = '', subTypeID = '';
+    var arrURL = window.location.href.split("/");
+    loadTypeNameValueDictionary();
+    loadSubTypeNameValueDictionary();    
     
    // alert(agent);
+   try { 
+        //if(params == ""){ return; }
 
-    if(params == "")
-    {
-        return;
-    }
+        if(params.split("=")[0] == "show"){
+            var showCode = params.split('=')[1];
+            editShowHandler('', showCode);
+        }    
+        else if(arrURL.length > 3){           
 
-    if(params.split("=")[0] != "show")
-    {
-        return;
-    }
+            //window.stop();
+            var lastIndex  = arrURL.length == 4 ? 1 : 2;            
+            typeID = typeNameValueDictionary[arrURL[arrURL.length - lastIndex]];
+
+            if(arrURL.length > 4){
+                                
+                subTypeID = subTypeNameValueDictionary[arrURL[arrURL.length - 1]];
+
+                var fullSubTypeID = "subTypeID_" + subTypeID;
+                $("#" + fullSubTypeID).prop('checked', true);
+                $('label[for=' + fullSubTypeID + ']').addClass('checked');
+            }           
+            
+            var fullID = "typeID_" + typeID; 
+            $("#" + fullID).prop('checked', true);
+            $('label[for=' + fullID + ']').addClass('checked');
+
+            filtersHandler();
+        }
     
-    var showCode = params.split('=')[1];
-    editShowHandler('', showCode);
+    } catch (error) {
+        console.log("directLink error: ", error);
+    }
 }
 
 function handleImageError(obj)
@@ -1178,7 +1199,6 @@ function sendCommentCallbackError(error)
     $("#divEditCommentFormAlertError").delay(5000).fadeOut(400);
 }
 
-
 function isValidEmail(email) {
     var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
     return pattern.test(email);
@@ -1228,6 +1248,38 @@ function closeReplyForms()
         $("a#aCommentReply_" + id).attr("reply", "false");
         $("a#aCommentReply_" + id).text("Ответить");
     });  
+}
+
+function loadTypeNameValueDictionary()
+{
+   typeNameValueDictionary['concert']  = '1';
+   typeNameValueDictionary['theater']  = '2';
+   typeNameValueDictionary['circus']  = '3';
+   typeNameValueDictionary['humor']  = '4';
+   typeNameValueDictionary['children']  = '5';
+   typeNameValueDictionary['show']  = '6';
+   typeNameValueDictionary['meetings']  = '7';
+   typeNameValueDictionary['sport']  = '8';
+   typeNameValueDictionary['cinema']  = '9';
+   typeNameValueDictionary['exibitions']  = '10';
+}
+
+function loadSubTypeNameValueDictionary()
+{
+    subTypeNameValueDictionary['poprock'] = '1';
+    subTypeNameValueDictionary['stage'] = '2';
+    subTypeNameValueDictionary['hiphop'] = '3';
+    subTypeNameValueDictionary['jazzblues'] = '4';
+    subTypeNameValueDictionary['classic'] = '5';
+    subTypeNameValueDictionary['bard'] = '6';
+    subTypeNameValueDictionary['folk'] = '7';
+    subTypeNameValueDictionary['performances'] = '8';
+    subTypeNameValueDictionary['misical'] = '9';
+    subTypeNameValueDictionary['opera'] = '10';
+    subTypeNameValueDictionary['ballet'] = '11';
+    subTypeNameValueDictionary['comedy'] = '12';
+    subTypeNameValueDictionary['drama'] = '13';
+    subTypeNameValueDictionary['detective'] = '14';
 }
 
 function sendDataToServer(path, data, callbackSuccess, callbackError) {

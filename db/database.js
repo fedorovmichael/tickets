@@ -42,7 +42,7 @@ db.getTypes = function(cb)
                     cb(err, null);
                     return;
                 }
-                console.log("retrieved rows -> ", result);
+                //console.log("retrieved rows -> ", result);
                 cb(null, result.rows);
             });
         });  
@@ -91,7 +91,7 @@ db.getShows = function(cb)
                     cb(err, null);
                     return;
                 }
-                console.log("retrieved rows -> ", result);
+                //console.log("retrieved rows -> ", result);
                 cb(null, result.rows);
             });
         }); 
@@ -548,7 +548,7 @@ function getSingleResponse(res, queryDB)
             {
                 console.error("send query error -> ", err);
             }
-            console.log("retrieved result -> ", result);
+            //console.log("retrieved result -> ", result);
             res.json({data: result});
         });
     }); 
@@ -574,7 +574,7 @@ function getMultipleResponse(cb, queryDB)
                 cb(err, null);
                 return;
             }
-            //console.log("retrieved rows -> ", result);
+            //console.log("retrieved rows -> ", result);//console.log("retrieved rows -> ", result);
              cb(null, result.rows);
         });
     });   
