@@ -6,6 +6,7 @@ var sm_comments = require('../xml/sm_comments.js');
 var async = require('async');
 var dateFormat = require('dateformat');
 var appConfig = require("../config/index.js");
+var titleProvider = require("../sources/index.js");
 var device = require('express-device');
 var uuid = require('node-uuid');
 
@@ -14,11 +15,10 @@ device.enableDeviceHelpers(router);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    var content = "Самая большая афиша в Израиле. Куда сходить: расписания концертов, выставок, спектаклей, гастролей, израильских театров, балета, оперы, цирка, клубных событий и развлечений для детей";
-    var title = "Афиша 2017 - купить билет на концерт, театр онлайн в Израиле - BILETY.CO.IL";
+    var clTitle = titleProvider.getTitleByTypeName('default');    
     appConfig.loadConfig();
     var linkhref = appConfig.getConfig("urls", "base_url") + "/he-il"
-    var headParams = { content: content, linkhref: linkhref, linklang: "he-il", title: title };
+    var headParams = { content: clTitle.description, linkhref: linkhref, linklang: "he-il", title: clTitle.title };
     loadDefaulPage(req, res, next, headParams);
 });
 
@@ -243,15 +243,140 @@ router.get('/comment/:id', function(req, res, next){
 
 router.get('/concert/:id?', function(req, res, next){ ///concert/poprock
 
-    console.log("");
-    console.log("=========================================== route path /?/?");
-    console.log("");
-    var content = "Самая большая афиша в Израиле. Куда сходить: расписания концертов, выставок, спектаклей, гастролей, израильских театров, балета, оперы, цирка, клубных событий и развлечений для детей";
-    var title = "Афиша 2017 - купить билет на концерт, театр онлайн в Израиле - BILETY.CO.IL";
-    appConfig.loadConfig();
-    var linkhref = appConfig.getConfig("urls", "base_url") + "/he-il"
-    var headParams = { content: content, linkhref: linkhref, linklang: "he-il", title: title };
-    loadDefaulPage(req, res, next, headParams);
+    try {
+
+        var typeName = 'concert';
+
+        if(req.params.id != undefined){
+            typeName = req.params.id;
+        }
+       
+        loadShowsByTypeName(req, res, next, typeName);
+
+    } catch (error) {
+        console.log("rout to path /concert error: ", error);
+    }
+});
+router.get('/theater/:id?', function(req, res, next){ ///concert/poprock
+    
+        try {
+            
+            var typeName = 'theater';
+    
+            if(req.params.id != undefined){
+                typeName = req.params.id;
+            }
+
+            loadShowsByTypeName(req, res, next, typeName);
+
+        } catch (error) {
+            console.log("rout to path /theater error: ", error);
+        }
+    });
+
+router.get('/theater/:id?', function(req, res, next){ ///concert/poprock
+
+    try {
+        
+        var typeName = 'theater';
+
+        if(req.params.id != undefined){
+            typeName = req.params.id;
+        }
+
+        loadShowsByTypeName(req, res, next, typeName);
+
+    } catch (error) {
+        console.log("rout to path /theater error: ", error);
+    }
+});
+
+router.get('/circus', function(req, res, next){ ///concert/poprock
+    
+        try {
+
+            loadShowsByTypeName(req, res, next, 'circus');
+
+        } catch (error) {
+            console.log("rout to path /circus error: ", error);
+        }
+});
+
+router.get('/humor', function(req, res, next){ ///concert/poprock
+    
+        try {
+
+            loadShowsByTypeName(req, res, next, 'humor');
+
+        } catch (error) {
+            console.log("rout to path /humor error: ", error);
+        }
+});
+
+router.get('/children', function(req, res, next){ ///concert/poprock
+    
+        try {
+
+            loadShowsByTypeName(req, res, next, 'children');
+
+        } catch (error) {
+            console.log("rout to path /children error: ", error);
+        }
+});
+
+router.get('/show', function(req, res, next){ ///concert/poprock
+    
+        try {
+
+            loadShowsByTypeName(req, res, next, 'show');
+
+        } catch (error) {
+            console.log("rout to path /show error: ", error);
+        }
+});
+
+router.get('/meetings', function(req, res, next){ ///concert/poprock
+    
+        try {
+
+            loadShowsByTypeName(req, res, next, 'meetings');
+
+        } catch (error) {
+            console.log("rout to path /meetings error: ", error);
+        }
+});
+
+router.get('/sport', function(req, res, next){ ///concert/poprock
+    
+        try {
+
+            loadShowsByTypeName(req, res, next, 'sport');
+
+        } catch (error) {
+            console.log("rout to path /sport error: ", error);
+        }
+});
+
+router.get('/cinema', function(req, res, next){ ///concert/poprock
+    
+        try {
+
+            loadShowsByTypeName(req, res, next, 'cinema');
+
+        } catch (error) {
+            console.log("rout to path /cinema error: ", error);
+        }
+});
+
+router.get('/exibitions', function(req, res, next){ ///concert/poprock
+    
+        try {
+
+            loadShowsByTypeName(req, res, next, 'exibitions');
+
+        } catch (error) {
+            console.log("rout to path /exibitions error: ", error);
+        }
 });
 
 //general methods+++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -759,6 +884,20 @@ function getShowsByFilter(req, res, next, headParams)
         }
 
     });
+}
+
+function loadShowsByTypeName(req, res, next, typeName)
+{
+    try {
+        var clTitle = titleProvider.getTitleByTypeName(typeName);
+        appConfig.loadConfig();
+        var linkhref = appConfig.getConfig("urls", "base_url") + "/he-il"
+        var headParams = { content: clTitle.description, linkhref: linkhref, linklang: "he-il", title: clTitle.title };
+        loadDefaulPage(req, res, next, headParams);
+
+    } catch (error) {
+        console.log("rout to path /"+ typeName +" error: ", error);
+    }
 }
 
 module.exports = router;

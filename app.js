@@ -30,7 +30,16 @@ app.use('/getSearchShowByText', index);
 app.use('/getShowByFilters', index);
 app.use('/event/:id', index);
 app.use('/comment/:id', index); 
-app.use('/concert/:id?', index); 
+app.use('/concert/:id?', index);
+app.use('/theater/:id?', index);
+app.use('/circus', index);
+app.use('/humor', index);
+app.use('/children', index);
+app.use('/show', index);
+app.use('/meetings', index);
+app.use('/sport', index);
+app.use('/cinema', index);
+app.use('/exibitions', index);
 app.use('/users', users);
 
 // catch 404 and forward to error handler
