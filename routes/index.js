@@ -152,10 +152,9 @@ router.get('/event/:id', function(req, res, next){
 });
 
 router.get('/he-il', function(req,res, next){
-    appConfig.loadConfig();
-    var content = "BILETY.CO.IL – агрегатор билетов на спектакли, концерты и другие культурные мероприятия в Израиле,כרטיסים,תאטרון,הופעות";
-    var title = "BILETY.CO.IL – израильская афиша.";
-    var headParams = { content: content, linkhref: appConfig.getConfig("urls", "base_url"), linklang: "ru-il", title: title};
+    appConfig.loadConfig();    
+    var clTitle = titleProvider.getTitleByTypeName("default_he");
+    var headParams = { content: clTitle.description, linkhref: appConfig.getConfig("urls", "base_url"), linklang: "ru-il", title: clTitle.title};
     loadDefaulPage(req, res, next, headParams);
     //res.redirect(appConfig.getConfig("urls", "base_url"));
 });
@@ -241,7 +240,7 @@ router.get('/comment/:id', function(req, res, next){
     });
 });
 
-router.get('/concert/:id?', function(req, res, next){ ///concert/poprock
+router.get('/concert/:id?', function(req, res, next){ 
 
     try {
 
@@ -257,24 +256,8 @@ router.get('/concert/:id?', function(req, res, next){ ///concert/poprock
         console.log("rout to path /concert error: ", error);
     }
 });
-router.get('/theater/:id?', function(req, res, next){ ///concert/poprock
-    
-        try {
-            
-            var typeName = 'theater';
-    
-            if(req.params.id != undefined){
-                typeName = req.params.id;
-            }
 
-            loadShowsByTypeName(req, res, next, typeName);
-
-        } catch (error) {
-            console.log("rout to path /theater error: ", error);
-        }
-    });
-
-router.get('/theater/:id?', function(req, res, next){ ///concert/poprock
+router.get('/theater/:id?', function(req, res, next){ 
 
     try {
         
@@ -291,7 +274,7 @@ router.get('/theater/:id?', function(req, res, next){ ///concert/poprock
     }
 });
 
-router.get('/circus', function(req, res, next){ ///concert/poprock
+router.get('/circus', function(req, res, next){ 
     
         try {
 
@@ -302,7 +285,7 @@ router.get('/circus', function(req, res, next){ ///concert/poprock
         }
 });
 
-router.get('/humor', function(req, res, next){ ///concert/poprock
+router.get('/humor', function(req, res, next){ 
     
         try {
 
@@ -313,7 +296,7 @@ router.get('/humor', function(req, res, next){ ///concert/poprock
         }
 });
 
-router.get('/children', function(req, res, next){ ///concert/poprock
+router.get('/children', function(req, res, next){
     
         try {
 
@@ -324,7 +307,7 @@ router.get('/children', function(req, res, next){ ///concert/poprock
         }
 });
 
-router.get('/show', function(req, res, next){ ///concert/poprock
+router.get('/show', function(req, res, next){
     
         try {
 
@@ -335,7 +318,7 @@ router.get('/show', function(req, res, next){ ///concert/poprock
         }
 });
 
-router.get('/meetings', function(req, res, next){ ///concert/poprock
+router.get('/meetings', function(req, res, next){
     
         try {
 
@@ -346,7 +329,7 @@ router.get('/meetings', function(req, res, next){ ///concert/poprock
         }
 });
 
-router.get('/sport', function(req, res, next){ ///concert/poprock
+router.get('/sport', function(req, res, next){ 
     
         try {
 
@@ -357,7 +340,7 @@ router.get('/sport', function(req, res, next){ ///concert/poprock
         }
 });
 
-router.get('/cinema', function(req, res, next){ ///concert/poprock
+router.get('/cinema', function(req, res, next){ 
     
         try {
 
@@ -368,7 +351,7 @@ router.get('/cinema', function(req, res, next){ ///concert/poprock
         }
 });
 
-router.get('/exibitions', function(req, res, next){ ///concert/poprock
+router.get('/exibitions', function(req, res, next){
     
         try {
 
