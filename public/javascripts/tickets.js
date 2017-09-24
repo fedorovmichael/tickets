@@ -11,7 +11,8 @@ $(document).ready(function () {
     //mehtods
     $("input[id^='typeID_']").on("click", function (event) {
         //menuTypeHandler(this.id); subTypeID
-        filtersHandler();
+        window.location.href = window.location.href + "concert"
+       // filtersHandler();
     });
 
     $("input[id^='subTypeID_']").on("click", function (event) {
@@ -169,20 +170,6 @@ $(document).ready(function () {
         $("#aBackToEdit").hide();
     });
 
-    $("#liHomePage").on("click", function(event){
-        $("#divAboutContent").hide();
-        $("#divMainContent").show();
-        $("#liAboutPage").removeClass('active');
-        $("#liHomePage").addClass('active');
-    });
-
-    $("#liAboutPage").on("click", function(event){
-        $("#divMainContent").hide();
-        $("#divAboutContent").show();
-        $("#liHomePage").removeClass('active');
-        $("#liAboutPage").addClass('active');
-    });
-
     $("body").on("click", "#btnShowMore", function(event){     
         var arrShows = $("li[id^='liMainShowID_']");
         $("#liShowMore").hide();
@@ -207,7 +194,7 @@ $(document).ready(function () {
 
     $("#aAboutPage, #aHomePage").on("click", function(event)
     { 
-        event.preventDefault(); 
+        //event.preventDefault(); 
     });
 
     $("body").on("click", "a[id^='aShowMedia']", function (event)
@@ -467,8 +454,11 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia, arrComments) {
     $("#lblShowShareLink").hide();
     var params = decodeURIComponent(window.location.search.substring(1));
     $("#lblShowShareLink").text("");
-  
-    $("#lblShowShareLink").text(window.location.href.split('?')[0] +"event/" + show[0].show_code);
+    var port = window.location.port ? ":" + window.location.port : '';
+    var shareLink = window.location.protocol + '//' + window.location.hostname + port + "/event/" + show[0].show_code;//window.location.href.split('?')[0] + "event/" + show[0].show_code;
+    $("#lblShowShareLink").text(shareLink);
+    $("#lblShowShareLink").attr("href", shareLink);
+    
     //$("#inpShowShareLink").val(window.location.href.split('?')[0] +"?show=" + show[0].id); 
     
     // if (show[0].second_image != null && show[0].second_image != '') {

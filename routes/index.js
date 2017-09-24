@@ -159,6 +159,10 @@ router.get('/he-il', function(req,res, next){
     //res.redirect(appConfig.getConfig("urls", "base_url"));
 });
 
+router.get('/about', function(req,res, next){
+    res.render('about');
+});
+
 //comments++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 router.post('/createComment', function(req, res, next){
     var comment = req.body, dateComment = dateFormat(new Date(), "isoDateTime");//dateFormat(new Date(), "yyyy-mm-dd HH:MM");
@@ -240,6 +244,7 @@ router.get('/comment/:id', function(req, res, next){
     });
 });
 
+//direct category link ++++++++++++++++++++++++++++++++++++++++++++++
 router.get('/concert/:id?', function(req, res, next){ 
 
     try {
