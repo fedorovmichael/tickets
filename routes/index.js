@@ -142,7 +142,7 @@ router.get('/event/:id', function(req, res, next){
        
         var showCode = req.params.id;
         res.redirect(baseUrl + "/?show=" + showCode);
-        //getShowByShowIdOrShowCode(req, res, next, 'page');       
+        //getShowByShowIdOrShowCode(req, res, next, 'page');
     }
     else
     {
@@ -476,8 +476,9 @@ function getShowByShowIdOrShowCode(req, res, next, resType)
             if(resType == 'json'){
                 res.json({show: resShow, showSeances: resShowSeances, showMedia: resShowMedia, comments: resComments});
             }
-            else if(resType == 'page'){                   
-                res.render('edit_show_page', { show: resShow, showSeances: resShowSeances, showMedia: resShowMedia, headParams: headParams, content: resShow[0].announce, comments: resComments }); 
+            else if(resType == 'page'){
+                var link = "http://" + req.headers.host + "/event/" + resShow[0].show_code;                  
+                res.render('edit_show_page', { show: resShow, showSeances: resShowSeances, showMedia: resShowMedia, headParams: headParams, content: resShow[0].announce, comments: resComments, link: link }); 
             }                
         });
     }

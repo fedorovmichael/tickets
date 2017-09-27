@@ -10,10 +10,12 @@ block content
             a(id="btnEditShowClose" href="/" class="close" data-dismiss="modal")&times;
         div(class="panel-body")
             div(class="col-md-12")
-            -var resource = show[0].resource == "bravo" ? "http://kaccabravo.co.il" : "http://biletru.co.il";
-            -var imageLink = resource + show[0].main_image;
-            img(id="imgEditMain" src="#{imageLink}", style="width:350px; heigth: 270px; margin: 0 10px 10px 0;" class="pull-left")      
-            p(id="pEditShowAnnounce" style='text-align: justify;') #{show[0].announce} 
+              -var resource = show[0].resource == "bravo" ? "http://kaccabravo.co.il" : "http://biletru.co.il";
+              -var imageLink = resource + show[0].main_image;
+              img(id="imgEditMain" src="#{imageLink}", style="width:350px; heigth: 270px; margin: 0 10px 10px 0;" class="pull-left")      
+              p(id="pEditShowAnnounce" style='text-align: justify;') #{show[0].announce}
+            div
+              a(href="#{link}" targer="_blank") #{link}
 
         table(id="tableEditSeances" class="table" style="margin-top:20px;" border="0")
           thead
