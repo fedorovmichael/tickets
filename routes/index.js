@@ -142,7 +142,7 @@ router.get('/event/:id', function(req, res, next){
        
         var showCode = req.params.id;
         res.redirect(baseUrl + "/?show=" + showCode);
-        //getShowByShowIdOrShowCode(req, res, next, 'page');       
+        //getShowByShowIdOrShowCode(req, res, next, 'page');
     }
     else
     {
@@ -157,6 +157,10 @@ router.get('/he-il', function(req,res, next){
     var headParams = { content: clTitle.description, linkhref: appConfig.getConfig("urls", "base_url"), linklang: "ru-il", title: clTitle.title};
     loadDefaulPage(req, res, next, headParams);
     //res.redirect(appConfig.getConfig("urls", "base_url"));
+});
+
+router.get('/about', function(req,res, next){
+    res.render('about');
 });
 
 //comments++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -240,6 +244,7 @@ router.get('/comment/:id', function(req, res, next){
     });
 });
 
+//direct category link ++++++++++++++++++++++++++++++++++++++++++++++
 router.get('/concert/:id?', function(req, res, next){ 
 
     try {
@@ -471,8 +476,9 @@ function getShowByShowIdOrShowCode(req, res, next, resType)
             if(resType == 'json'){
                 res.json({show: resShow, showSeances: resShowSeances, showMedia: resShowMedia, comments: resComments});
             }
-            else if(resType == 'page'){                   
-                res.render('edit_show_page', { show: resShow, showSeances: resShowSeances, showMedia: resShowMedia, headParams: headParams, content: resShow[0].announce, comments: resComments }); 
+            else if(resType == 'page'){
+                var link = "http://" + req.headers.host + "/event/" + resShow[0].show_code;                  
+                res.render('edit_show_page', { show: resShow, showSeances: resShowSeances, showMedia: resShowMedia, headParams: headParams, content: resShow[0].announce, comments: resComments, link: link }); 
             }                
         });
     }

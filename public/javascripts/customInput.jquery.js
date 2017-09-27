@@ -14,13 +14,22 @@ jQuery.fn.customInput = function(){
 			var input = $(this);
 			
 			// get the associated label using the input's id
-			var label = $('label[for='+input.attr('id')+']');
+			var label = $('label[for='+input.attr('id')+']');			
+			var element = '', link = false;
+			link = input.attr('link') ? true : false;
+
+			if(link){
+				element = $('<a></a>').prepend(label);
+			}
+			else{
+				element = $('label[for='+input.attr('id')+']');
+			}
 			
 			//get type, for classname suffix 
 			var inputType = (input.is('[type=checkbox]')) ? 'checkbox' : 'radio';
 			
 			// wrap the input + label in a div 
-			$('<div class="custom-'+ inputType +'"></div>').insertBefore(input).append(input, label);
+			$('<div class="custom-'+ inputType +'"></div>').insertBefore(input).append(input, element);
 			
 			// find all inputs in this set using the shared name attribute
 			var allInputs = $('input[name='+input.attr('name')+']');
