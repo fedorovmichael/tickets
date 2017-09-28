@@ -160,7 +160,8 @@ router.get('/he-il', function(req,res, next){
 });
 
 router.get('/about', function(req,res, next){
-    res.render('about');
+    var clTitle = titleProvider.getTitleByTypeName('default');
+    res.render('about', {content: clTitle.description, title: clTitle.title});
 });
 
 //comments++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
