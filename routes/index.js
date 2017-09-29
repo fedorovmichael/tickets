@@ -368,6 +368,96 @@ router.get('/exibitions', function(req, res, next){
         }
 });
 
+router.get('/today', function(req, res, next){    
+    try {
+        loadShowsByTypeName(req, res, next, 'today');
+    } 
+    catch (error) {
+        console.log("rout to path /today error: ", error);
+    }
+});
+
+router.get('/tomorrow', function(req, res, next){    
+    try {
+        loadShowsByTypeName(req, res, next, 'tomorrow');
+    } 
+    catch (error) {
+        console.log("rout to path /tomorrow error: ", error);
+    }
+});
+
+router.get('/week', function(req, res, next){    
+    try {
+        loadShowsByTypeName(req, res, next, 'week');
+    } 
+    catch (error) {
+        console.log("rout to path /week error: ", error);
+    }
+});
+
+router.get('/weekend', function(req, res, next){    
+    try {
+        loadShowsByTypeName(req, res, next, 'weekend');
+    } 
+    catch (error) {
+        console.log("rout to path /weekend error: ", error);
+    }
+});
+
+router.get('/nextweekend', function(req, res, next){    
+    try {
+        loadShowsByTypeName(req, res, next, 'nextweekend');
+    } 
+    catch (error) {
+        console.log("rout to path /nextweekend error: ", error);
+    }
+});
+
+router.get('/month', function(req, res, next){    
+    try {
+        loadShowsByTypeName(req, res, next, 'month');
+    } 
+    catch (error) {
+        console.log("rout to path /month error: ", error);
+    }
+});
+
+router.get('/treemonth', function(req, res, next){    
+    try {
+        loadShowsByTypeName(req, res, next, 'treemonth');
+    } 
+    catch (error) {
+        console.log("rout to path /treemonth error: ", error);
+    }
+});
+
+router.get('/superprice', function(req, res, next){    
+    try {
+        loadShowsByTypeName(req, res, next, 'superprice');
+    } 
+    catch (error) {
+        console.log("rout to path /superprice error: ", error);
+    }
+});
+
+router.get('/discount', function(req, res, next){    
+    try {
+        loadShowsByTypeName(req, res, next, 'discount');
+    } 
+    catch (error) {
+        console.log("rout to path /discount error: ", error);
+    }
+});
+
+router.get('/tour', function(req, res, next){    
+    try {
+        loadShowsByTypeName(req, res, next, 'tour');
+    } 
+    catch (error) {
+        console.log("rout to path /tour error: ", error);
+    }
+});
+
 //general methods+++++++++++++++++++++++++++++++++++++++++++++++++++++
 function getShowByShowIdOrShowCode(req, res, next, resType)
 {
