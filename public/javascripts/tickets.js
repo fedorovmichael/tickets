@@ -11,8 +11,8 @@ $(document).ready(function () {
     //mehtods
     $("input[id^='typeID_']").on("click", function (event) {
         //menuTypeHandler(this.id); subTypeID
-        window.location.href = window.location.href + "concert";
-       // filtersHandler();
+        //window.location.href = window.location.href + "concert";
+       filtersHandler();
     });
 
     $("input[id^='subTypeID_']").on("click", function (event) {
