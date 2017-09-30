@@ -21,7 +21,8 @@ db.getTypes = function(cb)
 {
     try 
     {
-        var queryDB = "SELECT * FROM type";
+        //var queryDB = "SELECT * FROM type";
+        var queryDB = "SELECT * FROM html_sources where id='type';";
         console.log("connect to db");
         
         pool.connect(function(err, client, done){
@@ -42,7 +43,7 @@ db.getTypes = function(cb)
                     cb(err, null);
                     return;
                 }
-                //console.log("retrieved rows -> ", result);
+                //console.log("retrieved rows -> ", result.rows);
                 cb(null, result.rows);
             });
         });  
@@ -232,7 +233,7 @@ db.getSubTypes = function(cb)
 {
     try
     {
-       var queryDB = "select id as subtype_id, name, type_id  from subtype";
+       var queryDB = "select id as subtype_id, name, type_id, link  from subtype";
        getMultipleResponse(cb, queryDB);
 
     } 
@@ -245,90 +246,93 @@ db.getCities = function(cb)
 {
     try
     {
-       var resultCities = []; 
-       var regionQueryDB = "select distinct region from cities order by region asc";
-       var citiesQueryDB = "select distinct c.id, c.name, c.region from cities as c join seances as s on c.name = s.city order by c.name asc";
+         var queryDB = "SELECT * FROM html_sources where id='cities';";
+         getMultipleResponse(cb, queryDB);
 
-       async.series([
-           function getRegionsFromDB(callback)
-           { 
+    //    var resultCities = []; 
+    //    var regionQueryDB = "select distinct region from cities order by region asc";
+    //    var citiesQueryDB = "select distinct c.id, c.name, c.region from cities as c join seances as s on c.name = s.city order by c.name asc";
 
-                pool.connect(function(err, client, done){
-                    if(err)
-                    {
-                        console.error("connection error -> " + err);
-                    }
-                    else
-                    {
-                        console.log("success connec to db");
-                    }
+    //    async.series([
+    //        function getRegionsFromDB(callback)
+    //        { 
 
-                    client.query(regionQueryDB, function(err, result){
-                        done();
-                        if(err)
-                        {
-                            console.error("send query error -> ", err);
-                            callback(err, null);
-                            return;
-                        }
-                        //console.log("retrieved rows -> ", result);
-                        callback(null, result.rows);
-                    });
-                }); 
-           },
+    //             pool.connect(function(err, client, done){
+    //                 if(err)
+    //                 {
+    //                     console.error("connection error -> " + err);
+    //                 }
+    //                 else
+    //                 {
+    //                     console.log("success connec to db");
+    //                 }
 
-           function getCitiesFromDB(callback){
-                 pool.connect(function(err, client, done){
-                    if(err)
-                    {
-                        console.error("connection error -> " + err);
-                    }
-                    else
-                    {
-                        console.log("success connec to db");
-                    }
+    //                 client.query(regionQueryDB, function(err, result){
+    //                     done();
+    //                     if(err)
+    //                     {
+    //                         console.error("send query error -> ", err);
+    //                         callback(err, null);
+    //                         return;
+    //                     }
+    //                     //console.log("retrieved rows -> ", result);
+    //                     callback(null, result.rows);
+    //                 });
+    //             }); 
+    //        },
 
-                    client.query(citiesQueryDB, function(err, result){
-                        done();
-                        if(err)
-                        {
-                            console.error("send query error -> ", err);
-                            callback(err, null);
-                            return;
-                        }
-                        //console.log("retrieved rows -> ", result);
-                        callback(null, result.rows);
-                    });
-                });
-           }
-       ], 
-       function(err, result){
-           if(err)
-           {
-               console.log("get cities error: ", err);
-               cb(err, null);
-           }
+    //        function getCitiesFromDB(callback){
+    //              pool.connect(function(err, client, done){
+    //                 if(err)
+    //                 {
+    //                     console.error("connection error -> " + err);
+    //                 }
+    //                 else
+    //                 {
+    //                     console.log("success connec to db");
+    //                 }
 
-           for(var i = 0; i < result[0].length; i++)
-           {
-               var regionCities = {};
-               var arrCities = [];
-               for(var c = 0; c < result[1].length; c++)
-               {
-                   if(result[0][i].region == result[1][c].region)
-                   {
-                      // console.log("added city: ",  result[1][c].name);
-                      // console.log("");
-                       arrCities.push(result[1][c]);
-                   }
-               }
+    //                 client.query(citiesQueryDB, function(err, result){
+    //                     done();
+    //                     if(err)
+    //                     {
+    //                         console.error("send query error -> ", err);
+    //                         callback(err, null);
+    //                         return;
+    //                     }
+    //                     //console.log("retrieved rows -> ", result);
+    //                     callback(null, result.rows);
+    //                 });
+    //             });
+    //        }
+    //    ], 
+    //    function(err, result){
+    //        if(err)
+    //        {
+    //            console.log("get cities error: ", err);
+    //            cb(err, null);
+    //        }
 
-               var regionCities = {regionName: result[0][i].region, cities: arrCities };
-               resultCities.push(regionCities);               
-           }
+    //        for(var i = 0; i < result[0].length; i++)
+    //        {
+    //            var regionCities = {};
+    //            var arrCities = [];
+    //            for(var c = 0; c < result[1].length; c++)
+    //            {
+    //                if(result[0][i].region == result[1][c].region)
+    //                {
+    //                   // console.log("added city: ",  result[1][c].name);
+    //                   // console.log("");
+    //                    arrCities.push(result[1][c]);
+    //                }
+    //            }
 
-           cb(null, resultCities);
-       });    
+    //            var regionCities = {regionName: result[0][i].region, cities: arrCities };
+    //            resultCities.push(regionCities);               
+    //        }
+
+    //        cb(null, resultCities);
+    //    });    
     } 
     catch (error) {
         console.log("db.getCities error: ", error);
