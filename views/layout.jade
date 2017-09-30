@@ -181,10 +181,7 @@ html
       li(id="liMobileFilter" style="width: 110px; background-color: #555 !important; display:none;")
         a(id="aMobileFilter" href="#" style="background-color: #555 !important;")
           span(style="text-transform: uppercase; color:#fff !important;") Фильтр
-          span(style="margin-right:3px; font-size:10pt; color:#fff !important;" class="glyphicon glyphicon-filter")
-           
-     
-          
+          span(style="margin-right:3px; font-size:10pt; color:#fff !important;" class="glyphicon glyphicon-filter")    
 
     block content
       div(class="container text-center")
@@ -207,6 +204,8 @@ html
                 
             li
                span(class="text-muted") Designed by fm#soft.
+    script.
+      $(function(){ $('input').customInput();});
         
 
   

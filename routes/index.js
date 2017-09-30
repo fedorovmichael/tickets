@@ -701,7 +701,7 @@ function loadDefaulPage(req, res, next, headParams)
           if(err){
             console.log('start parse error: ', err)
           }
-
+                    
           res.render('index', {types: resTypes, subTypes: resSubTypes, shows: resShows, showsSections: resShowsSection, cities: resCities, dateFormat: dateFormat, content: headParams.content, title: headParams.title });
       })
 }

@@ -228,7 +228,12 @@ $(document).ready(function () {
 
     $("#btnSendComment").on("click", function(event){
         sendComment('creator', null);
-    });    
+    }); 
+
+    $("#aFocusCommentLink").on("click", function(event){
+        event.preventDefault();
+        focusComments();
+    });   
     
     //for future use comments reply
     // $("body").on("click", "button[id^='btnReplyComment_']" , function(event){
@@ -1115,7 +1120,14 @@ function directLink()
         else if(arrURL.length > 3){           
 
             //window.stop();
-            var lastIndex  = arrURL.length == 4 ? 1 : 2;            
+            var lastIndex  = arrURL.length == 4 ? 1 : 2;
+
+            switch(arrURL[arrURL.length - lastIndex])
+            {
+                case"":
+                break;
+            }
+
             typeID = typeNameValueDictionary[arrURL[arrURL.length - lastIndex]];
 
             if(arrURL.length > 4){
@@ -1264,12 +1276,17 @@ function loadSubTypeNameValueDictionary()
     subTypeNameValueDictionary['bard'] = '6';
     subTypeNameValueDictionary['folk'] = '7';
     subTypeNameValueDictionary['performances'] = '8';
-    subTypeNameValueDictionary['misical'] = '9';
+    subTypeNameValueDictionary['musical'] = '9';
     subTypeNameValueDictionary['opera'] = '10';
     subTypeNameValueDictionary['ballet'] = '11';
     subTypeNameValueDictionary['comedy'] = '12';
     subTypeNameValueDictionary['drama'] = '13';
     subTypeNameValueDictionary['detective'] = '14';
+}
+
+function focusComments()
+{
+    $("#editShowModal").animate({ scrollTop: $('#editShowModal').prop("scrollHeight")}, 1000);
 }
 
 function sendDataToServer(path, data, callbackSuccess, callbackError) {
