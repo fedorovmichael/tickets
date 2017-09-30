@@ -65,6 +65,7 @@ db.getShows = function(cb)
         " join show_section as ss on sh.id = ss.show_id " +
         " join type as t on t.id = ss.type_id " +
         " join subtype as st on st.id = ss.subtype_id " +
+        " where top = '1' " +
         " order by price_min desc "
         
         //old
