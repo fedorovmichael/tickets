@@ -1,9 +1,10 @@
 !{types[0].html}
+//- ul(class="row list-unstyled")
 //-   -for(var i=0; i < types.length; i++)
-//-     -if(types[i].id == 0){ }
+//-     -if(types[i].id == 0){}
 //-     -else 
 //-       div(style="position:absolute; margin-left: -1000px;")
-//-         a(href="/#{types[i].link}" style="color: #fff;") #{types[i].link}
+//-         a(href="/#{types[i].link}" style="color: #fff;") #{types[i].name}
 //-       li(class="text-left border-bottom-grey" id="liTypeID_#{types[i].id}")
 //-         input(type="checkbox" id="typeID_#{types[i].id}" name="genre" value="action")        
 //-         label(for="typeID_#{types[i].id}" style="color: #{types[i].color};") #{types[i].name}
@@ -12,16 +13,16 @@
 //-           -if(types[i].id == subTypes[s].type_id && subTypes[s].subtype_id != 0){
 //-             -sTypes.push({subType_id: subTypes[s].subtype_id, subType_Name: subTypes[s].name, link: subTypes[s].link });  
 //-           -}    
-//-         -}
-//-         -if(sTypes.length > 0)
-//-           //label #{sTypes.length}
-//-           ul(id="subMenuOfType_#{types[i].id}" class="row list-unstyled" style="margin-left:10px; display:none;")  
-//-             -for(var j = 0; j < sTypes.length; j++)
-//-               div(style="position:absolute; margin-left: -1000px;")
-//-                 a(href="/#{sTypes[j].link}" style="color: #fff;") #{sTypes[j].link}
-//-               li(class="text-left border-bottom-grey" id="liSubTypeID_#{sTypes[j].subType_id}")
-//-                 input(type="checkbox" id="subTypeID_#{sTypes[j].subType_id}" name="genre" value="action")
-//-                 label(for="subTypeID_#{sTypes[j].subType_id}" style="color: #{types[i].color};") #{sTypes[j].subType_Name}  
+//-          -}
+//-           -if(sTypes.length > 0)
+//-             //label #{sTypes.length}
+//-             ul(id="subMenuOfType_#{types[i].id}" class="row list-unstyled" style="margin-left:10px; display:none;")  
+//-               -for(var j = 0; j < sTypes.length; j++)
+//-                 div(style="position:absolute; margin-left: -1000px;")
+//-                   a(href="/#{sTypes[j].link}" style="color: #fff;") #{sTypes[j].subType_Name}
+//-                 li(class="text-left border-bottom-grey" id="liSubTypeID_#{sTypes[j].subType_id}")
+//-                     input(type="checkbox" id="subTypeID_#{sTypes[j].subType_id}" name="genre" value="action")
+//-                     label(for="subTypeID_#{sTypes[j].subType_id}" style="color: #{types[i].color};") #{sTypes[j].subType_Name}  
 
   
 
