@@ -373,6 +373,10 @@ a {
   margin-top: 10px;
 }
 
+.main-show-caption{
+  height:54px; max-height:54px; min-height:54px;font-size:14px;margin-top: 10px; width: 190px;
+}
+
 
 
 /* Sticky footer styles

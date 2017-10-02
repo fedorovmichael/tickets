@@ -401,8 +401,8 @@ function createShowHTML(arrShows, arrShowsSections) {
             "</div>" +
             "<div class='thumbnail'>" +
             "<img id='imgShowMain_" + value.show_id + "' src='" + imageURL + "' alt='' style='width: 198px; height: 110px;' onerror='handleImageError(this);'>" +
-            "<div class='caption'>" +
-            "<p style='height:54px; max-height:54px; min-height:54px;'>" + showName + "</p>" +
+            "<div class='caption' style='padding:0px;'>" +
+            "<h1 class='main-show-caption'>" + showName + "</h1>" +
             "<p>" + date_ft + "</p>" +
             "<p>Цена " + show_price + "</p>" +
             "</div>" +
@@ -1117,7 +1117,7 @@ function directLink()
             var showCode = params.split('=')[1];
             editShowHandler('', showCode);
         }    
-        else if(arrURL.length > 3){           
+        else if(arrURL.length > 3 && arrURL[3] != ""){           
 
             //window.stop();
             var lastIndex  = arrURL.length == 4 ? 1 : 2;
