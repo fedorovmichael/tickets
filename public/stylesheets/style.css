@@ -377,6 +377,9 @@ a {
   height:54px; max-height:54px; min-height:54px;font-size:14px;margin-top: 10px; width: 190px;
 }
 
+.main-show-image{
+  width: 198px; height: 110px;
+}
 
 
 /* Sticky footer styles

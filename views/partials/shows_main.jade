@@ -10,16 +10,16 @@ ul(id="ulShows" class="row list-unstyled")
           div(class="text-left")            
             a(href="#" type_id="#{shows[i].type_id}" style="background: #{shows[i].type_color};" class="top-category-of-event") #{shows[i].type_name}
           div(class="thumbnail")
-            //- -var arrImageName = shows[i].main_image.split('/');
-            //- -var imageName = arrImageName[arrImageName.length - 1];            
-            //- img(src="/images/shows/opt/#{imageName}", alt="#{shows[i].announce}", style="width: 198px; height: 110px;")
+            -var arrImageName = shows[i].main_image.split('/');
+            -var imageName = arrImageName[arrImageName.length - 1];            
+            img(src="/images/shows/#{imageName}", alt="#{shows[i].announce}", class="main-show-image" onerror="handleImageError(this);")
 
-            -if(shows[i].resource == 'bravo'){                                       
-              img(id="imgShowMain_#{shows[i].show_id}" src="http://kaccabravo.co.il#{shows[i].main_image}", alt="#{shows[i].announce}", style="width: 198px; height: 110px;" onerror="handleImageError(this);")
-            -}  
-            -else {                                   
-              img(id="imgShowMain_#{shows[i].show_id}" src="http://biletru.co.il#{shows[i].main_image}", alt="#{shows[i].announce}", style="width: 198px; height: 110px;" onerror="handleImageError(this);" )
-            -}
+            //- -if(shows[i].resource == 'bravo'){                                       
+            //-   img(id="imgShowMain_#{shows[i].show_id}" src="http://kaccabravo.co.il#{shows[i].main_image}", alt="#{shows[i].announce}", style="width: 198px; height: 110px;" onerror="handleImageError(this);")
+            //- -}  
+            //- -else {                                   
+            //-   img(id="imgShowMain_#{shows[i].show_id}" src="http://biletru.co.il#{shows[i].main_image}", alt="#{shows[i].announce}", style="width: 198px; height: 110px;" onerror="handleImageError(this);" )
+            //- -}
             div(class="caption" style="padding:0px;")
               a(href="http://www.bilety.co.il/?show=#{shows[i].show_code}" style="display:none;")
               -var name = '';

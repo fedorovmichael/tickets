@@ -360,11 +360,14 @@ function createShowHTML(arrShows, arrShowsSections) {
                 typeHTML =  "<a href='#' type_id='" + value.type_id + "' style='background:" + value.type_color + ";' class='top-category-of-event'>" + value.type_name + "</a>";
             }
         }
+
+        var arrImageName = value.main_image.split('/');
+        var imageName = arrImageName[arrImageName.length - 1];
         if (value.resource == 'bravo') {
-            imageURL = "http://kaccabravo.co.il" + value.main_image;
+            imageURL = "images/shows/" + imageName; //"http://kaccabravo.co.il" + value.main_image;
         }
         else {
-            imageURL = "http://biletru.co.il" + value.main_image;
+            imageURL = "images/shows/" + imageName; //"http://biletru.co.il" + value.main_image;
         }
 
         if (value.name.length > 50) {
