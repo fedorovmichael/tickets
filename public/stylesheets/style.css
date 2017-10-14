@@ -378,7 +378,7 @@ a {
 }
 
 .main-show-image{
-  width: 198px; height: 110px;
+  width: 198px; height: 110px !important;
 }
 
 

@@ -590,6 +590,15 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia, arrComments) {
     $("#ulEditComments li").remove();     
     $("#ulEditComments").append(commentsDivHTML);
 
+    var share = Ya.share2('divSocialShare', {
+                    content: {
+                        url: shareLink,
+                        title: show[0].name,                        
+                        image: resource + show[0].main_image,
+                        description: show[0].announce.split('.')[0]   
+                    }
+                });
+
 }
 
 function searchShowByText(text) {

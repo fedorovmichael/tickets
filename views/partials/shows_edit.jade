@@ -14,10 +14,14 @@ div(class="modal fade" id="editShowModal" role="dialog")
           img(id="imgEditMain" src="", style="width:350px; margin: 0 10px 10px 0;" class="pull-left")
           p(id="pEditShowAnnounce" style='text-align: justify;')
         
-        div(class="col-md-12" style="height: 40px;")
-          a(id="aShowShareLink" href="" class="pull-left" style='color: black; cursor: pointer;' title="поделиться событием")
-            span(class="glyphicon glyphicon-share" style='text-transform: uppercase; font-size:24pt;')
-          a(id="aFocusCommentLink" href="" class="pull-right" style="color: black; cursor: pointer; text-transform: uppercase; margin-top:10px;") Оставить комментарий
+        div(class="row" style="height: 40px;")
+          div(class="col-md-4")
+            a(id="aShowShareLink" href="" class="pull-left" style='color: black; cursor: pointer;' title="поделиться событием")
+              span(class="glyphicon glyphicon-share" style='text-transform: uppercase; font-size:24pt;')  
+          div(class="col-md-4")
+            div(id="divSocialShare" class="ya-share2" data-services="lj,vkontakte,facebook,odnoklassniki,moimir,gplus,twitter")
+          div(class="col-md-4")
+            a(id="aFocusCommentLink" href="" class="pull-right" style="color: black; cursor: pointer; text-transform: uppercase;") Оставить комментарий
 
         div(class="col-md-12" style="height: 20px;")
           //-label(id="lblShowShareLink" class="pull-left" style="display:none;")
