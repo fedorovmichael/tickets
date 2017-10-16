@@ -599,6 +599,8 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia, arrComments) {
                     }
                 });
 
+    $('.simple-marquee-container').SimpleMarquee();
+
 }
 
 function searchShowByText(text) {

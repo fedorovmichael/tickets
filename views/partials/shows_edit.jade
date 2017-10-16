@@ -34,8 +34,38 @@ div(class="modal fade" id="editShowModal" role="dialog")
             th(class="text-center table-head-border") МЕСТО ПРОВЕДЕНИЯ
             th(class="text-center table-head-border") ЦЕНА
             th
+        div(class="panel panel-default" style="margin-top:30px;")
+          div(class="panel-heading") Recommend Show
+          div(class="panel-body")
+            div(class="simple-marquee-container")
+              div(class="marquee" style="")              
+                ul(id="ulRecommendShow" class="marquee-content-items")
+                  li
+                    a(href="#" title="")              
+                      img(src="images/shows/0d06037321f79c03ab138b13c52ab624.jpg", alt="", class="main-show-image")
+                  li
+                    a(href="#" title="")
+                      img(src="images/shows/56331.jpg", alt="", class="main-show-image")
+                  li
+                    a(href="#" title="")  
+                      img(src="images/shows/56338.jpg", alt="", class="main-show-image")       
+                  li
+                    a(href="#" title="")  
+                      img(src="images/shows/56348.jpg", alt="", class="main-show-image")
+                  li
+                    a(href="#" title="")  
+                      img(src="images/shows/56354.jpg", alt="", class="main-show-image")
+                  li
+                    a(href="#" title="")  
+                      img(src="images/shows/56496.jpg", alt="", class="main-show-image")        
+                  li
+                    a(href="#" title="")  
+                      img(src="images/shows/56694.jpg", alt="", class="main-show-image")
+                  li
+                    a(href="#" title="")  
+                      img(src="images/shows/57132.jpg", alt="", class="main-show-image")
 
-        div(class="panel panel-default" style="margin-top:20px;")
+        div(class="panel panel-default" style="margin-top:30px;")
           div(class="panel-heading") ФОТО - ВИДЕО
           div(class="panel-body")
             div(id="divEditGalary" class="row") 
@@ -70,5 +100,7 @@ div(class="modal fade" id="editShowModal" role="dialog")
        div(id="divSeancePayPage" class="modal-body" style="display: none; text-align: justify;")
          iframe(id="iframeSeancePayPage" height="800px;" width="100%" src="" name="iframe_a")       
       div(class="modal-footer")
-        button(id="btnCloseEditShow" type="button" class="btn btn-default" data-dismiss="modal" style="text-transform: uppercase;") закрыть     
+        button(id="btnCloseEditShow" type="button" class="btn btn-default" data-dismiss="modal" style="text-transform: uppercase;") закрыть
+      script.
+        $(function(){});       
 
