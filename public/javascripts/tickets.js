@@ -599,7 +599,9 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia, arrComments) {
                     }
                 });
 
-    $('.simple-marquee-container').SimpleMarquee();
+    var w = $('.simple-marquee-container').width();
+    //var ww = $('.marquee').css('width','1386');
+    //$('.simple-marquee-container').SimpleMarquee();
 
 }
 

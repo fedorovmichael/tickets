@@ -65,11 +65,11 @@
 /*custom style*/
 
 
-.marquee-content {
+/*.marquee-content {
 	display: block;
 	width: 1200px;
 	background: rgb(215, 215, 215);
-	/*padding: 1em;*/
+	padding: 1em;
 	overflow: hidden;
 	margin: 0 auto;
 
@@ -80,4 +80,4 @@
 	-o-box-sizing:border-box;
 	box-sizing:border-box;
 	font-family:Arial, "Helvetica Neue", Helvetica, sans-serif;
-}
+}*/
