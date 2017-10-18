@@ -396,6 +396,11 @@ a {
   color: black; cursor: pointer;
 }
 
+.ya-share2__title{
+  display: none !important;
+}
+
+
 
 /* Sticky footer styles
 -------------------------------------------------- */

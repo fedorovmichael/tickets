@@ -170,18 +170,19 @@ html
               li
                 a(href="#")
                   span(class="glyphicon glyphicon-user") Singup
-    
-    ul(id="ulSocialNetworks" class="nav nav-pills1 nav-stacked1" data-spy="affix" data-offset-top="0" style="width:75px; float:left; margin-top:50px;")
-      li(id="liFacebook")
-        a(id="aFacebook" href="https://www.facebook.com/groups/weekend.il/?fref=nf" target="_blank")
-          img(id="imgFacebook" src="/images/facebook.jpg")        
-      li(id="liLivejournal")
-        a(id="aLivejournal" href="http://weekend-il.livejournal.com/" target="_blank")
-          img(id="imgLivejournal" src="/images/Livejournal-icon.png")
-      li(id="liMobileFilter" style="width: 110px; background-color: #555 !important; display:none;")
-        a(id="aMobileFilter" href="#" style="background-color: #555 !important;")
-          span(style="text-transform: uppercase; color:#fff !important;") Фильтр
-          span(style="margin-right:3px; font-size:10pt; color:#fff !important;" class="glyphicon glyphicon-filter")    
+    div(data-spy="affix" data-offset-top="0" style="width:75px; float:left; margin-top:50px;")
+      div(id="divSocialShare" class="ya-share2" data-services="lj,vkontakte,facebook,odnoklassniki,moimir,gplus,twitter" style="float:left;" data-direction="vertical")
+    //- ul(id="ulSocialNetworks" class="nav nav-pills1 nav-stacked1" data-spy="affix" data-offset-top="0" style="width:75px; float:left; margin-top:50px;")
+    //-   li(id="liFacebook")
+    //-     a(id="aFacebook" href="https://www.facebook.com/groups/weekend.il/?fref=nf" target="_blank")
+    //-       img(id="imgFacebook" src="/images/facebook.jpg")        
+    //-   li(id="liLivejournal")
+    //-     a(id="aLivejournal" href="http://weekend-il.livejournal.com/" target="_blank")
+    //-       img(id="imgLivejournal" src="/images/Livejournal-icon.png")
+    //-   li(id="liMobileFilter" style="width: 110px; background-color: #555 !important; display:none;")
+    //-     a(id="aMobileFilter" href="#" style="background-color: #555 !important;")
+    //-       span(style="text-transform: uppercase; color:#fff !important;") Фильтр
+    //-       span(style="margin-right:3px; font-size:10pt; color:#fff !important;" class="glyphicon glyphicon-filter")    
 
     block content
       div(class="container text-center")
