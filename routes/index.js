@@ -540,7 +540,20 @@ function getShowByShowIdOrShowCode(req, res, next, resType)
 
                     callback(null, resultGetCommentsByShowCode);
                 });
-            }
+            },
+
+            function getRecommendShowByShowIDFromDB(callback)
+            {               
+                db.getRecommendShowByShowID(showID, function(err, resultGetRecommendShowByShowID){
+                    if(err){
+                        console.log("get recommend shows by show id from db error: ", err);
+                        callback(err, null); 
+                        return;
+                    }
+
+                    callback(null, resultGetRecommendShowByShowID);
+                });
+            }            
         ],        
         function(err, result){
 
@@ -548,6 +561,7 @@ function getShowByShowIdOrShowCode(req, res, next, resType)
                 resShowSeances = result[1],
                 resShowMedia = result[2],
                 resComments = result[3],
+                resRecommendShows = result[4],
                 headParams = {title: resShow[0].name}, 
                 arrCommentsObjects = [];
 
@@ -565,11 +579,22 @@ function getShowByShowIdOrShowCode(req, res, next, resType)
             // }
             
             if(resType == 'json'){
-                res.json({show: resShow, showSeances: resShowSeances, showMedia: resShowMedia, comments: resComments});
+                res.json({show: resShow,
+                    showSeances: resShowSeances, 
+                    showMedia: resShowMedia, 
+                    comments: resComments, 
+                    recommendShows: resRecommendShows });
             }
             else if(resType == 'page'){
                 var link = "http://" + req.headers.host + "/event/" + resShow[0].show_code;                  
-                res.render('edit_show_page', { show: resShow, showSeances: resShowSeances, showMedia: resShowMedia, headParams: headParams, content: resShow[0].announce, comments: resComments, link: link }); 
+                res.render('edit_show_page', { show: resShow,
+                     showSeances: resShowSeances,
+                     showMedia: resShowMedia,
+                     headParams: headParams,
+                     content: resShow[0].announce,
+                     comments: resComments,
+                     link: link,
+                     recommendShows: resRecommendShows }); 
             }                
         });
     }

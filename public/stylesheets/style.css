@@ -392,6 +392,10 @@ a {
     content:"\e080";
 }
 
+.a-link-general {
+  color: black; cursor: pointer;
+}
+
 
 /* Sticky footer styles
 -------------------------------------------------- */

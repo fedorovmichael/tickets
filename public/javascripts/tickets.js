@@ -433,7 +433,7 @@ function editShowHandlerCallbackSuccess(data) {
         $("#divShowEdit").show();
         $("#editShowModal").modal('show');
     
-        fillEditShowHTML(data.show, data.showSeances, data.showMedia, data.comments);
+        fillEditShowHTML(data.show, data.showSeances, data.showMedia, data.comments, data.recommendShows);
     }    
 }
 
@@ -451,7 +451,7 @@ function editClose() {
     $("#aBackToEdit").hide();
 }
 
-function fillEditShowHTML(show, arrShowsSeances, arrMedia, arrComments) {
+function fillEditShowHTML(show, arrShowsSeances, arrMedia, arrComments, arrRecommendShows) {
     var resource = show[0].resource == "bravo" ? "http://kaccabravo.co.il" : "http://biletru.co.il";
 
     $('html head').find('title').text(show[0].name + " - bilety.co.il" );
@@ -463,7 +463,8 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia, arrComments) {
     var params = decodeURIComponent(window.location.search.substring(1));
     $("#lblShowShareLink").text("");
     var port = window.location.port ? ":" + window.location.port : '';
-    var shareLink = window.location.protocol + '//' + window.location.hostname + port + "/event/" + show[0].show_code;//window.location.href.split('?')[0] + "event/" + show[0].show_code;
+    var serverLink = window.location.protocol + '//' + window.location.hostname + port + "/event/";
+    var shareLink = serverLink + show[0].show_code;
     $("#lblShowShareLink").text(shareLink);
     $("#lblShowShareLink").attr("href", shareLink);
     
@@ -597,12 +598,42 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia, arrComments) {
                         image: resource + show[0].main_image,
                         description: show[0].announce.split('.')[0]   
                     }
-                });
+                });    
+    
+    var recommendDivHTML = '';
+    $.each(arrRecommendShows, function(index, value){
 
-    var w = $('.simple-marquee-container').width();
-    //var ww = $('.marquee').css('width','1386');
-    //$('.simple-marquee-container').SimpleMarquee();
+        var arrImageName = value.main_image.split('/');
+        var imageName = arrImageName[arrImageName.length - 1];
 
+        var name = '';
+        if(value.name.length > 50){
+          var n = value.name.substr(0, 50);
+          var name = n.substr(0, n.lastIndexOf(" "));                
+        }                      
+        else{
+          var name = value.name;                
+        }
+
+        var linkShow = serverLink + value.show_code;
+
+        recommendDivHTML += '<li style="float: left;">' +
+        '<div class="thumbnail">' +
+          '<a href="'+ linkShow +'">' +
+            '<img src="images/shows/'+ imageName +'" alt="'+ name +'" title="'+ name +'" class="main-show-image" onerror="handleImageError(this);"/>' +
+          '</a>' +
+        '</div>' +
+        '<div class="caption">' +
+          '<a href="'+ linkShow +'" class="a-link-general">' +
+            '<h1 class="main-show-caption">'+ name +'</h1>' 
+          '</a>' +
+        '</div>' +
+      '</li>';
+    });
+
+    $("#ulRecommendShow li").empty();
+    $("#ulRecommendShow li").remove();     
+    $("#ulRecommendShow").append(recommendDivHTML);
 }
 
 function searchShowByText(text) {

@@ -535,6 +535,26 @@ db.getAgencesShows = function(cb)
     }
 }
 
+db.getRecommendShowByShowID = function(showID, cb)
+{
+    try 
+    {
+        console.log("db.getRecommendShowByShowID show id: ", showID);    
+
+        var queryDB = "select s.name, s.show_code, s.main_image from shows as s " + 
+        "join show_section as ss on s.id = ss.show_id " +
+        "where ss.type_id in (select type_id from show_section where show_id = '" + showID + "') " +
+        "and show_id != '" + showID + "' " +
+        "order by price_max desc " +
+        "limit 5 "
+        getMultipleResponse(cb, queryDB);
+    } 
+    catch (error) 
+    {
+        console.log("db.getRecommendShowByShowID error: ", error);    
+    }
+}
+
 function getSingleResponse(res, queryDB)
 {
    pool.connect(function(err, client, done){
