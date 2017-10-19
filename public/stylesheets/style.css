@@ -400,6 +400,10 @@ a {
   display: none !important;
 }
 
+.div-social-contaner{
+  width:75px; float:left; margin-top:50px; margin-left: 10px;
+}
+
 
 
 /* Sticky footer styles
