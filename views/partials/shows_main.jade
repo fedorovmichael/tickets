@@ -30,7 +30,7 @@ ul(id="ulShows" class="row list-unstyled")
               -else{
                 -var name = shows[i].name;                
               -}
-              h1(class="main-show-caption") #{name}
+              h2(class="main-show-caption") #{name}
 
               -var dt_f = new Date(shows[i].date_from);
               -date_f = dateFormat(dt_f, "dd.mm.yyyy");
