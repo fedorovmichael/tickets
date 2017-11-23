@@ -1,3 +1,10 @@
 User-agent: *
-Disallow:
-Sitemap: http://www.bilety.co.il/sitemap.xml
+Disallow: /config
+Disallow: /db
+Disallow: /routes
+Disallow: /bin
+Allow: /public
+Allow: /sources
+Allow: /views
+Sitemap: http://bilety.co.il/sitemap.xml
+Host:    http://bilety.co.il
