@@ -126,16 +126,42 @@ block content
               span(class="glyphicon glyphicon-remove-circle" style="margin-right:3px; color:red;") 
               span(style="color:red;") ОЧИСТИТЬ 
 
-             
-
-        div(class="col-sm-10 text-center")
-
+        div(class="col-sm-10 text-center")   
           div(id="divLoading" class="wait-modal-none")
             img(src="/images/wait.gif" style="margin-top: 25%;")
             br 
             span(style="text-transform: uppercase; margin-top: 10px;") загрузка...
 
           div(id="divShowsMain" style="display:block")
+            div(class="row")
+              div( class="col-md-4")
+                input(id="txtSearch" type="text" class="form-control" placeholder="Search" style="width: 100%;")
+              div( class="col-md-8")
+                div(class="btn-group")
+                  button(type="button" class="btn btn-default")
+                    span(id="spanSortByPriceAlt_desc" class="glyphicon glyphicon-sort-by-attributes-alt")
+                    span(id="spanSortByPrice_asc" class="glyphicon glyphicon-sort-by-attributes" style="display:none;")
+                    span(style="margin-left:3px;") Цена
+
+                  button(type="button" class="btn btn-default")
+                    span(id="spanSortByName_asc" class="glyphicon glyphicon-sort-by-alphabet")
+                    span(id="spanSortByNameAlt_desc" class="glyphicon glyphicon-sort-by-alphabet-alt" style="display:none;")
+                    span(style="margin-left:3px;") Название
+                  
+                  button(type="button" class="btn btn-default")
+                    span(id="spanSortBySection_asc" class="glyphicon glyphicon-sort-by-alphabet")
+                    span(id="spanSortBySectionAlt_desc" class="glyphicon glyphicon-sort-by-alphabet-alt" style="display:none;")                
+                    span(style="margin-left:3px;") Категория
+
+                  button(type="button" class="btn btn-default")
+                    span(id="spanSortByDate_asc" class="glyphicon glyphicon-sort-by-attributes")
+                    span(id="spanSortByDateAlt_desc" class="glyphicon glyphicon-sort-by-attributes-alt" style="display:none;")                
+                    span(style="margin-left:3px;")  Дата
+                  
+                  button(type="button" class="btn btn-default")
+                    span(style="margin-right:3px;" class="glyphicon glyphicon-remove-circle")
+                    span Очистить
+            
             include ./partials/shows_main
 
           div(id="divShowEdit" style="display:none")
