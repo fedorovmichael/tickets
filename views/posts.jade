@@ -4,15 +4,19 @@ block content
     table(id="tblPosts" class="table text-left" style="margin-top:20px; width:80%; margin-left: auto; margin-right: auto;" border="0")      
       tbody
         each post in posts          
-          -var post_date = dateFormat(new Date(post.pub_date), "dd.mm.yyyy");      
+          -var post_date = dateFormat(new Date(post.pub_date), "dd.mm.yyyy");
+          -var body = post.text.substring(0, 300);
+          -body = body.substring(0, body.lastIndexOf('.') + 1);      
           tr
             td(style="margin-left:10px;")
               a(href="")
-                img(src="http://bilety.co.il/images/shows/57550.jpg", alt="#{post.name}")
+                img(src="http://bilety.co.il/images/shows/57403.jpg", alt="#{post.name}")
             td
               p(style='text-align: justify;') 
                 span(class="glyphicon glyphicon-calendar")
                 span(style="margin-left:3px;") #{post_date} 
-              h4
-                a(href="/post_edit/#{post.id}" class="a-link-general") #{post.name}           
+              h4(style="margin-bottom:10px;")
+                a(href="/post_edit/#{post.id}" class="a-link-general" style="text-decoration:underline; margin-bottom:10px;") #{post.name}
+              p #{body}
+                            
             

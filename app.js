@@ -52,6 +52,7 @@ app.use('/discount', index);
 app.use('/tour', index);
 app.use('/about', index);
 app.use('/posts', index);
+app.use('/post_edit/:id', index);
 app.use('/users', users);
 
 // catch 404 and forward to error handler

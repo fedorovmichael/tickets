@@ -483,6 +483,26 @@ router.get('/posts', function(req, res, next) {
       }
   });
 
+  router.get('/post_edit/:id', function(req, res, next) {
+  var postID = req.params.id;  
+  async.series([
+    function getPostByIDFromDB(callback)
+    {
+        db.getPostByID(postID, function(err, postResult){
+            if(err){
+                console.log("get post by id from db error: ", err);
+                callback(err, null); 
+                return;
+           }
+           console.log("getPostByIDFromDB result: ", postResult)
+           callback(null, postResult);
+        })            
+    }],
+    function(err, result){
+          res.render('post_edit', {title: 'Пост', post: result[0]});
+      }); 
+});
+
 //general methods+++++++++++++++++++++++++++++++++++++++++++++++++++++
 function getShowByShowIdOrShowCode(req, res, next, resType)
 {

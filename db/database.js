@@ -569,6 +569,20 @@ db.getPosts = function(cb)
     }
 }
 
+db.getPostByID = function(postID, cb)
+{
+     try 
+    {
+       console.log("getPostByID connect to db");       
+       var queryDB ="select * from posts where id='" + postID + "' order by name asc";     
+       getMultipleResponse(cb, queryDB);      
+    } 
+    catch (error) 
+    {
+        console.log("getPostByID error : ", error);
+    }
+}  
+
 function getSingleResponse(res, queryDB)
 {
    pool.connect(function(err, client, done){
