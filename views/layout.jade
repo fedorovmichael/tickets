@@ -103,65 +103,12 @@ html
             ul(class="nav navbar-nav")
               li(id="liHomePage" class="active")
                 a(id="aHomePage" href="/") Главная
+
+              li(id="liBlogPage")
+                a(id="aBlogPage" href="/posts") Блог
               
               li(id="liAboutPage")
-                a(id="aAboutPage" href="/about") О нас
-
-              li(style="display: none;")
-                input(id="txtDateFrom1" type="text" class="navbar-form form-control" placeholder="Дата с:" style="margin-right: 5px;")
-
-              li(style="display: none;")
-                input(id="txtDateTo1" type="text" class="navbar-form form-control" placeholder="Дата по:")
-              
-              li
-                form(class="navbar-form navbar-left")            
-                  input(id="txtSearch" type="text" class="form-control" placeholder="Search" style="width: 250px;")
-
-              li(id="liSortByPrice" title="Сортировка по цене")
-                a(href="#")
-                  span(id="spanSortByPriceAlt_desc" class="glyphicon glyphicon-sort-by-attributes-alt")
-                  span(id="spanSortByPrice_asc" class="glyphicon glyphicon-sort-by-attributes" style="display:none;")
-                  span(style="margin-left:3px;") Цена
-
-              li(id="liSortByName" title="Сортировка по названию")
-                a(href="#")
-                  span(id="spanSortByName_asc" class="glyphicon glyphicon-sort-by-alphabet")
-                  span(id="spanSortByNameAlt_desc" class="glyphicon glyphicon-sort-by-alphabet-alt" style="display:none;")
-                  span(style="margin-left:3px;") Название
-                  
-              li(id="liSortBySection" title="Сортировка по категории")
-                a(href="#")
-                  span(id="spanSortBySection_asc" class="glyphicon glyphicon-sort-by-alphabet")
-                  span(id="spanSortBySectionAlt_desc" class="glyphicon glyphicon-sort-by-alphabet-alt" style="display:none;")                
-                  span(style="margin-left:3px;") Категория
-
-              li(id="liSortByDate" title="Сортировка по дате")
-                a(href="#")
-                  span(id="spanSortByDate_asc" class="glyphicon glyphicon-sort-by-attributes")
-                  span(id="spanSortByDateAlt_desc" class="glyphicon glyphicon-sort-by-attributes-alt" style="display:none;")                
-                  span(style="margin-left:3px;")  Дата   
-
-              li(id="liSuperPrice1" style="display:none;")
-                a(href="#")
-                  span(class="glyphicon glyphicon-gift")
-                  span(style="margin-left:3px;") Супер-цена            
-
-              li(id="liDiscount1" style="display:none;")
-                a(href="#")
-                  span(class="glyphicon glyphicon-tag")
-                  span(style="margin-left:3px;") Со скидкой
-
-              li(id="liTour1" style="display:none;")
-                a(href="#")
-                  span(class="glyphicon glyphicon-globe") 
-                  span(style="margin-left:3px;") Гастроли
-
-              li
-                a(id="aClearTopFilter" href="#")
-                  span(style="margin-right:3px;" class="glyphicon glyphicon-remove-circle")
-                  span Очистить
-
-                           
+                a(id="aAboutPage" href="/about") О нас                           
 
           ul(class="nav navbar-nav navbar-right" style="display:none;")
               li

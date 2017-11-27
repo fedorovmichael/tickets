@@ -458,6 +458,31 @@ router.get('/tour', function(req, res, next){
     }
 });
 
+router.get('/posts', function(req, res, next) {  
+    try 
+      {
+          async.series([
+              function getPostsFromDB(callback)
+              {
+                  db.getPosts(function(err, postsResult){
+                      if(err){
+                          console.log("get posts from db error: ", err);
+                          callback(err, null); 
+                          return;
+                  }
+                  callback(null, postsResult);
+                  })            
+              }
+          ], 
+          function(err, result){
+              res.render('posts', { posts: result[0],  dateFormat: dateFormat});
+          });
+      } 
+      catch (error) {
+          
+      }
+  });
+
 //general methods+++++++++++++++++++++++++++++++++++++++++++++++++++++
 function getShowByShowIdOrShowCode(req, res, next, resType)
 {

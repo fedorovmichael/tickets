@@ -555,6 +555,20 @@ db.getRecommendShowByShowID = function(showID, cb)
     }
 }
 
+db.getPosts = function(cb)
+{
+    try 
+    {
+       console.log("getPosts connect to db");       
+       var queryDB ="select * from posts order by name asc";     
+       getMultipleResponse(cb, queryDB);      
+    } 
+    catch (error) 
+    {
+        console.log("getPosts error : ", error);
+    }
+}
+
 function getSingleResponse(res, queryDB)
 {
    pool.connect(function(err, client, done){
