@@ -1,4 +1,14 @@
 extends layout
 block content
   div(class="container text-center")
-  
+    div(class="panel panel-default" style="margin-top:30px;")
+          div(class="panel-heading text-left")
+            -var post_date = dateFormat(new Date(post[0].pub_date), "dd.mm.yyyy");
+            span(class="panel-title") #{post_date}
+            a(id="" href="/posts" class="edit-show-close-a" style="text-transform: uppercase; float: right; margin-top: -4px;")
+              span(class="glyphicon glyphicon-remove-circle")
+          div(class="panel-body" style="text-align:center;")
+            h1 #{post[0].name}
+            div(id="divPostBody" style="text-align: left; margin-bottom:5px;")
+              span(id="spnPostText" style="") !{post[0].text}
+            

@@ -483,7 +483,7 @@ router.get('/posts', function(req, res, next) {
       }
   });
 
-  router.get('/post_edit/:id', function(req, res, next) {
+router.get('/post_edit/:id', function(req, res, next) {
   var postID = req.params.id;  
   async.series([
     function getPostByIDFromDB(callback)
@@ -499,7 +499,7 @@ router.get('/posts', function(req, res, next) {
         })            
     }],
     function(err, result){
-          res.render('post_edit', {title: 'Пост', post: result[0]});
+          res.render('post_edit', {title: 'Пост', post: result[0], dateFormat: dateFormat});
       }); 
 });
 
