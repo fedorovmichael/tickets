@@ -9,7 +9,7 @@ block content
           span(class="glyphicon glyphicon-remove-circle")
       div(class="panel-body" style="text-align:center;")
         h1 #{post[0].name}
-        div(id="divPostBody" style="text-align: left; margin-bottom:5px;")
+        div(id="divPostBody" style="text-align: left; margin-bottom:5px;")          
           span(id="spnPostText" style="") !{post[0].text}
 
     div(class="panel panel-default" style="margin-top:-5px;")
@@ -17,7 +17,7 @@ block content
         span(class="panel-title") ФОТО - ВИДЕО
       div(class="panel-body" style="text-align:center;")
         
-        div(id="blueimp-gallery" class="blueimp-gallery")
+        div(id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls")
           div(class="slides")
           h3(class="title")
           a(class="prev") ‹
@@ -27,7 +27,7 @@ block content
           ol(class="indicator")
 
         div(id="links")
-          if(media)
+          if(media)            
             each image in media
               a(href="#{image.link}" title="#{image.name}" )
                 img(src="#{image.link}" alt="#{image.name}")
