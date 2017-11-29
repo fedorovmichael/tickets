@@ -581,7 +581,20 @@ db.getPostByID = function(postID, cb)
     {
         console.log("getPostByID error : ", error);
     }
-}  
+}
+
+db.getPostImagesByPostID = function(postID, cb){
+    try 
+    {
+       console.log("getPostImagesByPostID connect to db");       
+       var queryDB ="select * from post_media where post_id='" + postID + "'";     
+       getMultipleResponse(cb, queryDB);      
+    } 
+    catch (error) 
+    {
+        console.log("getPostImagesByPostID error : ", error);
+    }
+}
 
 function getSingleResponse(res, queryDB)
 {

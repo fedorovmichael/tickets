@@ -497,9 +497,20 @@ router.get('/post_edit/:id', function(req, res, next) {
            console.log("getPostByIDFromDB result: ", postResult)
            callback(null, postResult);
         })            
+    },
+    function getPostImagesByPostIDFromDB(callback)
+    {
+        db.getPostImagesByPostID(postID, function(err, getPostImagesByPostIDResult){
+            if(err){
+                console.log("get post images by post id from db error: ", err);
+                callback(err, null); 
+                return;
+        }
+        callback(null, getPostImagesByPostIDResult);
+        })            
     }],
     function(err, result){
-          res.render('post_edit', {title: 'Пост', post: result[0], dateFormat: dateFormat});
+          res.render('post_edit', {title: 'Пост', post: result[0], media: result[1], dateFormat: dateFormat});
       }); 
 });
 
