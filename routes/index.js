@@ -161,7 +161,7 @@ router.get('/he-il', function(req,res, next){
 
 router.get('/about', function(req,res, next){
     var clTitle = titleProvider.getTitleByTypeName('default');
-    res.render('about', {content: clTitle.description, title: clTitle.title});
+    res.render('about', {content: clTitle.description, title: clTitle.title, active: 'about'});
 });
 
 //comments++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -475,7 +475,7 @@ router.get('/posts', function(req, res, next) {
               }
           ], 
           function(err, result){
-              res.render('posts', { posts: result[0],  dateFormat: dateFormat});
+              res.render('posts', { posts: result[0],  dateFormat: dateFormat, active: 'blog'});
           });
       } 
       catch (error) {
@@ -510,7 +510,7 @@ router.get('/post_edit/:id', function(req, res, next) {
         })            
     }],
     function(err, result){
-          res.render('post_edit', {title: 'Пост', post: result[0], media: result[1], dateFormat: dateFormat});
+          res.render('post_edit', {title: 'Пост', post: result[0], media: result[1], dateFormat: dateFormat, active: 'blog'});
       }); 
 });
 
@@ -783,7 +783,16 @@ function loadDefaulPage(req, res, next, headParams)
             console.log('start parse error: ', err)
           }
                     
-          res.render('index', {types: resTypes, subTypes: resSubTypes, shows: resShows, showsSections: resShowsSection, cities: resCities, dateFormat: dateFormat, content: headParams.content, title: headParams.title });
+          res.render('index', 
+          {types: resTypes, 
+            subTypes: resSubTypes, 
+            shows: resShows, 
+            showsSections: resShowsSection, 
+            cities: resCities, 
+            dateFormat: dateFormat, 
+            content: headParams.content, 
+            title: headParams.title,
+            active: 'home'});
       })
 }
 

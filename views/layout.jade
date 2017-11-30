@@ -39,7 +39,7 @@ html
     <!-- Latest compiled and minified JavaScript -->
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin="anonymous")
     
-    script(src="/javascripts/tickets.min.js")
+    script(src="/javascripts/tickets.js")
     <!-- styling checkbox -->
     script(src="/javascripts/customInput.jquery.min.js")  
 
@@ -103,13 +103,13 @@ html
     
           div(class="navbar-collapse collapse" id="mainNavbar")
             ul(class="nav navbar-nav")
-              li(id="liHomePage" class="active")
+              li(id="liHomePage" class="#{active == 'home' ? 'active' : ''}")
                 a(id="aHomePage" href="/") Главная
 
-              li(id="liBlogPage")
+              li(id="liBlogPage" class="#{active == 'blog' ? 'active' : ''}")
                 a(id="aBlogPage" href="/posts") Блог
               
-              li(id="liAboutPage")
+              li(id="liAboutPage" class="#{active == 'about' ? 'active' : ''}")
                 a(id="aAboutPage" href="/about") О нас                           
 
           ul(class="nav navbar-nav navbar-right" style="display:none;")
