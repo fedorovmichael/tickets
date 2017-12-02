@@ -197,7 +197,7 @@ db.getMediaByShowID = function(showID, cb)
     {
         console.log("db.getMediaByShowID show id: ", showID)
 
-        var queryDB = "select id, link from media where show_id = '"+ showID +"';"
+        var queryDB = "select id, link, type from media where show_id = '"+ showID +"';"
         getMultipleResponse(cb, queryDB);
     } 
     catch (error) 
@@ -574,7 +574,7 @@ db.getPostByID = function(postID, cb)
      try 
     {
        console.log("getPostByID connect to db");       
-       var queryDB ="select * from posts where id='" + postID + "' order by name asc";     
+       var queryDB ="select * from posts where id='" + postID + "'";     
        getMultipleResponse(cb, queryDB);      
     } 
     catch (error) 

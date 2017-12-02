@@ -11,7 +11,7 @@ html
     -}        
     title #{titleStatic}
     meta(name="yandex-verification" content="3e6525a8260eb088")
-    meta(name="description" content="#{content}")    
+    meta(name="description" content="#{content}")
     meta(name="keywords" content="купить билеты, афиша,  концерты, театр, билеты, купить, фестивали, балет, спектакли, опера, мюзикл, цирк, комедия, билеты в Израиле, гастроли в Израиле, классика, эстрада, поп-музыка, рок-музыка")
     meta(name="wot-verification" content="c8835e3e5cb3f706188e")
     link(rel="alternate" href="http://bilety.co.il/he-il" hreflang="he-il")
@@ -23,8 +23,8 @@ html
     <!-- jquery ui theme -->
     link(rel='stylesheet', href='/stylesheets/jquery-ui.min.css')
     <!--project style-->
-    //-link(rel='stylesheet', href='/stylesheets/style.min.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/style.min.css')
+    //-ink(rel='stylesheet', href='/stylesheets/style.css')
     <!-- bootstrap social icons style-->
     link(rel='stylesheet', href='/stylesheets/bootstrap-social.min.css')
     link(rel='stylesheet', href='/stylesheets/font-awesome.min.css')
@@ -39,7 +39,8 @@ html
     <!-- Latest compiled and minified JavaScript -->
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin="anonymous")
     
-    script(src="/javascripts/tickets.js")
+    //-script(src="/javascripts/tickets.js")
+    script(src="/javascripts/tickets.min.js")
     <!-- styling checkbox -->
     script(src="/javascripts/customInput.jquery.min.js")  
 
@@ -138,15 +139,55 @@ html
     div(id="footer")  
       div(class="container text-center")
         div(class="row" style="display:block;")
-          ul(class="list-inline" style="list-style:none; margin-top: 10px;")
-            li(id="btnFooterFacebook")
-              a(class="btn btn-social-icon btn-facebook" href="https://www.facebook.com/groups/weekend.il/?fref=nf" target="_blank")
-                span(class="fa fa-facebook")             
-            li(id="btnFooterLivejournal")
-              a(style="cursor: pointer;" href="http://weekend-il.livejournal.com/" target="_blank")
-                img(src="/images/Livejournal-icon.png" style="width:34px; height:34px;s")          
-            li
-               span(class="text-muted") Designed by fm#soft.
+          div(class="col-md-3")
+          div(class="col-md-2")
+            ul(class="list-unstyled footer-main-menu")
+              li
+                a(id="aHomePage" href="/" ) Главная
+              li
+                a(id="aBlogPage" href="/posts" ) Блог 
+              li
+                a(id="aAboutPage" href="/about" ) О нас
+          div(class="col-md-1")
+            ul(class="list-unstyled footer-types-menu")
+              li
+                a(href="/concert") КОНЦЕРТ
+              li
+                a(href="/theater") ТЕАТР
+              li
+                a(href="/circus") ЦИРК
+              li
+                a(href="/humor") ЮМОР
+
+          div(class="col-md-1")
+            ul(class="list-unstyled footer-types-menu")
+              li
+                a(href="/children") ДЕТЯМ
+              li
+                a(href="/show") ШОУ
+              li
+                a(href="/meetings") ВСТРЕЧИ
+
+          div(class="col-md-2")
+            ul(class="list-unstyled footer-types-menu")
+              li
+                a(href="/sport") СПОРТ
+              li
+                a(href="/cinema") КИНО
+              li
+                a(href="/exibitions") ВЫСТАВКИ
+          div(class="col-md-2")
+            ul(class="list-inline list-unstyled footer-social-menu")
+              li
+                span Мы в социальных сетях
+              li(id="btnFooterFacebook")
+                a(class="btn btn-social-icon btn-facebook" href="https://www.facebook.com/groups/weekend.il/?fref=nf" target="_blank")
+                  span(class="fa fa-facebook")             
+              li(id="btnFooterLivejournal")
+                a(style="cursor: pointer;" href="http://weekend-il.livejournal.com/" target="_blank")
+                  img(src="/images/live_journal_icon.png" style="width:34px; height:34px;")          
+              li
+                //-span(class="text-muted") Designed by fm#soft.
     
     script(src="//yastatic.net/share2/share.js")              
     script(src="/javascripts/jquery.blueimp-gallery.min.js")

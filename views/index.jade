@@ -11,7 +11,7 @@ block content
 
   div(class="container text-center")
     <!--carousel-->  
-    div(class="container" style="margin-bottom: 10px;")
+    div(class="container" style="margin-bottom: 150px;")
       div(id="ticketsCarousel", class="carousel slide", data-ride="carousel", style="margin-bottom: 10px; display:none;")
         <!-- Indicators-->
         ol(class="carousel-indicators")
@@ -143,22 +143,22 @@ block content
                     span(id="spanSortByPrice_asc" class="glyphicon glyphicon-sort-by-attributes" style="display:none;")
                     span(style="margin-left:3px;") Цена
 
-                  button(type="button" class="btn btn-default")
+                  button(id="btnSortByName" type="button" class="btn btn-default")
                     span(id="spanSortByName_asc" class="glyphicon glyphicon-sort-by-alphabet")
                     span(id="spanSortByNameAlt_desc" class="glyphicon glyphicon-sort-by-alphabet-alt" style="display:none;")
                     span(style="margin-left:3px;") Название
                   
-                  button(type="button" class="btn btn-default")
+                  button(id="btnSortBySection" type="button" class="btn btn-default")
                     span(id="spanSortBySection_asc" class="glyphicon glyphicon-sort-by-alphabet")
                     span(id="spanSortBySectionAlt_desc" class="glyphicon glyphicon-sort-by-alphabet-alt" style="display:none;")                
                     span(style="margin-left:3px;") Категория
 
-                  button(type="button" class="btn btn-default")
+                  button(id="btnSortByDate" type="button" class="btn btn-default")
                     span(id="spanSortByDate_asc" class="glyphicon glyphicon-sort-by-attributes")
                     span(id="spanSortByDateAlt_desc" class="glyphicon glyphicon-sort-by-attributes-alt" style="display:none;")                
                     span(style="margin-left:3px;")  Дата
                   
-                  button(type="button" class="btn btn-default")
+                  button(id="btnClearTopFilter" type="button" class="btn btn-default")
                     span(style="margin-right:3px;" class="glyphicon glyphicon-remove-circle")
                     span Очистить
             

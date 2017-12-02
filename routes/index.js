@@ -509,8 +509,14 @@ router.get('/post_edit/:id', function(req, res, next) {
         callback(null, getPostImagesByPostIDResult);
         })            
     }],
-    function(err, result){
-          res.render('post_edit', {title: 'Пост', post: result[0], media: result[1], dateFormat: dateFormat, active: 'blog'});
+    function(err, result){        
+          res.render('post_edit', {
+              title: result[0][0].title, 
+              content: result[0][0].description,
+              post: result[0], 
+              media: result[1], 
+              dateFormat: dateFormat, 
+              active: 'blog'});
       }); 
 });
 

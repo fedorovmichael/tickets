@@ -1,7 +1,7 @@
 extends layout
 block content  
   div(class="container text-center")
-    table(id="tblPosts" class="table text-left" style="margin-top:20px; width:80%; margin-left: auto; margin-right: auto;" border="0")      
+    table(id="tblPosts" class="table text-left" border="0")      
       tbody
         each post in posts          
           -var post_date = dateFormat(new Date(post.pub_date), "dd.mm.yyyy");
@@ -10,7 +10,7 @@ block content
           tr
             td(style="margin-left:10px;")
               a(href="")
-                img(src="http://bilety.co.il/images/shows/57403.jpg", alt="#{post.name}")
+                img(src="#{post.image}", alt="#{post.name}")
             td
               p(style='text-align: justify;') 
                 span(class="glyphicon glyphicon-calendar")
