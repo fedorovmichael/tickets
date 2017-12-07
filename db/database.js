@@ -560,7 +560,7 @@ db.getPosts = function(cb)
     try 
     {
        console.log("getPosts connect to db");       
-       var queryDB ="select * from posts order by name asc";     
+       var queryDB ="select * from posts where enabled = true order by name asc;";     
        getMultipleResponse(cb, queryDB);      
     } 
     catch (error) 
