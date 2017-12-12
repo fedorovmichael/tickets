@@ -122,76 +122,68 @@ html
                   span(class="glyphicon glyphicon-user") Singup
     div(data-spy="affix" data-offset-top="0" class="div-social-contaner")
       div(class="ya-share2" data-services="lj,vkontakte,facebook,odnoklassniki,moimir,gplus,twitter" style="float:left;" data-direction="vertical")
-    //- ul(id="ulSocialNetworks" class="nav nav-pills1 nav-stacked1" data-spy="affix" data-offset-top="0" style="width:75px; float:left; margin-top:50px;")
-    //-   li(id="liFacebook")
-    //-     a(id="aFacebook" href="https://www.facebook.com/groups/weekend.il/?fref=nf" target="_blank")
-    //-       img(id="imgFacebook" src="/images/facebook.jpg")        
-    //-   li(id="liLivejournal")
-    //-     a(id="aLivejournal" href="http://weekend-il.livejournal.com/" target="_blank")
-    //-       img(id="imgLivejournal" src="/images/Livejournal-icon.png")
-    //-   li(id="liMobileFilter" style="width: 110px; background-color: #555 !important; display:none;")
-    //-     a(id="aMobileFilter" href="#" style="background-color: #555 !important;")
-    //-       span(style="text-transform: uppercase; color:#fff !important;") Фильтр
-    //-       span(style="margin-right:3px; font-size:10pt; color:#fff !important;" class="glyphicon glyphicon-filter")    
-
     block content
       div(class="container text-center")
     div(id="footer")  
       div(class="container text-center")
-        div(class="row" style="display:block;")
-          div(class="col-md-2")
-          div(class="col-md-2")
-            ul(class="list-unstyled footer-main-menu" style="border-right: 1px; border-right-color: #3c3c3c; border-right-style: dashed; width: 120px;")
-              li
-                a(id="aHomePage" href="/" ) Главная
-              li
-                a(id="aBlogPage" href="/posts" ) Блог 
-              li
-                a(id="aAboutPage" href="/about" ) О нас
-          div(class="col-md-1")
-            ul(class="list-unstyled footer-types-menu")
-              li
-                a(href="/concert") КОНЦЕРТ
-              li
-                a(href="/theater") ТЕАТР
-              li
-                a(href="/circus") ЦИРК
-              li
-                a(href="/humor") ЮМОР
+        div(class="footer-content-wrap")
+          ul(class="list-unstyled footer-main-menu" )
+            li
+              a(id="aHomePage" href="/" ) Главная
+            li
+              a(id="aBlogPage" href="/posts" ) Блог 
+            li
+              a(id="aAboutPage" href="/about" ) О нас
+        
+          ul(class="list-unstyled footer-types-menu")
+            li
+              a(href="/concert") КОНЦЕРТ
+            li
+              a(href="/theater") ТЕАТР
+            li
+              a(href="/circus") ЦИРК
+            li
+              a(href="/humor") ЮМОР
 
-          div(class="col-md-1")
-            ul(class="list-unstyled footer-types-menu")
-              li
-                a(href="/children") ДЕТЯМ
-              li
-                a(href="/show") ШОУ
-              li
-                a(href="/meetings") ВСТРЕЧИ
+        
+          ul(class="list-unstyled footer-types-menu")
+            li
+              a(href="/children") ДЕТЯМ
+            li
+              a(href="/show") ШОУ
+            li
+              a(href="/meetings") ВСТРЕЧИ
 
-          div(class="col-md-2")
-            ul(class="list-unstyled footer-types-menu" style="border-right: 1px; border-right-color: #3c3c3c; border-right-style: dashed; width: 140px;")
-              li
-                a(href="/sport") СПОРТ
-              li
-                a(href="/cinema") КИНО
-              li
-                a(href="/exibitions") ВЫСТАВКИ
-          div(class="col-md-2")
-            ul(class="list-inline list-unstyled footer-social-menu")
-              li
-                span Мы в социальных сетях
-              li(id="btnFooterFacebook")
-                a(class="btn btn-social-icon btn-facebook" href="https://www.facebook.com/groups/weekend.il/?fref=nf" target="_blank")
-                  span(class="fa fa-facebook")             
-              li(id="btnFooterLivejournal")
-                a(style="cursor: pointer;" href="http://weekend-il.livejournal.com/" target="_blank")
-                  img(src="/images/live_journal_icon.png" style="width:34px; height:34px;")          
-              li(style="margin-top: 17px;")
-                a(href="mailto:info@bilety.co.il")
-                  span(class="glyphicon glyphicon-envelope") 
-                  span(style="margin-left:5px;") Обратная связь               
+        
+          ul(class="list-unstyled footer-types-menu")
+            li
+              a(href="/sport") СПОРТ
+            li
+              a(href="/cinema") КИНО
+            li
+              a(href="/exibitions") ВЫСТАВКИ
+        
+          ul(class="list-inline list-unstyled footer-social-menu")
+            li
+              span Мы в социальных сетях
+            li(id="btnFooterFacebook")
+              a(class="btn btn-social-icon btn-facebook" href="https://www.facebook.com/groups/weekend.il/?fref=nf" target="_blank")
+                span(class="fa fa-facebook")
+            li(id="btnFooterOdnoklassniki")
+              a(class="btn btn-social-icon btn-facebook" href="//m.ok.ru/group/54950264045571" target="_blank")
+                span(class="fa fa-odnoklassniki")
+            li(id="btnFooterContakt")
+              a(class="btn btn-social-icon btn-facebook" href="//m.vk.com/club133250370" target="_blank")
+                span(class="fa fa-vk")          
+            li(id="btnFooterLivejournal")
+              a(style="cursor: pointer;" href="http://weekend-il.livejournal.com/" target="_blank")
+                img(src="/images/live_journal_icon.png" style="width:34px; height:34px;")          
+            li(style="margin-top: 25px;")
+              a(href="mailto:info@bilety.co.il")
+                span(class="glyphicon glyphicon-envelope") 
+                span(style="margin-left:5px;") Обратная связь               
                
-          div(class="col-md-2")
+          
     script(src="//yastatic.net/share2/share.js")              
     script(src="/javascripts/jquery.blueimp-gallery.min.js")
     script.
