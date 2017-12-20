@@ -10,10 +10,18 @@ div(class="modal fade" id="editShowModal" role="dialog")
           span(style="text-transform: uppercase;") вернуться в событие
       
       div(id="divEditShowBody" class="modal-body" style="display: block;")
-        div(class="col-md-12" style="height: 260px;min-height: 260px;overflow: auto;margin-bottom: 20px;")
-          img(id="imgEditMain" src="", style="width:350px; margin: 0 10px 10px 0;" class="pull-left")
-          p(id="pEditShowAnnounce" style='text-align: justify;')
+        div(class="row")
+          div(class="col-md-4" style="overflow: auto;margin-bottom: 20px;")
+            img(id="imgEditMain" src="", style="width:350px; margin: 0 10px 10px 0;" class="pull-left")
+          div(class="col-md-8")
+            p(id="pEditShowAnnounce" style='text-align: justify;')
         
+        div(class="row")
+          div(class="col-md-2")
+          div(class="col-md-8")
+            hr
+          div(class="col-md-2")
+
         div(class="row" style="height: 40px;")
           div(class="col-md-8")            
             a(id="aShowShareLink" href="" class="pull-left a-link-general" title="поделиться событием" style="margin-right: 2px;")
@@ -21,7 +29,7 @@ div(class="modal fade" id="editShowModal" role="dialog")
           
             div(id="divSocialShare" class="ya-share2" data-services="lj,vkontakte,facebook,odnoklassniki,moimir,gplus,twitter" style="float:left;")
           div(class="col-md-4")
-            a(id="aFocusCommentLink" href="" class="pull-right a-link-general" style="text-transform: uppercase;") Оставить комментарий
+            a(id="aFocusCommentLink" href="" class="pull-right a-link-general" style="text-transform: uppercase; font-weight: bold;") Оставить комментарий
 
         div(class="col-md-12" style="height: 20px;")          
           a(id="lblShowShareLink" class="pull-left a-link-general" style="display:none;" target="_blank")                 
