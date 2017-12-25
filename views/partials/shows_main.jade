@@ -5,7 +5,7 @@ ul(id="ulShows" class="row list-unstyled")
     -var index = arrDisplayShows.findIndex(x => x === shows[i].show_id);  
     -if(shows[i].top == 1 && index == -1){
       -arrDisplayShows.push(shows[i].show_id);    
-      li(id="liMainShowID_#{shows[i].show_id}" showCode="#{shows[i].show_code}"  class="col-sm-3" style="height: 285px; border: solid 0px red; cursor: pointer;")
+      li(id="liMainShowID_#{shows[i].show_id}" showCode="#{shows[i].show_code}"  class="col-sm-3 show-main-li")
         div
           div(class="text-left")            
             a(href="#" type_id="#{shows[i].type_id}" style="background: #{shows[i].type_color};" class="top-category-of-event") #{shows[i].type_name}
@@ -46,6 +46,9 @@ ul(id="ulShows" class="row list-unstyled")
                 P Цена #{shows[i].price_min}&#8362; - #{shows[i].price_max}&#8362;
               -else
                 P Цена #{shows[i].price_min}&#8362;
+              div(style="background: #{shows[i].type_color};")
+                span(style="color:#fff;") Комментарии(10)
+            
     -}
     -else
     -{
