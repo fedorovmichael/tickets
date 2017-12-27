@@ -47,7 +47,7 @@ ul(id="ulShows" class="row list-unstyled")
               -else
                 P Цена #{shows[i].price_min}&#8362;
               div(style="background: #{shows[i].type_color};")
-                span(style="color:#fff;") Комментарии(10)
+                span(style="color:#fff;") Комментарии(#{shows[i].comments_count == null ? 0 : shows[i].comments_count})
             
     -}
     -else

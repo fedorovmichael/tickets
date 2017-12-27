@@ -60,7 +60,7 @@ db.getShows = function(cb)
     {
        var queryDB ="select distinct sh.id as show_id, sh.name as name, sh.announce as announce, sh.price_min, sh.price_max, " +
         " sh.date_from, sh.date_to, sh.resource, sh.main_image, sh.top, sh.show_code, t.id as type_id, " +
-        " t.name as type_name, t.color as type_color, st.id as subtype_id, st.name as subtype_name " + 
+        " t.name as type_name, t.color as type_color, st.id as subtype_id, st.name as subtype_name, sh.comments_count " + 
         " from shows as sh " +
         " join show_section as ss on sh.id = ss.show_id " +
         " join type as t on t.id = ss.type_id " +
@@ -74,6 +74,7 @@ db.getShows = function(cb)
         //               //"where top = '1' " +
         //               "order by price_min desc"
         console.log("connect to db");
+        console.log("query get shows: ", queryDB);
         
         pool.connect(function(err, client, done){
             if(err)
@@ -495,7 +496,7 @@ db.getShowsByFilters = function(filters, cb)
 
         var queryDB = queryTempTable +" "+
         " select distinct sh.id as show_id, sh.name as name, sh.announce as announce, sh.price_min, sh.price_max, sh.date_from, sh.date_to, sh.resource, sh.main_image, sh.top, sh.show_code, " +
-        " t.id as type_id, t.name as type_name, t.color as type_color, st.id as subtype_id, st.name as subtype_name, ss.subcategory_name " +
+        " t.id as type_id, t.name as type_name, t.color as type_color, st.id as subtype_id, st.name as subtype_name, ss.subcategory_name, sh.comments_count " +
         "from shows as sh " +
         "join seances as s on  sh.id = s.show_id " +
         "join cities as c on s.city = c.name " +
