@@ -668,7 +668,7 @@ function getShowByShowIdOrShowCode(req, res, next, resType)
 
 function loadDefaulPage(req, res, next, headParams)
 {
-    var resTypes = '', resShows = '', resShowsSection = '', resSubTypes = '', resCities = '', resAgencesShows = '';
+    var resTypes = '', resShows = '', resShowsSection = '', resSubTypes = '', resCities = '', resAgencesShows = '', resCommentsCounts = '';
     
       async.waterfall([
         function getTypesFromDB(callback)
@@ -762,8 +762,26 @@ function loadDefaulPage(req, res, next, headParams)
                 callback(null, agencesShowsResult);  
             });
         },
+
+        function getCommentsCountsFromDB(agencesShowsResult, callback)
+        {
+            db_comments.getCommentsCount(function(err, commentsCountsResult){
+                if(err){
+                    console.log("get comments counts from db error: ", err);
+                    callback(err, null); 
+                    return;
+                }
     
-        function sendResponce(agencesShowsResult, callback){
+                // console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                // console.log("");
+                // console.log("");
+                // console.log('comments count: ', commentsCountsResult);
+                resCommentsCounts = commentsCountsResult;
+                callback(null, commentsCountsResult);  
+            });
+        },
+    
+        function sendResponce(commentsCountsResult, callback){
           
           for(var i = 0; i < resAgencesShows.length; i++)
           {
@@ -779,7 +797,12 @@ function loadDefaulPage(req, res, next, headParams)
                  resShows.splice(index, 1);
                  resShows.splice(0,0, resAgencesShows[i]);
               }          
-          }    
+          }
+          
+          for(var i = 0; i < resShows.length; i++){
+            var index = resCommentsCounts.findIndex(x => x.show_code === resShows[i].show_code);
+            resShows[i].comments_count = index > 0 ? resCommentsCounts[index].count : 0;
+          }
           
           callback(null, null);
         }
@@ -1029,11 +1052,28 @@ function getShowsByFilter(req, res, next, headParams)
                 
                 callback(null, agencesShowsResult);  
             });
-        }
+        },
+
+        function getCommentsCountsFromDB(callback)
+        {
+            db_comments.getCommentsCount(function(err, commentsCountsResult){
+                if(err){
+                    console.log("get comments counts from db error: ", err);
+                    callback(err, null); 
+                    return;
+                }
+    
+                // console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                // console.log("");
+                // console.log("");
+                // console.log('comments count: ', commentsCountsResult);                
+                callback(null, commentsCountsResult);  
+            });
+        },
     ], 
     function(err, result){
         
-        var resShows = result[0], resShowsSection = result[1], agencesShows = result[2];
+        var resShows = result[0], resShowsSection = result[1], agencesShows = result[2], resCommentsCounts = result[3];
 
         for(var i = 0; i < agencesShows.length; i++)
         {
@@ -1045,6 +1085,11 @@ function getShowsByFilter(req, res, next, headParams)
                 resShows.splice(0,0, agencesShows[i]);
             }            
         }
+
+        for(var i = 0; i < resShows.length; i++){
+            var index = resCommentsCounts.findIndex(x => x.show_code === resShows[i].show_code);
+            resShows[i].comments_count = index > 0 ? resCommentsCounts[index].count : 0;
+          }
 
         // console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         // console.log("");
