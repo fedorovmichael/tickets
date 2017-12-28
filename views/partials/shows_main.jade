@@ -9,7 +9,7 @@ ul(id="ulShows" class="row list-unstyled")
         div
           div(class="text-left")            
             a(href="#" type_id="#{shows[i].type_id}" style="background: #{shows[i].type_color};" class="top-category-of-event") #{shows[i].type_name}
-          div(class="thumbnail")
+          div(class="thumbnail show-main-thumbnail")
             -var arrImageName = shows[i].main_image.split('/');
             -var imageName = arrImageName[arrImageName.length - 1];            
             img(src="/images/shows/#{imageName}", alt="#{shows[i].announce}", class="main-show-image" onerror="handleImageError(this);")
