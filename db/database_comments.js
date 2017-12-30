@@ -25,15 +25,13 @@ db.createComment = function(comment, cb){
         console.log("db.createComment comments parameters: ");
         console.log(comment);
         console.log("");
-        var commCount = comment.count + 1;
+        
         var commQueryDB = "insert into comments(id,text,avatar,publish_date,name,host,email,status,show_code, parent_id) values" +
                     "('"+ comment.id +"', '"+ comment.text +"','"+ comment.avatar +"','"+ comment.publish_date +"'," +
                     "'"+ comment.name +"', '"+ comment.host +"', '"+ comment.email +"', '"+ comment.status +"', '"+ comment.showCode +"', '"+ comment.parentID +"');";
-        var showQueryDB = " update shows set comments_count = "+ commCount +" where show_code = "+ comment.showCode +";"
-        var queryDB = commQueryDB + showQueryDB; 
 
-        console.log("create comment queryDB: ", queryDB);
-        getMultipleResponse(cb, queryDB);
+        console.log("create comment queryDB: ", commQueryDB);
+        getMultipleResponse(cb, commQueryDB);
     } 
     catch (error) 
     {
@@ -57,6 +55,19 @@ db.getCommentsByShowCode = function(showCode, cb){
         console.log("db.getCommentsByShowCode error: ", error);    
     }
 }
+
+db.getCommentsCount = function(cb){    
+        try 
+        {            
+            var queryDB = "select show_code, count(show_code) from comments where status = 'show' group by show_code";        
+            console.log("getCommentsCount comments query: ", queryDB);
+            getMultipleResponse(cb, queryDB);
+        } 
+        catch (error) 
+        {
+            console.log("db.getCommentsCount error: ", error);    
+        }
+    }
 
 function getSingleResponse(cb, queryDB)
 {
