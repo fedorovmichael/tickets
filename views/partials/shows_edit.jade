@@ -2,10 +2,10 @@ div(class="modal fade" id="editShowModal" role="dialog")
   div(class="modal-dialog" style="width:1100px;")
     div(class="modal-content")
       div(class="modal-header")
-        a(id="aCloseEditShow" href="#" data-dismiss="modal" class="edit-show-close-a" style="text-transform: uppercase; float: right;")
+        a(id="aCloseEditShow" href="#" data-dismiss="modal" class="edit-show-close-a" style="text-transform: uppercase; float: right;" onclick='javascript:editClose()')
           span(class="glyphicon glyphicon-remove-circle")        
         h4(class="modal-title" id="spanEditShowName")
-        a(id="aBackToEdit" style="float: left; color: black; cursor: pointer; display: none;")
+        a(id="aBackToEdit" style="float: left; color: black; cursor: pointer; display: none;" onclick="javascript:backToEdit()")
           span(class="glyphicon glyphicon-arrow-left" style="margin-right: 3px;")
           span(style="text-transform: uppercase;") вернуться в событие
       
@@ -24,12 +24,12 @@ div(class="modal fade" id="editShowModal" role="dialog")
 
         div(class="row" style="height: 40px;")
           div(class="col-md-8")            
-            a(id="aShowShareLink" href="" class="pull-left a-link-general" title="поделиться событием" style="margin-right: 2px;")
+            a(id="aShowShareLink" class="pull-left a-link-general" title="поделиться событием" style="margin-right: 2px;" onclick="javascript:showShareLink()")
               span(class="glyphicon glyphicon-share" style='text-transform: uppercase; font-size:24px; margin-top: -2px;')  
           
             div(id="divSocialShare" class="ya-share2" data-services="lj,vkontakte,facebook,odnoklassniki,moimir,gplus,twitter" style="float:left;")
           div(class="col-md-4")
-            a(id="aFocusCommentLink" href="" class="pull-right a-link-general" style="text-transform: uppercase; font-weight: bold;") Оставить комментарий
+            a(id="aFocusCommentLink" href="" class="pull-right a-link-general" style="text-transform: uppercase; font-weight: bold;" onclick="javascript:focusComments(event)") Оставить комментарий
 
         div(class="col-md-12" style="height: 20px;")          
           a(id="lblShowShareLink" class="pull-left a-link-general" style="display:none;" target="_blank")                 
@@ -86,7 +86,7 @@ div(class="modal fade" id="editShowModal" role="dialog")
        div(id="divSeancePayPage" class="modal-body" style="display: none; text-align: justify;")
          iframe(id="iframeSeancePayPage" height="800px;" width="100%" src="" name="iframe_a")       
       div(class="modal-footer")
-        button(id="btnCloseEditShow" type="button" class="btn btn-default" data-dismiss="modal" style="text-transform: uppercase;") закрыть
+        button(id="btnCloseEditShow" type="button" class="btn btn-default" data-dismiss="modal" style="text-transform: uppercase;" onclick='editClose()') закрыть
       script.
         $(function(){});       
 
