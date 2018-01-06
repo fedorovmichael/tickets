@@ -1,13 +1,14 @@
 extends layout
 
 block content
-  div(class="container")
+  div(class="container" style="margin-bottom: 200px;")
     div(class="panel panel-default")
-        div(id="divEditShowName" class="panel-heading")
+        div(id="divEditShowName" class="panel-heading text-center")
           h4
             -if (comments.length > 0){
-              span(id="spanEditShowName") #{comments[0].show_name}
-              span(style="margin-left:5px;") в Израиле 2018
+               a(href="//www.bilety.co.il?show=#{comments[0].show_code}" class="a-link-general") 
+                span(id="spanEditShowName") #{comments[0].show_name}
+                span(style="margin-left:5px;") в Израиле 2018
             -}  
             -else{
               span(id="spanEditShowName") Комментарии для этого события в данный момент не доступны.
@@ -15,7 +16,7 @@ block content
             a(id="btnCommentClose" href="/" class="close" data-dismiss="modal")&times;  
 
         div(class="panel panel-default" style="margin-top:20px; display:block;")
-          div(class="panel-heading")             
+          div(class="panel-heading text-center")             
             h4 Комментарии
           div(class="panel-body") 
             div(id="divEditComments" class="row")
