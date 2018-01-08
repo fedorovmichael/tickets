@@ -241,16 +241,16 @@ router.get('/comment/:id', function(req, res, next){
             showName = "Комментарий к " + arrComments[0].show_name;
         }
 
-        // if(req.device.type != "bot"){
-        //     appConfig.loadConfig();
-        //     var baseUrl = appConfig.getConfig("urls", "base_url");          
+        if(req.device.type != "bot"){
+            appConfig.loadConfig();
+            var baseUrl = appConfig.getConfig("urls", "base_url");          
             
-        //     res.redirect(baseUrl + "/?show=" + showCode + "&comment=spanCommentsCount");
-        //     //getShowByShowIdOrShowCode(req, res, next, 'page');
-        // }
-        // else{
+            res.redirect(baseUrl + "/?show=" + showCode + "&comment=spanCommentsCount");
+            //getShowByShowIdOrShowCode(req, res, next, 'page');
+        }
+        else{
             res.render('comment', { comments: arrComments, title: showName, content: content });
-        //}
+        }
                 
         
     });
