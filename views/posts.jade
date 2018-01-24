@@ -22,7 +22,9 @@ block content
             td
               p(style='text-align: justify;') 
                 span(class="glyphicon glyphicon-calendar")
-                span(style="margin-left:3px;") #{post_date} 
+                span(style="margin-left:3px; margin-right:10px;") #{post_date}
+                span(class="glyphicon glyphicon-user")
+                span(style="margin-left:3px;") #{post.author}
               h4(style="margin-bottom:10px;")
                 a(href="/post_edit/#{post.id}" class="a-link-general" style="text-decoration:underline; margin-bottom:10px;") #{post.name}
               p !{body}
