@@ -65,14 +65,10 @@ db.getShows = function(cb)
         " join show_section as ss on sh.id = ss.show_id " +
         " join type as t on t.id = ss.type_id " +
         " join subtype as st on st.id = ss.subtype_id " +
-        " where top = '1' " +
+        " where top = '1' and enabled = true " +
         " order by price_min desc "
         
-        //old
-        // var queryDB = "select sh.id as show_id, sh.name as name, sh.announce as announce, sh.price_min, sh.price_max, sh.date_from, sh.date_to, sh.resource, sh.main_image, sh.top, sh.show_code " +
-        //               "from shows as sh " +  
-        //               //"where top = '1' " +
-        //               "order by price_min desc"
+        
         console.log("connect to db");
         console.log("query get shows: ", queryDB);
         
@@ -127,11 +123,11 @@ db.getShowsByType = function(stringIDs, cb)
     {
         console.log("db.getShowsByType ids: ", stringIDs)
 
-        var where = "";
+        var where = " where s.enabled = true ";
 
         if(stringIDs.length > 2)
         {
-            where = "where t.id in (" + stringIDs + ")";
+            where =+ " t.id in (" + stringIDs + ")";
         }
         
         var queryDB = "select s.id as show_id, s.name, s.main_image, s.link, s.date_from, s.date_to, s.price_min, s.price_max, s.resource, s.superprice, s.discount, t.id as type_id, t.name as type_name, t.color " + 
@@ -161,11 +157,11 @@ db.getShowByShowID = function(showID, showCode, cb)
 
         if(showID != null && showID != '')
         {
-            queryWhere = "where id = '"+ showID +"'";
+            queryWhere = "where enabled = true and id = '"+ showID +"'";
         }        
         else if(showCode != null && showCode != '')
         {
-            queryWhere = "where show_code = '"+ showCode +"'";
+            queryWhere = "where enabled = true and show_code = '"+ showCode +"'";
         }
 
         var queryDB = "select id, name, announce, main_image, second_image, resource, show_code from shows " + queryWhere;
@@ -218,7 +214,7 @@ db.searchShowByText = function(searchText, cb)
                       "join show_section as ss on s.id = ss.show_id "+
                       "join type as t on ss.type_id = t.id " +
                       "join seances as se on s.id = se.show_id " + 
-                      "where s.name like '%"+ searchText +"%' or s.announce like '%"+ searchText +"%' or se.hall like '%" + searchText + "%';";
+                      "where s.enabled = true and s.name like '%"+ searchText +"%' or s.announce like '%"+ searchText +"%' or se.hall like '%" + searchText + "%';";
 
         console.log("searchShowByText query: ", queryDB)
 
@@ -503,7 +499,7 @@ db.getShowsByFilters = function(filters, cb)
         "join show_section as ss on ss.show_id = sh.id " +
         "join type as t on t.id = ss.type_id " +
         "join subtype as st on st.id = ss.subtype_id " +
-        " where sh.id != '0' " +
+        " where sh.id != '0' and sh.enabled = true " +
         queryFiters +" "+ querySort +"; "+ queryDropTempTable;
 
         console.log("db.getShowsByFilters", queryDB);
@@ -527,7 +523,7 @@ db.getAgencesShows = function(cb)
        "join show_section as ss on ss.show_id = sh.id " +
        "join type as t on t.id = ss.type_id " +
        "join subtype as st on st.id = ss.subtype_id " +
-       "where enabled = true";
+       "where ash.enabled = true and sh.enabled = true";
 
        getMultipleResponse(cb, queryDB);
     } 
@@ -545,7 +541,7 @@ db.getRecommendShowByShowID = function(showID, cb)
         var queryDB = "select s.name, s.show_code, s.main_image from shows as s " + 
         "join show_section as ss on s.id = ss.show_id " +
         "where ss.type_id in (select type_id from show_section where show_id = '" + showID + "') " +
-        "and show_id != '" + showID + "' " +
+        "and show_id != '" + showID + "' and s.enabled = true " +
         "order by price_max desc " +
         "limit 5 "
         getMultipleResponse(cb, queryDB);
