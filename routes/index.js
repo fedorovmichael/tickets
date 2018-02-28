@@ -578,7 +578,7 @@ function getShowByShowIdOrShowCode(req, res, next, resType)
 
             function getSeancesByShowIDFromDB(callback)
             {
-                db.getSeancesByShowID(showID, function(err, seancesByShowIDResult){
+                db.getSeancesByShowID(showCode, function(err, seancesByShowIDResult){
                     if(err){
                         console.log("get seances by show id from db error: ", err);
                         callback(err, null); 
