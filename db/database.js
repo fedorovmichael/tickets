@@ -179,7 +179,8 @@ db.getSeancesByShowID = function(showID, cb)
     {
         console.log("db.getSeancesByShowID show id: ", showID)
 
-        var queryDB = "select city, date, seance_time, tickets, price_min, price_max, hall, link, id, resource from seances where show_code = '"+ showID +"'  order by date asc;"
+        var queryDB = "select city, date, seance_time, tickets, price_min, price_max, hall, link, id, resource" +
+        " from seances where show_code = '"+ showID +"' and resource != 'bravo' order by date asc;"
         getMultipleResponse(cb, queryDB);
     } 
     catch (error) 
