@@ -433,7 +433,7 @@ db.getShowsByFilters = function(filters, cb)
 
         if(filters.searchText != null)
         {
-            queryFiters += " and LOWER(sh.name) like '%"+ filters.searchText.toLowerCase() +"%' or LOWER(sh.announce) like '%"+ filters.searchText.toLowerCase() +"%'";
+            queryFiters += " and (LOWER(sh.name) like '%"+ filters.searchText.toLowerCase() +"%' or LOWER(sh.announce) like '%"+ filters.searchText.toLowerCase() +"%')";
         }
 
         if(filters.superPrice)

@@ -22,9 +22,15 @@ html
     link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css", integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp", crossorigin="anonymous")
     <!-- jquery ui theme -->
     link(rel='stylesheet', href='/stylesheets/jquery-ui.min.css')
+    
     <!--project style-->
-    link(rel='stylesheet', href='/stylesheets/style.min.251220172251.css')
-    //-link(rel='stylesheet', href='/stylesheets/style.css')
+    -if(is_desktop)
+      link(rel='stylesheet', href='/stylesheets/style.min.251220172251.css')
+      //-link(rel='stylesheet', href='/stylesheets/style.css')
+    -if(is_phone)
+      link(rel='stylesheet', href='/stylesheets/style.min.251220172251.css')
+      //-link(rel='stylesheet', href='/stylesheets/style_mobile.css')
+
     <!-- bootstrap social icons style-->
     link(rel='stylesheet', href='/stylesheets/bootstrap-social.min.css')
     link(rel='stylesheet', href='/stylesheets/font-awesome.min.css')
@@ -91,7 +97,7 @@ html
     input(id="hdnSelectedTypes" type="hidden")
     input(id="hdnEditShowID" type="hidden")
     input(id="hdnMoveToText" type="hidden")
-    nav(class="navbar navbar-inverse navbar-fixed-top")
+    nav(class="navbar navbar-inverse navbar-fixed-top" style1="height:100px;")
       div(class="container-fluid")
         div(class="container")
           div(class="navbar-header")
@@ -100,8 +106,8 @@ html
               span(class="icon-bar")
               span(class="icon-bar")               
             a(class="navbar-brand", href="/" ) 
-              span(style="text-transform: uppercase;") bilety.co.il
-              span(style="font-size:10pt;") (beta)
+              span(id="spanBrandName" style="text-transform: uppercase;") bilety.co.il
+              span(id="spanBetaName" style="font-size:10pt;") (beta)
     
           div(class="navbar-collapse collapse" id="mainNavbar")
             ul(class="nav navbar-nav")
