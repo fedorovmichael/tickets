@@ -330,17 +330,17 @@ a {
 }
 
 .main-show-caption {
-  height: 54px;
-  max-height: 54px;
-  min-height: 54px;
-  font-size: 14px;
+  height: 200px;
+  max-height: 200px;
+  min-height: 200px;
+  font-size: 40px;
   margin-top: 10px;
-  width: 190px
+  width: 450px
 }
 
 .main-show-image {
-  width: 198px;
-  height: 110px!important
+  width: 490px !important;
+  height: 250px !important;
 }
 
 #divMainRecommend .panel-heading a:after {
@@ -533,7 +533,7 @@ code {
 }
 
 .show-main-li {
-  height: 295px;
+  height: 700px;
   border: solid 0px red;
   cursor: pointer;
   margin-bottom: 10px;
@@ -541,6 +541,7 @@ code {
 
 .show-main-thumbnail {
   background-color: #fff;
+  width: 490px !important;
 }
 
 .show-main-thumbnail:hover {
@@ -591,9 +592,43 @@ code {
 
 #spanBrandName {
   font: 40px "Lucida Grande", Helvetica, Arial, sans-serif !important;
+  font-weight: bold !important;
+  color: #fff;
 }
 
 #spanBetaName {
   font: 28px "Lucida Grande", Helvetica, Arial, sans-serif !important;
 }
+
+.nav.navbar-nav {
+  margin-bottom: 30px;
+}
+
+.navbar-toggle{
+  margin-left: -100px !important;
+}
+
+.navbar-brand{
+  margin-left: 200px !important;
+}
+
+#menuFilter{
+  margin-top: 20px;
+  margin-right: -100px !important;
+  font-size: 60px !important;
+  font-weight: bold !important;
+  float: left;
+  color:#fff;
+}
+
+#divLeftFilter, #divTopFilter, .div-social-contaner{
+  display: none;
+}
+
+li[id^='liMainShowID_']{
+  width: 500px !important;
+  min-width: 500px !important;
+}
+
+
 
