@@ -125,7 +125,7 @@ block content
               input(id="inputPriceMin" type="text" style="margin-right:5px; width:60px;" placeholder="от" maxlength="5")
               input(id="inputPriceMax" type="text" style="width:60px;" placeholder="до" maxlength="5")
 
-          div(class="text-left")  
+          div(id="divClearLeftFilter" class="text-left")  
             a(id="aClearLeftFilter" href="#" style="margin-left: -10px; text-decoration-color: red;" )
               span(class="glyphicon glyphicon-remove-circle" style="margin-right:3px; color:red;") 
               span(style="color:red;") ОЧИСТИТЬ 
@@ -135,7 +135,7 @@ block content
             img(src="/images/wait.gif" style="margin-top: 25%;")
             br 
             span(style="text-transform: uppercase; margin-top: 10px;") загрузка...
-
+          div(id="divModal" class="wait-modal-none")  
           div(id="divShowsMain" style="display:block")
             div(id="divTopFilter" class="row" style="margin-top: 20px;margin-bottom: 20px;padding-left: 9%;")
               div( class="col-md-4" style="padding-right: 5px;padding-left: 0;")
