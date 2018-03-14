@@ -145,7 +145,7 @@ a {
 
 .edit-show-close-a {
   margin-right: 3px;
-  font-size: 18pt;
+  font-size: 60pt;
   color: #7F8C8D
 }
 
@@ -698,7 +698,9 @@ li[id^='liMainShowID_']{
 }
 
 .div-left-filter-left-500{
-  margin-left: 720px;  
+  margin-left: 720px;
+  position: absolute;
+  z-index: 2000;  
 }
 
 .div-left-filter-left-10{
@@ -717,5 +719,14 @@ li[id^='liMainShowID_']{
 #divClearLeftFilter{
   margin-top:20px;
   margin-bottom: 20px;
+}
+
+.overflow-hidden{
+  overflow: hidden;
+}
+
+#spanEditShowName{
+  font-size: 40px;
+  font-weight: bold;
 }
 
