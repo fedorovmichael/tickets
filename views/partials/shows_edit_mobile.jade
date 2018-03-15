@@ -1,42 +1,102 @@
 div(class="modal fade" id="editShowModal" role="dialog")
-  div(class="modal-dialog" style="width:900px;")
+  div(class="modal-dialog" style="width:1100px;")
     div(class="modal-content")
       div(class="modal-header")
-        a(id="aCloseEditShow" href="#" data-dismiss="modal" class="edit-show-close-a" style="text-transform: uppercase; float: right;")
+        a(id="aCloseEditShow" href="#" data-dismiss="modal" class="edit-show-close-a" style="text-transform: uppercase; float: right;" onclick='javascript:editClose()')
           span(class="glyphicon glyphicon-remove-circle")        
         h4(class="modal-title" id="spanEditShowName")
-        a(id="aBackToEdit" style="float: left; color: black; cursor: pointer; display: none;")
+        a(id="aBackToEdit" style="float: left; color: black; cursor: pointer; display: none;" onclick="javascript:backToEdit()")
           span(class="glyphicon glyphicon-arrow-left" style="margin-right: 3px;")
           span(style="text-transform: uppercase;") вернуться в событие
       
       div(id="divEditShowBody" class="modal-body" style="display: block;")
-        div(class="col-md-12")
-          img(id="imgEditMain" src="", style="width:350px; heigth: 270px; margin: 0 10px 10px 0;" class="pull-left")
-          p(id="pEditShowAnnounce" style='text-align: justify;')
+        div(class="row")
+          div(class="col-md-4" style="overflow: auto;margin-bottom: 20px;")
+            //-img(id="imgEditMain" src="", style="width:350px; margin: 0 10px 10px 0;" class="pull-left")
+          div(class="col-md-8")
+            p(id="pEditShowAnnounce" style='text-align: justify;')
         
-        div(class="col-md-12")
-          a(id="aShowShareLink" href="" class="pull-left" style='color: black; cursor: pointer;' title="поделиться событием")
-            span(class="glyphicon glyphicon-share" style='text-transform: uppercase; font-size:24pt;')
+        div(class="row")
+          div(class="col-md-2")
+          div(class="col-md-8")
+            hr
+          div(class="col-md-2")
 
-        div(class="col-md-12")
-          label(id="lblShowShareLink" class="pull-left" style="display:none;")
-          //-input(id="inpShowShareLink" type="text" class="pull-left" style="display:block;")
+        div(class="row" style="height: 40px;")
+          div(class="col-md-8")            
+            a(id="aShowShareLink" class="pull-left a-link-general" title="поделиться событием" style="margin-right: 2px;" onclick="javascript:showShareLink()")
+              span(class="glyphicon glyphicon-share" style='text-transform: uppercase; font-size:24px; margin-top: -2px;')  
+          
+            div(id="divSocialShare" class="ya-share2" data-services="lj,vkontakte,facebook,odnoklassniki,moimir,gplus,twitter" style="float:left;")
+          div(class="col-md-4")
+            a(id="aFocusCommentLink" href="" class="pull-right a-link-general" style="text-transform: uppercase; font-weight: bold;" onclick="javascript:focusComments(event)") Оставить комментарий
 
-        table(id="tableEditSeances" class="table" style="margin-top:20px;" border="0")
+        div(class="col-md-12" style="height: 20px;")          
+          a(id="lblShowShareLink" class="pull-left a-link-general" style="display:none;" target="_blank")                 
+
+        table(id="tableEditSeances" class="table" style="margin-top:20px; width:850px;" border="0")
           tr(style="background-color: #f5f5f5; border-rigth:white;")
-            th(class="text-center table-head-border") ГОРОД
-            th(class="text-center table-head-border") ДАТА
-            th(class="text-center table-head-border") МЕСТО ПРОВЕДЕНИЯ
-            th(class="text-center table-head-border") ЦЕНА
-            th
+            td(class="text-left")
+              ul(class="list-unstyled")
+                li
+                  span Тель-Авив
+                li
+                  span Зал «Ридинг 3»
+                li
+                  span 14.04.2018 Суббота 21:00
+            td(class="text-left")
+              ul(class="list-unstyled")
+                li
+                  span 285 - 355₪
+                li
+                  a(id="" href="#" source="biletru" link="http://weekend-il.biletru.co.il/events/vadim-samoylov-agata-kristi-v-izraile/telaviv/" style="color: black; cursor: pointer;")
+                    img(src="/images/biletru-logo.jpg" alt="biletru" class="partner-logo-biletru")
+        
+        div(id="divMainRecommend" class="panel panel-default" style="margin-top:30px;")
+          div(class="panel-heading")
+            h4(class="panel-title") 
+              a(data-toggle="collapse" data-parent="#divMainRecommend" href="#collapseRecommend") 
+              span РЕКОМЕНДУЕМ
+          div(id="collapseRecommend" class="panel-collapse collapse in")
+            div(class="panel-body" style="text-align:center;")            
+              ul(id="ulRecommendShow" class="row list-unstyled" style="display: inline-block;" )
 
-        div(class="panel panel-default" style="margin-top:20px;")
+        div(class="panel panel-default" style="margin-top:30px;")
           div(class="panel-heading") ФОТО - ВИДЕО
           div(class="panel-body")
-            div(id="divEditGalary" class="row")
-      
+            div(id="divEditGalary" class="row") 
+        
+        div(id="panelComments" class="panel panel-default" style="margin-top:20px; display:block;")
+          div(class="panel-heading")             
+            span(id="spanCommentsCount" count="0")
+          div(class="panel-body")
+            div(id="divEditComments" class="row")
+              ul(id="ulEditComments" class="row list-unstyled" style="width: 500px; margin:auto;")               
+
+            div(id="divEditCommentForm")
+              div(id="divEditCommentFormAlertSuccess" class="alert alert-success" style="display:none;")
+                a(href="#" class="close" data-dismiss="alert" aria-label="close") &times;
+                span(id="spanEditCommentFormAlertSuccess") Комментарий успешно отправлен на проверку администратору проекта.
+              
+              div(id="divEditCommentFormAlertError" class="alert alert-danger" style="display:none;")
+                a(href="#" class="close" data-dismiss="alert" aria-label="close") &times;
+                span(id="spanEditCommentFormAlertError") Произошла ошибка при сохранение комментария.
+              
+              ul(class="row list-unstyled" style="width: 500px; margin:auto;")
+                li(style="margin-bottom:5px;")                  
+                  input(id="txtCommentName" type="text" class="form-control" placeholder="Имя" required="")
+                li(style="margin-bottom:5px;")
+                  input(id="txtCommentEmail" type="email" name="email" class="form-control" placeholder="Email" required="")
+                li(style="margin-bottom:5px;")
+                  textarea(id="txtCommentText" type="text" class="form-control" cols="40" rows="5" placeholder="" required="")
+                li(style="margin-bottom:5px;")
+                  button(id="btnSendComment" type="button" class="btn btn-default" style="text-transform: uppercase; float: left;") отправить
+
+
        div(id="divSeancePayPage" class="modal-body" style="display: none; text-align: justify;")
          iframe(id="iframeSeancePayPage" height="800px;" width="100%" src="" name="iframe_a")       
       div(class="modal-footer")
-        button(id="btnCloseEditShow" type="button" class="btn btn-default" data-dismiss="modal" style="text-transform: uppercase;") закрыть     
+        button(id="btnCloseEditShow" type="button" class="btn btn-default" data-dismiss="modal" style="text-transform: uppercase;" onclick='editClose()') закрыть
+      script.
+        $(function(){});       
 

@@ -730,3 +730,6 @@ li[id^='liMainShowID_']{
   font-weight: bold;
 }
 
+#imgEditMain{
+  display: none;
+}
