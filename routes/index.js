@@ -534,7 +534,7 @@ router.get('/post_edit/:id', function(req, res, next) {
 //general methods+++++++++++++++++++++++++++++++++++++++++++++++++++++
 function getShowByShowIdOrShowCode(req, res, next, resType)
 {
-     var showID = '', showCode = '';
+     var showID = '', showCode = '', resDevice = req.device.type;
 
      if(resType == 'json')
      {
@@ -656,7 +656,8 @@ function getShowByShowIdOrShowCode(req, res, next, resType)
                     showSeances: resShowSeances, 
                     showMedia: resShowMedia, 
                     comments: resComments, 
-                    recommendShows: resRecommendShows });
+                    recommendShows: resRecommendShows,
+                    device: req.device.type });
             }
             else if(resType == 'page'){
                 var link = "http://" + req.headers.host + "/event/" + resShow[0].show_code;                  

@@ -272,7 +272,7 @@ function editShowHandlerCallbackSuccess(data) {
 	if(data.show != undefined) {
 		$("#divShowEdit").show();
 		$("#editShowModal").modal('show');
-		fillEditShowHTML(data.show, data.showSeances, data.showMedia, data.comments, data.recommendShows)
+		fillEditShowHTML(data.show, data.showSeances, data.showMedia, data.comments, data.recommendShows, data.device);
 	}
 }
 
@@ -305,7 +305,7 @@ function showShareLink() {
 	return false
 }
 
-function fillEditShowHTML(show, arrShowsSeances, arrMedia, arrComments, arrRecommendShows) {
+function fillEditShowHTML(show, arrShowsSeances, arrMedia, arrComments, arrRecommendShows, device) {
 	var resource = show[0].resource == "bravo" ? "http://kaccabravo.co.il" : "http://biletru.co.il";
 	$('html head').find('title').text(show[0].name + " - bilety.co.il");
 	$("meta[name='description']").attr("content", show[0].announce);
@@ -335,22 +335,47 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia, arrComments, arrRecom
 		}
 		var date_seance = $.datepicker.formatDate("dd.mm.yy", new Date(value.date));
 		var seance_id = "aSeancePay_" + value.id;
-		var logo_img = "<img src='/images/" + value.resource + "-logo.jpg' alt='" + value.resource + "' class='partner-logo-" + value.resource + "'>";
+		var logo_img = "<img src='/images/" + value.resource + "-logo.jpg' alt='" + value.resource + "' class='partner-logo-" + value.resource + "'/>";
 		var targetOpen = "", hrefLink = "#", seancePayOnClick = "onclick='javascript:showSeancePayPage(this.id)'" ; 
 		//viagogo open pay in target blank
         if(value.resource == "viagogo"){
             targetOpen = "target='_blank'";
             hrefLink = value.link;
 			seancePayOnClick = "";
-        }       
-		seanceTableHTML += "<tr>" + "<td>" + value.city + "</td>" + "<td>" + date_seance + "&nbsp;" + value.seance_time + "</td>" + "<td>" + value.hall + "</td>" + showPrice + "<td><a id='" + seance_id + "' href='"+ hrefLink +"' "+ targetOpen +" "+ seancePayOnClick +"  link='" + value.link + "' style='color: black; cursor: pointer;' > " + logo_img + " </a></td>" + "</tr>"
+        }		
+
+		if(device == "phone"){
+			seanceTableHTML += "<tr style='background-color: #f5f5f5; border-bottom: solid 10px #fff;'>" + 
+			"<td class='text-left table-head-border' style='width:600px;'>" + 
+			"<ul class='list-unstyled'>" + 
+			"<li><span>" + value.city + "</span></li>" +
+      		"<li><span>" + value.hall + "</span></li>" +
+      		"<li><span>" + date_seance + "&nbsp;" + value.seance_time + "</span></li>" +
+			"</ul>" +
+  			"</td>" +
+			"<td class='text-left'>" +
+    		"<ul class='list-unstyled'>" +
+      		"<li class='text-center'><span>" + showPrice + "</span></li>"
+            "<li class='text-center'>" + 
+			"<a id='" + seance_id + "' href='"+ hrefLink +"' "+ targetOpen +" "+ seancePayOnClick +" link='" + value.link + "' style='color: black; cursor: pointer;'>" +
+			"<img(src='/images/biletru-logo.jpg' alt='biletru' class='partner-logo-biletru'/>" +
+			"</a></li>" +
+			"</ul>"+
+  			"</td>"+
+			"</tr>";
+		}
+		else{
+			seanceTableHTML += "<tr>" + "<td>" + value.city + "</td>" + "<td>" + date_seance + "&nbsp;" + value.seance_time + "</td>" + "<td>" + value.hall + "</td>" + showPrice + "<td><a id='" + seance_id + "' href='"+ hrefLink +"' "+ targetOpen +" "+ seancePayOnClick +"  link='" + value.link + "' style='color: black; cursor: pointer;' > " + logo_img + " </a></td></tr>";
+		}		
 	});
+	
 	var arrTrs = $("#tableEditSeances tr");
 	$.each(arrTrs, function(index, value) {
 		if(index > 0) {
 			$(this).remove()
 		}
 	});
+
 	$("#tableEditSeances").append(seanceTableHTML);
 	var mediaDivHTML = '';
 	$.each(arrMedia, function(index, value) {

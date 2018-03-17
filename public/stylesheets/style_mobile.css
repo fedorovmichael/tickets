@@ -428,8 +428,9 @@ code {
 }
 
 .partner-logo-biletru {
-  width: 55px;
-  height: 15px
+  width: 215px;
+  height: 60px;
+  margin-top: 10px; 
 }
 
 .partner-logo-restinter {
