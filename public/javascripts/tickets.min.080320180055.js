@@ -326,9 +326,9 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia, arrComments, arrRecom
 			priceMax = '',
 			showPrice = '';
 		if(value.price_min == value.price_max || value.price_max == "") {
-			showPrice = "<td>" + value.price_min + "&#8362;</td>"
+			showPrice = value.price_min + "&#8362;"
 		} else {
-			showPrice = "<td>" + value.price_min + " - " + value.price_max + "&#8362;</td>"
+			showPrice = value.price_min + " - " + value.price_max + "&#8362;"
 		}
 		if(value.price_max == "" && value.price_min == "") {
 			return
@@ -338,7 +338,7 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia, arrComments, arrRecom
 		var logo_img = "<img src='/images/" + value.resource + "-logo.jpg' alt='" + value.resource + "' class='partner-logo-" + value.resource + "'/>";
 		var targetOpen = "", hrefLink = "#", seancePayOnClick = "onclick='javascript:showSeancePayPage(this.id)'" ; 
 		//viagogo open pay in target blank
-        if(value.resource == "viagogo"){
+        if(value.resource == "viagogo" || device == "phone"){
             targetOpen = "target='_blank'";
             hrefLink = value.link;
 			seancePayOnClick = "";
@@ -346,7 +346,7 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia, arrComments, arrRecom
 
 		if(device == "phone"){
 			seanceTableHTML += "<tr style='background-color: #f5f5f5; border-bottom: solid 10px #fff;'>" + 
-			"<td class='text-left table-head-border' style='width:600px;'>" + 
+			"<td class='text-left table-head-border' style='width:400px;'>" + 
 			"<ul class='list-unstyled'>" + 
 			"<li><span>" + value.city + "</span></li>" +
       		"<li><span>" + value.hall + "</span></li>" +
@@ -355,17 +355,18 @@ function fillEditShowHTML(show, arrShowsSeances, arrMedia, arrComments, arrRecom
   			"</td>" +
 			"<td class='text-left'>" +
     		"<ul class='list-unstyled'>" +
-      		"<li class='text-center'><span>" + showPrice + "</span></li>"
-            "<li class='text-center'>" + 
-			"<a id='" + seance_id + "' href='"+ hrefLink +"' "+ targetOpen +" "+ seancePayOnClick +" link='" + value.link + "' style='color: black; cursor: pointer;'>" +
-			"<img(src='/images/biletru-logo.jpg' alt='biletru' class='partner-logo-biletru'/>" +
-			"</a></li>" +
+      		"<li class='text-center'><span>"+ showPrice +"</span></li>" +
+			"<li class='text-center'>" +
+			"<a id='" + seance_id + "' href='"+ hrefLink +"' "+ targetOpen +" "+ seancePayOnClick +" link='" + value.link + "' style='color: black; cursor: pointer;'>" + 
+			logo_img +
+			"</a>" +
+			"</li>" +			
 			"</ul>"+
   			"</td>"+
 			"</tr>";
 		}
 		else{
-			seanceTableHTML += "<tr>" + "<td>" + value.city + "</td>" + "<td>" + date_seance + "&nbsp;" + value.seance_time + "</td>" + "<td>" + value.hall + "</td>" + showPrice + "<td><a id='" + seance_id + "' href='"+ hrefLink +"' "+ targetOpen +" "+ seancePayOnClick +"  link='" + value.link + "' style='color: black; cursor: pointer;' > " + logo_img + " </a></td></tr>";
+			seanceTableHTML += "<tr>" + "<td>" + value.city + "</td>" + "<td>" + date_seance + "&nbsp;" + value.seance_time + "</td>" + "<td>" + value.hall + "</td><td>" + showPrice + "</td><td><a id='" + seance_id + "' href='"+ hrefLink +"' "+ targetOpen +" "+ seancePayOnClick +"  link='" + value.link + "' style='color: black; cursor: pointer;' > " + logo_img + " </a></td></tr>";
 		}		
 	});
 	
