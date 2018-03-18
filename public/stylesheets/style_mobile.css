@@ -734,3 +734,23 @@ li[id^='liMainShowID_']{
 #imgEditMain{
   display: none;
 }
+
+.panel-title span, #spanPicturesVideo, #spanCommentsCount{
+  font-size: 40px !important;
+  text-transform: uppercase;
+}
+
+#txtCommentName, #txtCommentEmail, #txtCommentText{
+  font-size: 40px;
+}
+
+#btnSendComment, #btnCloseEditShow{
+  font-size: 30px;
+}
+
+.ya-share2__container_size_m .ya-share2__icon {
+    height: 96px !important; /* 24px */
+    width:  96px !important; /* 24px */
+    background-size: 96px 96px !important; /* Увеличиваем кнопки, по-умолчанию: 24px 24px */
+}
+
