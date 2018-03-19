@@ -18,32 +18,37 @@ div(class="modal fade" id="editShowModal" role="dialog")
           div(class="col-md-8")
             p(id="pEditShowAnnounce" style='text-align: justify;')
         
-        div(class="row")
-          div(class="col-md-2")
-          div(class="col-md-8")
-            hr
-          div(class="col-md-2")
+        div(style="width:100%;margin-top:20px;margin-bottom:40px;")
+          hr(noshade size="20" style="margin-right:auto; margin-left:auto; width:80%; height:2px;")
 
         div(class="row" style="height: 40px;")
-          div(class="col-md-12")            
-            a(id="aShowShareLink" class="pull-left a-link-general" title="поделиться событием" style="margin-right: 2px;" onclick="javascript:showShareLink()")
-              span(class="glyphicon glyphicon-share" style='text-transform: uppercase; font-size:96px; margin-top: -2px;')
-            div(id="divSocialShare" class="ya-share2" data-services="lj,vkontakte,facebook,odnoklassniki,moimir,gplus,twitter" style="float:left;")
+          div(class="col-md-12")
+            div(style="margin-left:30px; margin-right:auto;")            
+              a(id="aShowShareLink" class="pull-left a-link-general" title="поделиться событием" style="margin-right: 2px;" onclick="javascript:showShareLink()")
+                span(class="glyphicon glyphicon-share" style='text-transform: uppercase; font-size:96px; margin-top: -2px;')
+              div(id="divSocialShare" class="ya-share2" data-services="lj,vkontakte,facebook,odnoklassniki,moimir,gplus,twitter" style="float:left;")
         
-        div(class="row" style="height: 40px;")
+        div(class="row" style="height: 40px;") 
           div(class="col-md-12" style="height: 20px;")          
             a(id="lblShowShareLink" class="pull-left a-link-general" style="display:none;" target="_blank")
+        
+        div(style="width:100%;margin-top:60px;")
+          hr(noshade size="20" style="margin-right:auto; margin-left:auto; width:80%; height:2px;")       
+        
         div(class="row" style="height: 40px; margin-top:40px; margin-bottom:40px;")
           div(class="col-md-12")
-            a(id="aFocusCommentLink" href="" class="a-link-general" style="text-transform: uppercase; font-weight: bold;" onclick="javascript:focusComments(event)") Оставить комментарий                 
+            a(id="aFocusCommentLink" href="" class="a-link-general" style="text-transform: uppercase; font-weight: bold; text-decoration:underline;" onclick="javascript:focusComments(event)") Оставить комментарий                 
         
+        div(style="width:100%;")
+          hr(noshade size="20" style="margin-right:auto; margin-left:auto; width:80%; height:2px;")       
+
         div(id="divMainRecommend" class="panel panel-default" style="margin-top:30px;")
           div(class="panel-heading")             
             a(data-toggle="collapse" data-parent="#divMainRecommend" href="#collapseRecommend") 
             span РЕКОМЕНДУЕМ
           div(id="collapseRecommend" class="panel-collapse collapse in")
-            div(class="panel-body" style="text-align:center;")            
-              ul(id="ulRecommendShow" class="row list-unstyled" style="display: inline-block;" )
+            div(class="panel-body" style="text-align:center; width:100%;")            
+              ul(id="ulRecommendShow" class="row list-unstyled" style="display: inline-block; margin-left:50px;" )
 
         div(class="panel panel-default" style="margin-top:30px;")
           div(class="panel-heading")
