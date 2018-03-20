@@ -183,11 +183,12 @@ html
               a(href="/exibitions") ВЫСТАВКИ
         
           ul(class="list-inline list-unstyled footer-social-menu")
-            li
-              span Мы в социальных сетях
+            -if(is_desktop)
+              li
+                span Мы в социальных сетях
             li(id="btnFooterFacebook")
-              a(class="btn btn-social-icon btn-facebook" href="https://www.facebook.com/groups/weekend.il/?fref=nf" target="_blank")
-                span(class="fa fa-facebook")
+              a(class="btn btn-social-icon btn-facebook" style="width:68px; height:68px;" href="https://www.facebook.com/groups/weekend.il/?fref=nf" target="_blank")
+                span(class="fa fa-facebook" style="line-height: 64px;")
             li(id="btnFooterOdnoklassniki")
               a(class="btn btn-social-icon btn-facebook" href="//m.ok.ru/group/54950264045571" target="_blank")
                 span(class="fa fa-odnoklassniki")

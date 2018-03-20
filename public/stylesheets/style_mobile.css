@@ -504,15 +504,15 @@ code {
 
 .footer-social-menu {
   margin-top: 10px;
-  margin-left: 10px;
+  margin-left: 40px;
   margin-bottom: 30px;
   text-align: left;
-  float: left;
-  width: 500px;
+  float: right;
+  width: 400px;
 }
 
 .footer-social-menu li {
-  height: 24px
+  height: 60px
 }
 
 .footer-social-menu li span,
@@ -765,5 +765,5 @@ li[id^='liMainShowID_']{
 }
 
 #ulFooterBlock3{
-  float:left;clear:both;margin-left:10px;
+  float:left;clear:both;margin-left:0px;
 }
