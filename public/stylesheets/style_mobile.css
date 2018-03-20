@@ -398,9 +398,9 @@ body {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 500px;
-  max-height: 500px;
-  min-height: 500px;
+  height: 550px;
+  max-height: 550px;
+  min-height: 550px;
   background-color: #555;
   min-width: 720px
 }
@@ -469,7 +469,7 @@ code {
 
 .footer-main-menu {
   margin-top: 30px;
-  margin-left: 0;
+  margin-left: 0px;
   margin-bottom: 30px;
   text-align: left;
   float: left;
@@ -503,7 +503,7 @@ code {
 }
 
 .footer-social-menu {
-  margin-top: 10px;
+  margin-top: 35px;
   margin-left: 40px;
   margin-bottom: 30px;
   text-align: left;
@@ -767,3 +767,19 @@ li[id^='liMainShowID_']{
 #ulFooterBlock3{
   float:left;clear:both;margin-left:0px;
 }
+
+.footer-social-icon-a{
+  width:68px !important; height:68px !important; border:solid 1px #fff !important;
+}
+
+.footer-social-icon-span{
+  line-height: 64px !important; font-size:48px !important;
+}
+
+#btnFooterOdnoklassniki:first-child{background-color:#FF7A05 !important;}
+#btnFooterOdnoklassniki a:hover{background-color:#e66b00 !important;}
+
+#divMainContent{margin-bottom: 250px; margin-top: 40px;}
+#tblPosts{margin-bottom: 550px; margin-top: 50px;}
+#btnFooterFacebook, #btnFooterOdnoklassniki, #btnFooterContakt{margin-right: 10px;}
+.posts-name{text-decoration:underline; margin-bottom:10px;font-size: 40px;}

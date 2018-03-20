@@ -9,7 +9,7 @@ block content
               img(src="//scontent-lht6-1.xx.fbcdn.net/v/t1.0-9/20479551_10209871743658108_4660498651511165999_n.jpg?oh=31beedf14b71b9581cf71ce7b9f91695&oe=5AC81D37", alt="Зачем и для кого мы начинаем наш блог?" class="posts-main-image")
           td            
             h4(style="margin-bottom:10px;")
-              a(href="/post_edit/f39b44d0-d7ae-11e7-8647-89a6029e951f" class="a-link-general" style="text-decoration:underline; margin-bottom:10px;") Зачем и для кого мы начинаем наш блог?
+              a(href="/post_edit/f39b44d0-d7ae-11e7-8647-89a6029e951f" class="a-link-general posts-name") Зачем и для кого мы начинаем наш блог?
             p Стоя у афишного столба, как на перепутье, сожалеем, что старые афиши заклеены новыми. Опоздали. Приезд новых артистов мог бы изменить музыкальные предпочтения, даже перевернуть весь внутренний мир.
         each post in posts          
           -var post_date = dateFormat(new Date(post.pub_date), "dd.mm.yyyy");
@@ -26,7 +26,7 @@ block content
                 span(class="glyphicon glyphicon-user")
                 span(style="margin-left:3px;") #{post.author}
               h4(style="margin-bottom:10px;")
-                a(href="/post_edit/#{post.id}" class="a-link-general" style="text-decoration:underline; margin-bottom:10px;") #{post.name}
+                a(href="/post_edit/#{post.id}" class="a-link-general posts-name") #{post.name}
               p !{body}
                             
             
