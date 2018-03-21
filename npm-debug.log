@@ -1,13 +1,13 @@
 0 info it worked if it ends with ok
 1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'start' ]
 2 info using npm@3.10.10
-3 info using node@v6.11.5
+3 info using node@v6.13.1
 4 verbose run-script [ 'prestart', 'start', 'poststart' ]
 5 info lifecycle tickets@0.0.0~prestart: tickets@0.0.0
 6 silly lifecycle tickets@0.0.0~prestart: no script for prestart, continuing
 7 info lifecycle tickets@0.0.0~start: tickets@0.0.0
 8 verbose lifecycle tickets@0.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle tickets@0.0.0~start: PATH: /usr/lib/node_modules/npm/bin/node-gyp-bin:/media/michael/Data/Development/nodejs/tickets/tickets_web/node_modules/.bin:/home/michael/bin:/home/michael/.local/bin:/home/michael/bin:/home/michael/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin
+9 verbose lifecycle tickets@0.0.0~start: PATH: /usr/lib/node_modules/npm/bin/node-gyp-bin:/media/michael/Data/Development/nodejs/tickets/tickets_web/node_modules/.bin:/home/michael/bin:/home/michael/.local/bin:/home/michael/bin:/home/michael/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 10 verbose lifecycle tickets@0.0.0~start: CWD: /media/michael/Data/Development/nodejs/tickets/tickets_web
 11 silly lifecycle tickets@0.0.0~start: Args: [ '-c', 'node ./bin/www' ]
 12 silly lifecycle tickets@0.0.0~start: Returned: code: 1  signal: null
@@ -24,9 +24,9 @@
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:230:5)
 15 verbose pkgid tickets@0.0.0
 16 verbose cwd /media/michael/Data/Development/nodejs/tickets/tickets_web
-17 error Linux 4.10.0-42-generic
+17 error Linux 4.13.0-37-generic
 18 error argv "/usr/bin/node" "/usr/bin/npm" "start"
-19 error node v6.11.5
+19 error node v6.13.1
 20 error npm  v3.10.10
 21 error code ELIFECYCLE
 22 error tickets@0.0.0 start: `node ./bin/www`

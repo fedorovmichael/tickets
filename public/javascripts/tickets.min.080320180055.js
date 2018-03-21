@@ -139,7 +139,9 @@ $(document).ready(function() {
 	directLink();
 	$("#btnSendComment").on("click", function(event) {
 		sendComment('creator', null)
-	})
+	});
+
+	mobileHideFilterButtons();
 });
 
 function sortByHandler(parentID, param1ID, param2ID) {
@@ -1030,6 +1032,17 @@ function displayMobileLeftFilter(){
 	return false;
 }
 
+function mobileHideFilterButtons(){
+	var params = decodeURIComponent(window.location.search.substring(1));	
+	var arrURL = window.location.href.split("/");
+	console.log("params: ", params);
+	console.log("split url: ", arrURL);
+
+	if(arrURL[3] === "posts" || arrURL[3] === "post_edit" || arrURL[3] === "about"){
+		$("#menuTopFilter").css("display", "none");
+		$(".div-left-filter-contaner").css("display", "none");		
+	}
+}
 
 function sendDataToServer(path, data, callbackSuccess, callbackError) {
 	try {
