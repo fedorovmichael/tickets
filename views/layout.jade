@@ -29,7 +29,7 @@ html
       //-link(rel='stylesheet', href='/stylesheets/style.css')
     -if(is_phone)
       //-link(rel='stylesheet', href='/stylesheets/style.min.251220172251.css')
-      link(rel='stylesheet', href='/stylesheets/style_mobile.css')
+      link(rel='stylesheet', href='/stylesheets/style_mobile_220320182136.css')
 
     <!-- bootstrap social icons style-->
     link(rel='stylesheet', href='/stylesheets/bootstrap-social.min.css')
@@ -46,7 +46,7 @@ html
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin="anonymous")
     
     //-script(src="/javascripts/tickets.js")
-    script(src="/javascripts/tickets.min.080320180055.js")
+    script(src="/javascripts/tickets.min.220320182132.js")
     <!-- styling checkbox -->
     script(src="/javascripts/customInput.jquery.min.js")  
 
@@ -134,12 +134,13 @@ html
       div(class="div-left-filter")
         a(href="#" onclick="JavaScript:displayMobileLeftFilter();")
           span(class="glyphicon glyphicon-filter")
-    div(class="div-adsense-contaner affix-top" style="border:solid 0px red; display:none;")       
-      script(async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
-      <!-- вертикаль --> 
-      ins(class="adsbygoogle" style="display:inline-block;width:300px;height:600px" data-ad-client="ca-pub-8718847214885970" data-ad-slot="1734444573")
-      script.
-        (adsbygoogle = window.adsbygoogle || []).push({});
+    -if(is_desktop)
+      div(class="div-adsense-contaner affix-top" style="border:solid 0px red; display:block;")       
+        script(async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
+        <!-- вертикаль --> 
+        ins(class="adsbygoogle" style="display:inline-block;width:300px;height:600px" data-ad-client="ca-pub-8718847214885970" data-ad-slot="1734444573")
+        script.
+          (adsbygoogle = window.adsbygoogle || []).push({});
 
     block content
       div(class="container text-center")
