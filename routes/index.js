@@ -591,7 +591,7 @@ function getShowByShowIdOrShowCode(req, res, next, resType)
 
             function getMediaByShowIDFromDB(callback)
             {
-                db.getMediaByShowID(showID, function(err, mediaByShowIDResult){
+                db.getMediaByShowID(showCode, function(err, mediaByShowIDResult){
                     if(err){
                         console.log("get media by show id from db error: ", err);
                         callback(err, null); 

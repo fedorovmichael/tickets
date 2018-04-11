@@ -195,7 +195,7 @@ db.getMediaByShowID = function(showID, cb)
     {
         console.log("db.getMediaByShowID show id: ", showID)
 
-        var queryDB = "select id, link, type from media where show_id = '"+ showID +"';"
+        var queryDB = "select id, link, type from media where show_code = '"+ showID +"';"
         getMultipleResponse(cb, queryDB);
     } 
     catch (error) 
@@ -495,7 +495,7 @@ db.getShowsByFilters = function(filters, cb)
         " select distinct sh.id as show_id, sh.name as name, sh.announce as announce, sh.price_min, sh.price_max, sh.date_from, sh.date_to, sh.resource, sh.main_image, sh.top, sh.show_code, " +
         " t.id as type_id, t.name as type_name, t.color as type_color, st.id as subtype_id, st.name as subtype_name, ss.subcategory_name " +
         "from shows as sh " +
-        "join seances as s on  sh.id = s.show_id " +
+        "join seances as s on  sh.show_code = s.show_code " +
         "join cities as c on s.city = c.name " +
         "join show_section as ss on ss.show_id = sh.id " +
         "join type as t on t.id = ss.type_id " +
