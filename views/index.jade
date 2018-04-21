@@ -118,17 +118,20 @@ block content
 
             li(id="liTour" class="text-left left-ul-filter border-bottom-grey")
               input(id="inputTour" type="checkbox" name="genre" value="action")
-              label(for="inputTour" class="label-left-filter-font") Гастроли           
-            
-            li(id="liMinMaxPrice" class="text-left left-ul-filter border-bottom-grey")
-              label(class="label-left-filter-font" style="margin-right:10px;") Цена
-              input(id="inputPriceMin" type="text" style="margin-right:5px; width:60px;" placeholder="от" maxlength="5")
-              input(id="inputPriceMax" type="text" style="width:60px;" placeholder="до" maxlength="5")
+              label(for="inputTour" class="label-left-filter-font") Гастроли          
 
-          div(id="divClearLeftFilter" class="text-left")  
+            li(id="liMinMaxPrice" class="text-left left-ul-filter border-bottom-grey")
+              p
+                label(for="amount") ЦЕНА:
+                input(type="text" id="amount" readonly)
+              div(id="slider-range")           
+
+          div(id="divClearLeftFilter" class="text-left")
             a(id="aClearLeftFilter" href="#" style="margin-left: -10px; text-decoration-color: red;" )
               span(class="glyphicon glyphicon-remove-circle" style="margin-right:3px; color:red;") 
-              span(style="color:red;") ОЧИСТИТЬ 
+              span(style="color:red;") ОЧИСТИТЬ
+
+           
 
         div(id="divModal" class="wait-modal-none")
         div(class="col-sm-10 text-center")   

@@ -36,9 +36,9 @@ ul(id="ulShows" class="row list-unstyled")
                 p #{date_f}
 
               -if(shows[i].price_min != shows[i].price_max)
-                P Цена #{shows[i].price_min}&#8362; - #{shows[i].price_max}&#8362;
+                P(id="pPrice_#{shows[i].show_id}") Цена #{shows[i].price_min}&#8362; - #{shows[i].price_max}&#8362;
               -else
-                P Цена #{shows[i].price_min}&#8362;
+                P(id="pPrice_#{shows[i].show_id}") Цена #{shows[i].price_min}&#8362;
               div(style="background: #{shows[i].type_color};")
                 span(style="color:#fff;") Комментарии(#{shows[i].comments_count == null ? 0 : shows[i].comments_count})
             

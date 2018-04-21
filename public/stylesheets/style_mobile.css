@@ -797,3 +797,8 @@ li[id^='liMainShowID_']{
 #divPostEditPanelMedia{margin-top:-5px; margin-bottom: 550px;}
 #btnFooterLivejournal > a > img{width:72px; height:72px; border: solid 1px #fff;}
 #liSendEmail{margin-top: 45px;}
+#liMinMaxPrice{height:60px;}
+#liMinMaxPrice p {margin-top: 10px;}
+#liMinMaxPrice p label{margin-left: 5px;}
+#liMinMaxPrice p input{border:0; color:#f6931f; width:250px; margin-left: 10px;}
+#liMinMaxPrice div{width: 95%; margin-left: 5%;}
