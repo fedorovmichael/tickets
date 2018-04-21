@@ -65,7 +65,7 @@ db.getShows = function(cb)
         " join show_section as ss on sh.id = ss.show_id " +
         " join type as t on t.id = ss.type_id " +
         " join subtype as st on st.id = ss.subtype_id " +
-        " where top = '1' and enabled = true " +
+        " where top = '1' and enabled = true  and date_to > now() - interval '1 DAY' " +
         " order by price_min desc "
         
         
@@ -123,7 +123,7 @@ db.getShowsByType = function(stringIDs, cb)
     {
         console.log("db.getShowsByType ids: ", stringIDs)
 
-        var where = " where s.enabled = true ";
+        var where = " where s.enabled = true and date_to > now() - interval '1 DAY' ";
 
         if(stringIDs.length > 2)
         {
@@ -157,11 +157,11 @@ db.getShowByShowID = function(showID, showCode, cb)
 
         if(showID != null && showID != '')
         {
-            queryWhere = "where enabled = true and id = '"+ showID +"'";
+            queryWhere = "where enabled = true and date_to > now() - interval '1 DAY' and id = '"+ showID +"'";
         }        
         else if(showCode != null && showCode != '')
         {
-            queryWhere = "where enabled = true and show_code = '"+ showCode +"'";
+            queryWhere = "where enabled = true and date_to > now() - interval '1 DAY' and show_code = '"+ showCode +"'";
         }
 
         var queryDB = "select id, name, announce, main_image, second_image, resource, show_code from shows " + queryWhere;
@@ -215,7 +215,7 @@ db.searchShowByText = function(searchText, cb)
                       "join show_section as ss on s.id = ss.show_id "+
                       "join type as t on ss.type_id = t.id " +
                       "join seances as se on s.id = se.show_id " + 
-                      "where s.enabled = true and s.name like '%"+ searchText +"%' or s.announce like '%"+ searchText +"%' or se.hall like '%" + searchText + "%';";
+                      "where s.enabled = true and date_to > now() - interval '1 DAY' and s.name like '%"+ searchText +"%' or s.announce like '%"+ searchText +"%' or se.hall like '%" + searchText + "%';";
 
         console.log("searchShowByText query: ", queryDB)
 
@@ -500,7 +500,7 @@ db.getShowsByFilters = function(filters, cb)
         "join show_section as ss on ss.show_id = sh.id " +
         "join type as t on t.id = ss.type_id " +
         "join subtype as st on st.id = ss.subtype_id " +
-        " where sh.id != '0' and sh.enabled = true " +
+        " where sh.enabled = true and date_to > now() - interval '1 DAY' " +
         queryFiters +" "+ querySort +"; "+ queryDropTempTable;
 
         console.log("db.getShowsByFilters", queryDB);
@@ -524,7 +524,7 @@ db.getAgencesShows = function(cb)
        "join show_section as ss on ss.show_id = sh.id " +
        "join type as t on t.id = ss.type_id " +
        "join subtype as st on st.id = ss.subtype_id " +
-       "where ash.enabled = true and sh.enabled = true";
+       "where ash.enabled = true and sh.enabled = true and date_to > now() - interval '1 DAY'";
 
        getMultipleResponse(cb, queryDB);
     } 
@@ -542,7 +542,7 @@ db.getRecommendShowByShowID = function(showID, cb)
         var queryDB = "select s.name, s.show_code, s.main_image from shows as s " + 
         "join show_section as ss on s.id = ss.show_id " +
         "where ss.type_id in (select type_id from show_section where show_id = '" + showID + "') " +
-        "and show_id != '" + showID + "' and s.enabled = true " +
+        "and show_id != '" + showID + "' and s.enabled = true and date_to > now() - interval '1 DAY' " +
         "order by price_max desc " +
         "limit 5 "
         getMultipleResponse(cb, queryDB);
