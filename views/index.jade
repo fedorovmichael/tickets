@@ -131,7 +131,13 @@ block content
               span(class="glyphicon glyphicon-remove-circle" style="margin-right:3px; color:red;") 
               span(style="color:red;") ОЧИСТИТЬ
 
-           
+          div(class="panel panel-default row" style="margin-top:30px;")
+            div(class="panel-heading" style="font-weight: bold; text-transform: uppercase;") РАССЫЛКА
+            div(class="panel-body")              
+              div(class="col-lg-12")
+                p(style="margin-left:-20px; min-width: 170px;") Каждую неделю мы рассказываем о лучших спектаклях и концертах. Коротко и ясно.
+                input.form-control(id="inpSubscriptionEmail" type='email' style="margin-left:-20px; min-width: 170px;" name="email" required="")                 
+                button.btn.btn-default(type='button' style="margin-top:10px;" onclick="newsletterSubscription();") Подписаться 
 
         div(id="divModal" class="wait-modal-none")
         div(class="col-sm-10 text-center")   
