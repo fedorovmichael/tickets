@@ -53,7 +53,10 @@ app.use('/tour', index);
 app.use('/about', index);
 app.use('/posts', index);
 app.use('/post_edit/:id', index);
+app.use('/addSubscription', index);
+app.use('/removeSubscription', index);
 app.use('/users', users);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

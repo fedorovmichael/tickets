@@ -594,6 +594,23 @@ db.getPostImagesByPostID = function(postID, cb){
     }
 }
 
+db.addSubscription = async (subscriber) => {
+    console.log("addSubscription connect to db");    
+    let queryDB = "INSERT INTO subscribers(id, email, active) VALUES($1, $2, $3)";    
+    let queryDBParams = [subscriber.id, subscriber.email, subscriber.active];
+    let result = getAsyncResponse(queryDB, queryDBParams);
+    console.log("db.addSubscription", result);
+    return result;    
+} 
+
+db.removeSubscription = async (email) => {
+    console.log("removeSubscription email: ", email);
+    console.log("removeSubscription connect to db");       
+    let queryDB ="update subscribers set active = false where email = '"+ email +"'";    
+    let result = getAsyncResponse(queryDB, null);
+    return result; 
+}
+
 function getSingleResponse(res, queryDB)
 {
    pool.connect(function(err, client, done){
@@ -643,5 +660,23 @@ function getMultipleResponse(cb, queryDB)
         });
     });   
 }
+
+async function getAsyncResponse(queryDB, queryParams)
+{
+    const client = await pool.connect();
+    let res;
+    try {
+        res = await client.query(queryDB, queryParams);
+    } 
+    catch (error) {
+        //console.error("send query, params ->  ", queryDB, queryParams);
+        console.error("send query error -> ", error);
+    } 
+    finally{
+        client.release();
+    }
+    return res; 
+}
+
 
 module.exports = db;
