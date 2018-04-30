@@ -533,14 +533,21 @@ router.get('/post_edit/:id', function(req, res, next) {
 
 router.post('/addSubscription', async function(req, res, next){
     var subscriber = {id: uuid.v1(), email:req.body.email, active: true };
-    let result = await db.addSubscription(subscriber);
-    console.log("index.addSubscription", result);
+    let searchResult = await db.searchSubscription(req.body.email);
+    let result;
+    if(searchResult != null && searchResult != undefined 
+        && searchResult[0] != null && searchResult[0].active == false){
+        result = await db.removeSubscription(req.body.email, true);
+    }else{
+        result = await db.addSubscription(subscriber);
+        console.log("index.addSubscription", result);
+    }
     res.json({result: result});
 });
 
-router.post('/removeSubscription', async function(req, res, next){    
+router.post('/removeSubscription', async function(req, res, next){
     console.log("index.removeSubscription", req.body.email);
-    let result = await db.removeSubscription(req.body.email);
+    let result = await db.removeSubscription(req.body.email, false);
     console.log("index.removeSubscription", result);
     res.json({result: result});
 });

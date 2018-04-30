@@ -598,17 +598,25 @@ db.addSubscription = async (subscriber) => {
     console.log("addSubscription connect to db");    
     let queryDB = "INSERT INTO subscribers(id, email, active) VALUES($1, $2, $3)";    
     let queryDBParams = [subscriber.id, subscriber.email, subscriber.active];
-    let result = getAsyncResponse(queryDB, queryDBParams);
+    let result = await getAsyncResponse(queryDB, queryDBParams);
     console.log("db.addSubscription", result);
     return result;    
 } 
 
-db.removeSubscription = async (email) => {
+db.removeSubscription = async (email, active) => {
     console.log("removeSubscription email: ", email);
     console.log("removeSubscription connect to db");       
-    let queryDB ="update subscribers set active = false where email = '"+ email +"'";    
-    let result = getAsyncResponse(queryDB, null);
+    let queryDB ="update subscribers set active = "+ active +" where email = '"+ email +"'";    
+    let result = await getAsyncResponse(queryDB, null);
     return result; 
+}
+
+db.searchSubscription = async (email) => {
+    console.log("db.searchSubscription email: ", email);
+    console.log("db.searchSubscription connect to db");       
+    let queryDB =" select * from subscribers where email = '"+ email +"'";    
+    let result = await getAsyncResponse(queryDB, null);
+    return result.rows;
 }
 
 function getSingleResponse(res, queryDB)
