@@ -532,17 +532,11 @@ router.get('/post_edit/:id', function(req, res, next) {
 });
 
 router.post('/addSubscription', async function(req, res, next){
-    var subscriber = {id: uuid.v1(), email:req.body.email, active: true };
-    let searchResult = await db.searchSubscription(req.body.email);
-    let result;
-    if(searchResult != null && searchResult != undefined 
-        && searchResult[0] != null && searchResult[0].active == false){
-        result = await db.removeSubscription(req.body.email, true);
-    }else{
-        result = await db.addSubscription(subscriber);
-        console.log("index.addSubscription", result);
-    }
-    res.json({result: result});
+    subscribeToNewsletter(req, res, next);
+});
+
+router.get('/addSubscription', async function(req, res, next){
+    subscribeToNewsletter(req, res, next);
 });
 
 router.post('/removeSubscription', async function(req, res, next){
@@ -1151,6 +1145,40 @@ function loadShowsByTypeName(req, res, next, typeName)
 
     } catch (error) {
         console.log("rout to path /"+ typeName +" error: ", error);
+    }
+}
+
+async function subscribeToNewsletter(req, res, next){
+    var subscriber, email, active;
+
+    if (req.method == "POST"){
+        email = req.body.email;
+        active = true;
+    }
+    if(req.method == "GET"){
+        email = req.query.email;
+        active = req.query.active;
+    }
+
+    subscriber = {id: uuid.v1(), email: email, active: active };
+
+    let searchResult = await db.searchSubscription(email);
+    let result;
+    if(searchResult != null && searchResult != undefined 
+        && searchResult[0] != null && searchResult[0].active == false){
+        //update subscribe status 
+        result = await db.removeSubscription(email, true);
+    }else{
+        result = await db.addSubscription(subscriber);
+        console.log("index.addSubscription", result);
+    }
+
+    if (req.method == "POST"){
+        res.json({result: result});
+    }
+
+    if(req.method == "GET"){
+        res.render('subscribe', {email: email});
     }
 }
 
