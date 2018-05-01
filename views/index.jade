@@ -133,9 +133,15 @@ block content
 
           div(id="divPanelSubscriber" class="panel panel-default row")
             div(class="panel-heading") РАССЫЛКА
-            div(class="panel-body")
+            div(class="panel-body")              
+              div(id="divAlertSubscriberSuccess" class="alert alert-success" style="display:none;")
+                span(id="spanSubscriberAlertSuccess") 
+              
+              div(id="divAlertSubscriberError" class="alert alert-danger" style="display:none;")
+                span(id="spanSubscriberAlertError") 
+              
               div(class="col-lg-12")
-                p Каждую неделю мы рассказываем о лучших спектаклях и концертах. Коротко и ясно.
+                p(id="pPanelSubscriberText") Каждую неделю мы рассказываем о лучших спектаклях и концертах. Коротко и ясно.
                 input.form-control(id="inpSubscriptionEmail" type='email' name="email" required="" placeholder="email")                 
                 button.btn.btn-default(type='button' onclick="addNewsletterSubscription();") Подписаться
                 div

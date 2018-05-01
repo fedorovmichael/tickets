@@ -543,7 +543,7 @@ router.post('/removeSubscription', async function(req, res, next){
     console.log("index.removeSubscription", req.body.email);
     let result = await db.removeSubscription(req.body.email, false);
     console.log("index.removeSubscription", result);
-    res.json({result: result});
+    res.json({result: result, message: "Email "+ req.body.email +" удалён из списка рассылки"});
 });
 
 //general methods+++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -1149,7 +1149,7 @@ function loadShowsByTypeName(req, res, next, typeName)
 }
 
 async function subscribeToNewsletter(req, res, next){
-    var subscriber, email, active;
+    var subscriber, email, active, message;
 
     if (req.method == "POST"){
         email = req.body.email;
@@ -1161,7 +1161,7 @@ async function subscribeToNewsletter(req, res, next){
     }
 
     subscriber = {id: uuid.v1(), email: email, active: active };
-
+    message = "Email "+ email +" добавлен в список рассылки."
     let searchResult = await db.searchSubscription(email);
     let result;
     if(searchResult != null && searchResult != undefined 
@@ -1169,12 +1169,17 @@ async function subscribeToNewsletter(req, res, next){
         //update subscribe status 
         result = await db.removeSubscription(email, true);
     }else{
-        result = await db.addSubscription(subscriber);
-        console.log("index.addSubscription", result);
+        if(searchResult == null && searchResult == undefined){
+            result = await db.addSubscription(subscriber);
+            console.log("index.addSubscription", result);
+        }else if(searchResult != null && searchResult != undefined 
+            && searchResult[0] != null && searchResult[0].active == true){
+            message = "Еmail "+ email +" уже существует в списке рассылки";  
+        }
     }
 
     if (req.method == "POST"){
-        res.json({result: result});
+        res.json({result: result, message: message});
     }
 
     if(req.method == "GET"){
