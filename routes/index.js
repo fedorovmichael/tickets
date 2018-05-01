@@ -1164,12 +1164,14 @@ async function subscribeToNewsletter(req, res, next){
     message = "Email "+ email +" добавлен в список рассылки."
     let searchResult = await db.searchSubscription(email);
     let result;
+    console.log("search result: ", searchResult);
+    console.log("search result length: ", searchResult.length);
     if(searchResult != null && searchResult != undefined 
         && searchResult[0] != null && searchResult[0].active == false){
         //update subscribe status 
         result = await db.removeSubscription(email, true);
     }else{
-        if(searchResult == null && searchResult == undefined){
+        if(searchResult == null || searchResult == undefined || searchResult.length == 0){
             result = await db.addSubscription(subscriber);
             console.log("index.addSubscription", result);
         }else if(searchResult != null && searchResult != undefined 
