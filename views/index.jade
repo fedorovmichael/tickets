@@ -11,7 +11,10 @@ block content
 
   div(id="divIndexContainer" class="container text-center")
     script(async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
-    ins(id="insGoogleAdsenseTop" class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8718847214885970" data-ad-slot="2603823050" data-ad-format="auto")
+    -var adHeight = "";
+    -if(is_phone)
+       -adHeight = "height:150px;"
+    ins(id="insGoogleAdsenseTop" class="adsbygoogle" style="display:block; #{adHeight}" data-ad-client="ca-pub-8718847214885970" data-ad-slot="2603823050" data-ad-format="auto")
     script.
       (adsbygoogle = window.adsbygoogle || []).push({});
     <!--carousel-->  
