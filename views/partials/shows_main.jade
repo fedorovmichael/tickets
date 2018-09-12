@@ -10,8 +10,12 @@ ul(id="ulShows" class="row list-unstyled")
           div(class="text-left")            
             a(href="#" type_id="#{shows[i].type_id}" style="background: #{shows[i].type_color};" class="top-category-of-event") #{shows[i].type_name}
           div(class="thumbnail show-main-thumbnail")
-            -var arrImageName = shows[i].main_image.split('/');
-            -var imageName = arrImageName[arrImageName.length - 1];            
+            -var imageName = "";
+            -if(shows[i].main_image_name != "" && shows[i].main_image_name != undefined)
+              -imageName = shows[i].main_image_name
+            -else                    
+              -var arrImageName = shows[i].main_image.split('/');
+              -imageName = arrImageName[arrImageName.length - 1];            
             img(src="/images/shows/#{imageName}", alt="#{shows[i].announce}", class="main-show-image" onerror="handleImageError(this);")            
             div(class="caption" style="padding:0px;")
               a(href="http://www.bilety.co.il/?show=#{shows[i].show_code}" style="display:none;")

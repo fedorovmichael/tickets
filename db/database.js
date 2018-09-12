@@ -59,7 +59,7 @@ db.getShows = function(cb)
     try 
     {
        var queryDB ="select distinct sh.id as show_id, sh.name as name, sh.announce as announce, sh.price_min, sh.price_max, " +
-        " sh.date_from, sh.date_to, sh.resource, sh.main_image, sh.top, sh.show_code, t.id as type_id, " +
+        " sh.date_from, sh.date_to, sh.resource, sh.main_image, sh.top, sh.show_code, sh.main_image_name, t.id as type_id, " +
         " t.name as type_name, t.color as type_color, st.id as subtype_id, st.name as subtype_name " + 
         " from shows as sh " +
         " join show_section as ss on sh.id = ss.show_id " +
@@ -164,7 +164,7 @@ db.getShowByShowID = function(showID, showCode, cb)
             queryWhere = "where enabled = true and date_to > now() - interval '1 DAY' and show_code = '"+ showCode +"'";
         }
 
-        var queryDB = "select id, name, announce, main_image, second_image, resource, show_code from shows " + queryWhere;
+        var queryDB = "select id, name, announce, main_image, second_image, resource, show_code, no_date from shows " + queryWhere;
         getMultipleResponse(cb, queryDB);
     } 
     catch (error) 
@@ -179,7 +179,7 @@ db.getSeancesByShowID = function(showID, cb)
     {
         console.log("db.getSeancesByShowID show id: ", showID)
 
-        var queryDB = "select city, date, seance_time, tickets, price_min, price_max, hall, link, id, resource" +
+        var queryDB = "select city, date, seance_time, tickets, price_min, price_max, hall, link, id, resource " +
         " from seances where show_code = '"+ showID +"' and resource != 'bravo' order by date asc;"
         getMultipleResponse(cb, queryDB);
     } 
@@ -492,7 +492,7 @@ db.getShowsByFilters = function(filters, cb)
         }
 
         var queryDB = queryTempTable +" "+
-        " select distinct sh.id as show_id, sh.name as name, sh.announce as announce, sh.price_min, sh.price_max, sh.date_from, sh.date_to, sh.resource, sh.main_image, sh.top, sh.show_code, " +
+        " select distinct sh.id as show_id, sh.name as name, sh.announce as announce, sh.price_min, sh.price_max, sh.date_from, sh.date_to, sh.resource, sh.main_image, sh.top, sh.show_code, sh.no_date, sh.main_image_name, " +
         " t.id as type_id, t.name as type_name, t.color as type_color, st.id as subtype_id, st.name as subtype_name, ss.subcategory_name " +
         "from shows as sh " +
         "join seances as s on  sh.show_code = s.show_code " +
@@ -539,7 +539,7 @@ db.getRecommendShowByShowID = function(showID, cb)
     {
         console.log("db.getRecommendShowByShowID show id: ", showID);    
 
-        var queryDB = "select s.name, s.show_code, s.main_image from shows as s " + 
+        var queryDB = "select s.name, s.show_code, s.main_image, s.no_date, main_image_name from shows as s " + 
         "join show_section as ss on s.id = ss.show_id " +
         "where ss.type_id in (select type_id from show_section where show_id = '" + showID + "') " +
         "and show_id != '" + showID + "' and s.enabled = true and date_to > now() - interval '1 DAY' " +
