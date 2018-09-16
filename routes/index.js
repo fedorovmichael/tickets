@@ -379,6 +379,17 @@ router.get('/exibitions', function(req, res, next){
         }
 });
 
+router.get('/excursions', function(req, res, next){
+    
+        try {
+
+            loadShowsByTypeName(req, res, next, 'excursions');
+
+        } catch (error) {
+            console.log("rout to path /excursions error: ", error);
+        }
+});
+
 router.get('/today', function(req, res, next){    
     try {
         loadShowsByTypeName(req, res, next, 'today');
