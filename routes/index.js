@@ -390,6 +390,14 @@ router.get('/excursions', function(req, res, next){
         }
 });
 
+router.get('/facebook', function(req, res, next){
+    try {
+        loadShowsByTypeName(req, res, next, 'facebook');
+    } catch (error) {
+        console.log("rout to path /facebook error: ", error);
+    }
+});
+
 router.get('/today', function(req, res, next){    
     try {
         loadShowsByTypeName(req, res, next, 'today');
