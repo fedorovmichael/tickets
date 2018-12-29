@@ -25,8 +25,8 @@ html
     link(rel='stylesheet', href='/stylesheets/jquery-ui.min.css')
     
     <!--project style-->
-    -if(is_desktop)
-      link(rel='stylesheet', href='/stylesheets/style.min.081220181600.css')
+    -if(is_desktop || is_tablet)
+      link(rel='stylesheet', href='/stylesheets/style.min.291220181324.css')
       //-link(rel='stylesheet', href='/stylesheets/style.css')
     -if(is_phone)
       //-link(rel='stylesheet', href='/stylesheets/style_mobile.css')
@@ -113,6 +113,7 @@ html
             a(class="navbar-brand", href="/" ) 
               span(id="spanBrandName" style="text-transform: uppercase;") bilety.co.il
               span(id="spanBetaName" style="font-size:10pt;") (beta)
+            div(class="ya-share2 top-menu-social-buttons-div" data-services="lj,vkontakte,facebook,odnoklassniki,moimir,gplus,twitter")
           div(class="navbar-collapse collapse" id="mainNavbar")
             ul(class="nav navbar-nav")
               li(id="liHomePage" class="#{active == 'home' ? 'active' : ''}")
@@ -130,6 +131,7 @@ html
               li(id="liRusdatePage" class="#{active == 'rusdate' ? 'active' : ''}")
                 a(id="aRusdatePage" href="https://rusdate.co.il/" target="_blank") Знакомства в Израиле
 
+          
           ul(class="nav navbar-nav navbar-right" style="display:none;")
               li
                 a(href="#")
