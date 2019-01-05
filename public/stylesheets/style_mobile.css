@@ -284,7 +284,7 @@ a {
         max-width: 700px;
         min-width: 700px;
         margin-left: -120px;
-        margin-top: -80px;
+        margin-top: -380px;
         z-index: 2000;
         position: absolute;
         height: 1400px;
@@ -456,6 +456,30 @@ code {
 .partner-logo-viagogo {
     width: 200px;
     height: 70px
+}
+
+.partner-logo-sputnik {
+    width: 100px;
+}
+
+.partner-logo-tripster {
+    width: 100px;
+}
+
+.partner-logo-weatlas {
+    width: 100px;
+}
+
+.partner-logo-atlantis {
+    width: 100px;
+}
+
+.partner-logo-facebook {
+    width: 120px;
+}
+
+.partner-logo-icaa {
+    width: 120px;
 }
 
 #tableEditSeances>tbody>tr>td,
@@ -861,59 +885,96 @@ li[id^='liMainShowID_'] {
 }
 
 #insGoogleAdsenseTop {
-    margin-top: 100px !important;
+    margin-top: 100px!important
 }
 
 #liMinMaxPrice {
-    height: 160px;
+    height: 160px
 }
 
 #liMinMaxPrice p {
     margin-top: 20px;
-    margin-bottom: 25px;
+    margin-bottom: 25px
 }
 
 #liMinMaxPrice p label {
-    margin-left: 20px;
+    margin-left: 20px
 }
 
 #liMinMaxPrice p input {
     border: 0;
     color: #f6931f;
     width: 250px;
-    margin-left: 10px;
+    margin-left: 10px
 }
 
 #liMinMaxPrice div {
     width: 85%;
-    margin-left: 5%;
+    margin-left: 5%
 }
 
 #divClearLeftFilter {
-    margin-top: 40px;
+    margin-top: 40px
 }
 
-#divPanelSubscriber{
-    margin-top:30px;
+#divPanelSubscriber {
+    margin-top: 30px
 }
 
-#divPanelSubscriber .panel-heading{
-    font-weight: bold; text-transform: uppercase;
+#divPanelSubscriber .panel-heading {
+    font-weight: 700;
+    text-transform: uppercase
 }
 
-#divPanelSubscriber p, #divPanelSubscriber input{
-    min-width:170px;height:60px;font-size:30pt;
+#divPanelSubscriber p,
+#divPanelSubscriber input {
+    min-width: 170px;
+    height: 60px;
+    font-size: 30pt
 }
 
-#divPanelSubscriber button{
-    margin-top:25px;height:70px;font-size:30pt;min-width: 350px;
+#divPanelSubscriber button {
+    margin-top: 25px;
+    height: 70px;
+    font-size: 30pt;
+    min-width: 350px
 }
 
-#divPanelSubscriber a{
-    margin-top:5px; font-size:25px;
+#divPanelSubscriber a {
+    margin-top: 5px;
+    font-size: 25px
 }
 
-#divPanelSubscriber p{
-  margin-top: 10px;
-  min-height: 200px;
+#divPanelSubscriber p {
+    margin-top: 10px;
+    min-height: 200px;
+}
+
+.subscribe-page-button {
+    padding: 10px;
+    background-color: #0785f5;
+    border-radius: 10px;
+    color: #fff
+}
+
+.subscribe-page-button:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: #fff;
+    text-decoration: none
+}
+
+.subscribe-page-span-email {
+    color: #f50707
+}
+
+.infeed {
+    height: 250px;
+}
+
+#divBanerContainer {
+    margin-top: 50px
+}
+
+.top-menu-social-buttons-div {
+    display: none;
 }
