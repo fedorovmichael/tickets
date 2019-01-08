@@ -459,27 +459,27 @@ code {
 }
 
 .partner-logo-sputnik {
-    width: 100px;
+    width: 100px
 }
 
 .partner-logo-tripster {
-    width: 100px;
+    width: 100px
 }
 
 .partner-logo-weatlas {
-    width: 100px;
+    width: 100px
 }
 
 .partner-logo-atlantis {
-    width: 100px;
+    width: 100px
 }
 
 .partner-logo-facebook {
-    width: 120px;
+    width: 120px
 }
 
 .partner-logo-icaa {
-    width: 120px;
+    width: 120px
 }
 
 #tableEditSeances>tbody>tr>td,
@@ -947,7 +947,7 @@ li[id^='liMainShowID_'] {
 
 #divPanelSubscriber p {
     margin-top: 10px;
-    min-height: 200px;
+    min-height: 200px
 }
 
 .subscribe-page-button {
@@ -968,7 +968,7 @@ li[id^='liMainShowID_'] {
 }
 
 .infeed {
-    height: 250px;
+    height: 250px
 }
 
 #divBanerContainer {
@@ -976,5 +976,9 @@ li[id^='liMainShowID_'] {
 }
 
 .top-menu-social-buttons-div {
-    display: none;
+    display: none
+}
+
+.top-filter-search-small-div {
+    display: none
 }
