@@ -482,6 +482,10 @@ code {
     width: 120px
 }
 
+.partner-logo-wtf {
+    width: 120px
+}
+
 #tableEditSeances>tbody>tr>td,
 #tableEditSeances>tbody>tr>th {
     vertical-align: middle!important
