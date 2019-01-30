@@ -686,14 +686,15 @@ li[id^='liMainShowID_'] {
 
 #divTopFilter {
     width: 800px;
-    margin-left: -120px!important
+    margin-left: -80px!important;
+    margin-bottom: 20px;
 }
 
 .btn-group > button > span {
     font-size: 30px
 }
 
-#txtSearch {
+#txtSearch{
     width: 678px!important;
     height: 60px;
     margin-bottom: 20px;
@@ -985,4 +986,8 @@ li[id^='liMainShowID_'] {
 
 .top-filter-search-small-div {
     display: none
+}
+
+.top-filter-search-div{
+    padding-left: 0 !important;
 }
