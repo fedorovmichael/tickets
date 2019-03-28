@@ -241,9 +241,9 @@ function createShowHTML(arrShows, arrShowsSections) {
             imageName = arrImageName[arrImageName.length - 1];
         }
         if (value.resource == 'bravo') {
-            imageURL = "http://bilety.co.il/images/shows/" + imageName
+            imageURL = "https://bilety.co.il/images/shows/" + imageName
         } else {
-            imageURL = "http://bilety.co.il/images/shows/" + imageName
+            imageURL = "https://bilety.co.il/images/shows/" + imageName
         }
         if (value.name.length > 50) {
             var n = value.name.substr(0, 50);
