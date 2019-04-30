@@ -84,6 +84,12 @@ div(class="modal fade" id="editShowModal" role="dialog")
 
 
        div(id="divSeancePayPage" class="modal-body" style="display: none; text-align: justify;")
+          div(id="divModalEdit" class="wait-modal")
+          div(class="col-sm-10 text-center")   
+            div(id="divLoadingEdit" class="wait-modal")
+              img(src="/images/wait.gif" style="margin-top: 25%; margin-left: 20%;")
+              br 
+              span(style="text-transform: uppercase; margin-top: 10px; margin-left: 20%;") загрузка...
          iframe(id="iframeSeancePayPage" height="800px;" width="100%" src="" name="iframe_a")       
       div(class="modal-footer")
         button(id="btnCloseEditShow" type="button" class="btn btn-default" data-dismiss="modal" style="text-transform: uppercase;" onclick='editClose()') закрыть
