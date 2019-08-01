@@ -486,6 +486,10 @@ code {
     width: 120px
 }
 
+.partner-logo-stardust {
+    width: 100px
+}
+
 #tableEditSeances>tbody>tr>td,
 #tableEditSeances>tbody>tr>th {
     vertical-align: middle!important
@@ -687,14 +691,14 @@ li[id^='liMainShowID_'] {
 #divTopFilter {
     width: 800px;
     margin-left: -80px!important;
-    margin-bottom: 20px;
+    margin-bottom: 20px
 }
 
 .btn-group > button > span {
     font-size: 30px
 }
 
-#txtSearch{
+#txtSearch {
     width: 678px!important;
     height: 60px;
     margin-bottom: 20px;
@@ -988,6 +992,6 @@ li[id^='liMainShowID_'] {
     display: none
 }
 
-.top-filter-search-div{
-    padding-left: 0 !important;
+.top-filter-search-div {
+    padding-left: 0!important
 }
