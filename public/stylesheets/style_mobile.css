@@ -247,12 +247,12 @@ a {
     .navbar-collapse {
         border-top: 1px solid transparent;
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1)
-    }
+    } 
     .navbar-fixed-top {
         top: 0;
         border-width: 0 0 1px
     }
-    .navbar-collapse.collapse {
+     .navbar-collapse.collapse {
         display: none!important
     }
     .navbar-nav {
@@ -266,9 +266,9 @@ a {
         padding-top: 10px;
         padding-bottom: 10px
     }
-    .collapse.in {
+    /* .collapse.in {
         display: block!important
-    }
+    } */
     .col-sm-3 {
         width: 248px;
         max-width: 248px;
@@ -997,5 +997,9 @@ li[id^='liMainShowID_'] {
 }
 
 .top-filter-search-div {
-    padding-left: 0!important
+    padding-left: 0!important;
+}
+
+.collapse, .navbar-fixed-top .navbar-collapse{
+    max-height: unset !important;
 }
